@@ -43,6 +43,22 @@
       padding: 0.8rem 2rem;
       flex-wrap: wrap;
     }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-img {
+      height: 48px;
+      width: auto;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      transition: transform 0.2s ease;
+      border-radius: 12px;
+      object-fit: contain;
+    }
+    .logo-img:hover {
+      transform: scale(1.02);
+    }
     .school-name h2 {
       color: white;
       font-size: 1.5rem;
@@ -76,6 +92,46 @@
       text-align: center;
       color: white;
       border-bottom: 3px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    /* subtle background logo pattern for elegance (using new logo) */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 220px;
+      height: 220px;
+      background-image: url('https://i.ibb.co/bMxCGcQp/MODELWEBLOGO.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.05;
+      pointer-events: none;
+      transform: rotate(10deg);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-logo-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .hero-logo {
+      height: 72px;
+      width: auto;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.08);
+      padding: 6px 12px;
+      backdrop-filter: blur(2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      object-fit: contain;
+    }
+    .hero-logo:hover {
+      transform: scale(1.03);
     }
     .hero-content h1 {
       font-size: 1.8rem;
@@ -142,7 +198,7 @@
       background: var(--accent);
       border-radius: 3px;
     }
-    /* Teachers Grid - dark blue cards, white text */
+    /* Teachers Grid - dark blue cards */
     .teachers-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -467,7 +523,13 @@
         grid-template-columns: 1fr;
       }
       .school-name h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+      }
+      .logo-img {
+        height: 38px;
+      }
+      .hero-logo {
+        height: 52px;
       }
       .teachers-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -477,7 +539,6 @@
         height: 68px;
       }
     }
-    /* Center text where needed */
     .container, .hero-content, .timing-card, .announcements-grid {
       text-align: center;
     }
@@ -489,6 +550,20 @@
     .about-grid p, .vision-mission p, .principal-msg p {
       color: #f0f0f0;
     }
+    /* additional subtle glow */
+    .hero-logo-wrapper {
+      animation: fadeInUp 0.6s ease;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -499,8 +574,12 @@
 
   <header>
     <nav class="navbar">
-      <div class="school-name">
-        <h2>MODEL SCHOOL PISHIN</h2>
+      <div class="logo-area">
+        <!-- Small logo in header (using the new provided image) -->
+        <img src="https://i.ibb.co/bMxCGcQp/MODELWEBLOGO.png" alt="Model School Logo" class="logo-img" loading="eager">
+        <div class="school-name">
+          <h2>MODEL SCHOOL PISHIN</h2>
+        </div>
       </div>
       <ul class="nav-links" id="navLinks">
         <li><a href="#home">Home</a></li>
@@ -515,9 +594,12 @@
   </header>
 
   <main>
-    <!-- Compact Hero Section: dark blue background, white text -->
+    <!-- Hero Section: new logo displayed prominently on dark blue background -->
     <section id="home" class="hero">
       <div class="hero-content">
+        <div class="hero-logo-wrapper">
+          <img src="https://i.ibb.co/bMxCGcQp/MODELWEBLOGO.png" alt="Model School Emblem" class="hero-logo">
+        </div>
         <h1>WELCOME TO MODEL HIGHER SECONDARY SCHOOL PISHIN</h1>
         <div class="hero-buttons">
           <a href="#admission" class="btn btn-primary">Apply Now</a>
@@ -526,7 +608,7 @@
       </div>
     </section>
 
-    <!-- News, Video & School Timings (video autoplay) -->
+    <!-- News, Video & School Timings -->
     <section class="announcements-section">
       <div class="container">
         <h2 class="section-title">News & Announcements</h2>
@@ -563,7 +645,7 @@
       </div>
     </section>
 
-    <!-- TEACHERS: Compact circular cards with dark blue background -->
+    <!-- TEACHERS -->
     <section id="teachers" class="teachers">
       <div class="container">
         <h2 class="section-title">Our Teaching Staff</h2>
@@ -634,7 +716,7 @@
   <div id="teacherModal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><img id="modalTeacherImg"><h3 id="modalTeacherName"></h3><p id="modalTeacherSubject"></p><p id="modalTeacherDegree"></p><p id="modalTeacherSST"></p><a id="modalWhatsappBtn" class="btn btn-primary" target="_blank"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></div></div>
 
   <script>
-    // Teachers Data (compact, circular)
+    // Teachers Data
     const teachersData = [
       { name: "Prof. Saeed Ahmed", subject: "Mathematics", img: "https://randomuser.me/api/portraits/men/41.jpg", degree: "M.Sc Mathematics, B.Ed", sst: "SST Science Group", whatsapp: "923178022878" },
       { name: "Ms. Rabia Kakar", subject: "Physics", img: "https://randomuser.me/api/portraits/women/44.jpg", degree: "M.Phil Physics", sst: "Senior SST", whatsapp: "923178022878" },
