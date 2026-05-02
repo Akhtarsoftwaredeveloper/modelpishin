@@ -7,6 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- SUPABASE SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: background-color 0.3s, color 0.3s; }
     :root {
@@ -102,7 +104,6 @@
     input, select, textarea { width: 100%; padding: 0.8rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.2); color: var(--white); margin-bottom: 1rem; outline: none; font-size: 0.9rem; }
     input:focus, textarea:focus, select:focus { border-color: var(--accent); background: rgba(0,0,0,0.4); }
     
-    /* FLOATING ACTION MENU (WhatsApp, Theme, Language) */
     .floating-action-menu { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 12px; }
     .fab-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.6rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid white; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
     .fab-btn:hover { transform: scale(1.1); }
@@ -121,38 +122,17 @@
     .dev-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--white); margin-bottom: 1rem; }
     .skill-badge { background: rgba(0,0,0,0.4); border-radius: 30px; padding: 0.4rem 1rem; display: inline-block; margin: 0.3rem; font-size: 0.8rem; color: var(--accent); border: 1px solid var(--accent); }
 
-    /* =========================================
-       LIGHT MODE CSS
-    ========================================= */
-    body.light-mode {
-      --dark-blue: #f0f4f8;
-      --dark-blue-deep: #ffffff;
-      --dark-blue-card: #ffffff;
-      --white: #1e2a3e; /* Flips white text to dark text */
-      color: #1e2a3e;
-    }
+    body.light-mode { --dark-blue: #f0f4f8; --dark-blue-deep: #ffffff; --dark-blue-card: #ffffff; --white: #1e2a3e; color: #1e2a3e; }
     body.light-mode .nav-links a { color: #1e2a3e; }
     body.light-mode header { box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    body.light-mode .metric-card, body.light-mode .person-card, body.light-mode .admission-card, body.light-mode .vm-box, body.light-mode #principalBox, body.light-mode .location-wrapper, body.light-mode .developer-card {
-        border: 1px solid #d1d9e6;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    }
-    body.light-mode input, body.light-mode select, body.light-mode textarea {
-        background: #ffffff;
-        border: 1px solid #ced4da;
-        color: #1e2a3e;
-    }
+    body.light-mode .metric-card, body.light-mode .person-card, body.light-mode .admission-card, body.light-mode .vm-box, body.light-mode #principalBox, body.light-mode .location-wrapper, body.light-mode .developer-card { border: 1px solid #d1d9e6; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    body.light-mode input, body.light-mode select, body.light-mode textarea { background: #ffffff; border: 1px solid #ced4da; color: #1e2a3e; }
     body.light-mode .custom-file-upload { border-color: #a0aec0; background: #f8f9fa; }
     body.light-mode .metric-label, body.light-mode .person-card p, body.light-mode .student-details p, body.light-mode #pubPrinMsg { color: #4a5568 !important; }
     body.light-mode .fab-theme { background: #ffb703; color: white; }
-    body.light-mode .modal-content { color: white; } /* Keep modal dark for contrast or adjust if needed */
+    body.light-mode .modal-content { color: white; }
 
-    /* =========================================
-       URDU MODE CSS (Jameel Noori / Noto Nastaliq)
-    ========================================= */
-    body.urdu-mode, body.urdu-mode * {
-        font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif !important;
-    }
+    body.urdu-mode, body.urdu-mode * { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif !important; }
     body.urdu-mode { direction: rtl; }
     body.urdu-mode .school-name h2 { font-size: 1.5rem; }
     body.urdu-mode .nav-links { padding-right: 0; }
@@ -173,12 +153,14 @@
 </head>
 <body>
 
+<!-- FLOATING MENU -->
 <div class="floating-action-menu">
     <div class="fab-btn fab-lang" id="langToggleBtn" title="اردو / English" onclick="toggleLanguage()"><i class="fas fa-language"></i></div>
     <div class="fab-btn fab-theme" id="themeToggleBtn" title="Light / Dark Mode" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
     <a href="https://wa.me/923178022878?text=Hello%20Model%20School" target="_blank" class="fab-btn fab-whatsapp"><i class="fab fa-whatsapp"></i></a>
 </div>
 
+<!-- HEADER -->
 <header>
   <nav class="navbar">
     <div class="school-name">
@@ -193,6 +175,7 @@
 </header>
 
 <main>
+  <!-- HERO -->
   <section id="home" class="hero">
     <div id="heroBgOverlay"></div>
     <div class="hero-content">
@@ -201,15 +184,16 @@
     </div>
   </section>
 
+  <!-- NEWS & VIDEO -->
   <div class="container" style="padding-top: 1rem;">
     <div class="news-ticker-wrap">
       <i class="fas fa-bullhorn"></i>
       <div class="ticker-content" id="tickerContainer"></div>
     </div>
-    
     <div class="video-auto-frame" id="publicVideoContainer"><video id="schoolVideoPlayer" autoplay muted loop playsinline style="width:100%; display:none;"></video><div id="videoPlaceholderMsg" style="background:#071e38; text-align:center; padding:60px 20px; color:#ffb703; font-weight:bold;">🎬 No video uploaded. Admin can add a video from settings.</div></div>
   </div>
 
+  <!-- SECTIONS -->
   <section id="about"><div class="container"><h2 class="section-title">📖 About Our School</h2><div><p id="aboutText" style="line-height:1.8;"></p><div class="vision-mission-grid" id="visionMissionBox"></div><div id="principalBox"></div></div></div></section>
   <section id="teachers"><div class="container"><h2 class="section-title">👩‍🏫 Our Honorable Teachers</h2><div class="compact-grid" id="teachersGrid"></div></div></section>
   <section id="position-holders"><div class="container"><h2 class="section-title">🏆 Position Holders</h2><div class="compact-grid" id="studentsGrid"></div></div></section>
@@ -220,7 +204,26 @@
 </main>
 <footer><p id="footerTxt">© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website</p></footer>
 
+<!-- MODALS & ADMIN PANELS -->
 <div id="adminPanel" class="admin-float-bar"><div class="admin-circle" id="openAdminModal" title="Admin Settings"><i class="fas fa-cogs"></i></div><div class="admin-circle" id="logoutAdminBtn" style="background:#dc3545;" title="Logout"><i class="fas fa-power-off"></i></div></div>
+
+<!-- نیا ڈیولپر لاگ ان ماڈل (Supabase Auth) -->
+<div id="developerLoginModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close-modal" onclick="closeModal('developerLoginModal')">×</span>
+        <i class="fas fa-laptop-code fa-3x" style="color:var(--accent); margin-bottom: 15px;"></i>
+        <h2 style="margin-bottom: 20px;">Developer Admin Login</h2>
+        <div class="form-group" style="text-align: left;">
+            <label>Admin Email</label>
+            <input type="email" id="devAuthEmail" placeholder="e.g. admin@yourdomain.com">
+        </div>
+        <div class="form-group" style="text-align: left;">
+            <label>Password</label>
+            <input type="password" id="devAuthPass" placeholder="Enter Supabase Password">
+        </div>
+        <button onclick="loginDeveloperSupabase()" class="btn btn-primary" id="btnDevLogin" style="width: 100%;">Secure Login</button>
+    </div>
+</div>
 
 <div id="publicPrincipalModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicPrincipalModal')">×</span><img id="pubPrinImg"><h2 id="pubPrinName"></h2><p style="color:var(--accent); font-weight:bold;">Principal</p><p id="pubPrinMsg" style="margin: 1.5rem 0; font-style: italic; color: #ddd;"></p><div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px;"><a id="pubPrinWa" href="#" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button onclick="closeModal('publicPrincipalModal'); document.getElementById('principalLoginModal').style.display='flex';" class="btn btn-primary" style="flex:1;"><i class="fas fa-sign-in-alt"></i> Login</button></div></div></div>
 <div id="principalLoginModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('principalLoginModal')">×</span><i class="fas fa-user-shield fa-3x" style="color:var(--accent);"></i><h2>Principal Login</h2><input type="email" id="prinEmail" placeholder="Email"><input type="password" id="prinPass" placeholder="Password"><button onclick="loginPrincipal()" class="btn btn-primary">Login</button></div></div>
@@ -237,183 +240,320 @@
 <div id="adminAboutModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminAboutModal')">← Back</span><h3>Edit About School</h3><textarea id="editAboutDesc" rows="3"></textarea><input id="editVision" placeholder="Vision"><input id="editMission" placeholder="Mission"><button onclick="saveAbout()" class="btn btn-primary">Save Changes</button></div></div>
 <div id="adminPrincipalModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminPrincipalModal')">← Back</span><h3>Principal Info</h3><input id="editPrinName" placeholder="Name"><textarea id="editPrinMsg" rows="2" placeholder="Message"></textarea><input id="editPrinWa" placeholder="WhatsApp Number"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="editPrinPic" accept="image/*" onchange="previewPrincipalPic(this)"><i class="fas fa-user-tie fa-2x"></i><br><span>Upload Principal Picture</span></label><img id="prinPicPreview" class="img-preview"><button onclick="savePrincipal()" class="btn btn-primary">Save Principal</button></div></div>
 <div id="adminTeacherListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminTeacherListModal')">← Back</span><button onclick="openTeacherForm(null)" class="btn btn-primary">➕ Add Teacher</button><div id="adminTeachersListArea" style="margin-top:1rem;"></div></div></div>
-<div id="adminTeacherFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminTeacherFormModal'); document.getElementById('adminTeacherListModal').style.display='flex';">← Back</span><h3>Teacher Info</h3><input type="hidden" id="teacherIndex"><input id="teacherName" placeholder="Full Name"><input id="teacherSubject" placeholder="Subject"><input id="teacherDesignation" placeholder="Designation"><input id="teacherWhatsapp" placeholder="WhatsApp"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="teacherImgUpload" accept="image/*" onchange="previewTeacherImg(this)"><i class="fas fa-chalkboard-teacher fa-2x"></i><br><span>Upload Teacher Picture</span></label><img id="teacherImgPreview" class="img-preview"><button onclick="saveTeacherFinal()" class="btn btn-primary">Save Teacher</button></div></div>
+<div id="adminTeacherFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminTeacherFormModal'); document.getElementById('adminTeacherListModal').style.display='flex';">← Back</span><h3>Teacher Info</h3><input type="hidden" id="teacherIndex"><input id="teacherName" placeholder="Full Name"><input id="teacherSubject" placeholder="Subject"><input id="teacherDesignation" placeholder="Designation"><input id="teacherWhatsapp" placeholder="WhatsApp"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="teacherImgUpload" accept="image/*" onchange="previewTeacherImg(this)"><i class="fas fa-chalkboard-teacher fa-2x"></i><br><span>Upload Teacher Picture</span></label><img id="teacherImgPreview" class="img-preview"><button onclick="saveTeacherFinal()" class="btn btn-primary" id="btnSaveTeacher">Save Teacher</button></div></div>
 <div id="adminStudentsListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminStudentsListModal')">← Back</span><button onclick="openStudentForm(null)" class="btn btn-primary">➕ Add Position Holder</button><div id="adminStudentsListArea"></div></div></div>
-<div id="adminStudentFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminStudentFormModal'); document.getElementById('adminStudentsListModal').style.display='flex';">← Back</span><h3>Student Details</h3><input type="hidden" id="studentIndex"><input id="studentName" placeholder="Name"><input id="studentFather" placeholder="Father"><input id="studentClass" placeholder="Class"><input id="studentRoll" placeholder="Roll No"><input id="studentMarks" placeholder="Marks (e.g. 450/514)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="studentImgUpload" accept="image/*" onchange="previewStudentImg(this)"><i class="fas fa-user-graduate fa-2x"></i><br><span>Upload Student Photo</span></label><img id="studentImgPreview" class="img-preview"><button onclick="saveStudentFinal()" class="btn btn-primary">Save Position Holder</button></div></div>
+<div id="adminStudentFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminStudentFormModal'); document.getElementById('adminStudentsListModal').style.display='flex';">← Back</span><h3>Student Details</h3><input type="hidden" id="studentIndex"><input id="studentName" placeholder="Name"><input id="studentFather" placeholder="Father"><input id="studentClass" placeholder="Class"><input id="studentRoll" placeholder="Roll No"><input id="studentMarks" placeholder="Marks (e.g. 450/514)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="studentImgUpload" accept="image/*" onchange="previewStudentImg(this)"><i class="fas fa-user-graduate fa-2x"></i><br><span>Upload Student Photo</span></label><img id="studentImgPreview" class="img-preview"><button onclick="saveStudentFinal()" class="btn btn-primary" id="btnSaveStudent">Save Position Holder</button></div></div>
 <div id="adminGalleryListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminGalleryListModal')">← Back</span><button onclick="openGalleryAdd()" class="btn btn-primary">➕ Add Picture</button><div id="adminGalleryListArea"></div></div></div>
-<div id="adminGalleryAddModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminGalleryAddModal'); document.getElementById('adminGalleryListModal').style.display='flex';">← Back</span><h3>Add Picture</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="galleryUploadFile" accept="image/*"><i class="fas fa-images fa-2x"></i><br><span>Select Gallery Picture</span></label><input id="galleryCaptionInput" placeholder="Caption"><button onclick="saveGalleryPicture()" class="btn btn-primary">Add to Gallery</button></div></div>
-<div id="adminDeveloperModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminDeveloperModal')">← Back</span><h3>Developer Profile</h3><input id="devName" placeholder="Name"><input id="devClass" placeholder="Class"><input id="devRole" placeholder="Role"><input id="devSkills" placeholder="Skills (comma separated)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="devPicUpload" accept="image/*" onchange="previewDevPic(this)"><i class="fas fa-laptop-code fa-2x"></i><br><span>Upload Developer Photo</span></label><img id="devPicPreview" class="img-preview"><button onclick="saveDeveloper()" class="btn btn-primary">Save Developer Info</button></div></div>
+<div id="adminGalleryAddModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminGalleryAddModal'); document.getElementById('adminGalleryListModal').style.display='flex';">← Back</span><h3>Add Picture</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="galleryUploadFile" accept="image/*"><i class="fas fa-images fa-2x"></i><br><span>Select Gallery Picture</span></label><input id="galleryCaptionInput" placeholder="Caption"><button onclick="saveGalleryPicture()" class="btn btn-primary" id="btnSaveGallery">Add to Gallery</button></div></div>
+<div id="adminDeveloperModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminDeveloperModal')">← Back</span><h3>Developer Profile</h3><input id="devName" placeholder="Name"><input id="devClass" placeholder="Class"><input id="devRole" placeholder="Role"><input id="devSkills" placeholder="Skills (comma separated)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="devPicUpload" accept="image/*" onchange="previewDevPic(this)"><i class="fas fa-laptop-code fa-2x"></i><br><span>Upload Developer Photo</span></label><img id="devPicPreview" class="img-preview"><button onclick="saveDeveloper()" class="btn btn-primary" id="btnSaveDeveloper">Save Developer Info</button></div></div>
 
+<!-- FULL BACKEND SCRIPT -->
 <script>
-  // TRANSLATION DICTIONARY (URDU / ENGLISH)
+  // 1. SUPABASE INITIALIZATION
+  const _supabase = supabase.createClient(
+    'https://vdedxfvgrpkrrhgxqzfo.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkZWR4ZnZncnBrcnJoZ3hxemZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjMyNjcsImV4cCI6MjA5MzEzOTI2N30.1Vqv0ybMTrEqN7zbsxLGJaHyoJYuh7hinFHWVrPJnWw'
+  );
+
+  // Translation Pack (Untouched)
   const langPack = {
-    en: {
-        nav: ["Home", "About", "Teachers", "Position Holders", "Admission", "Gallery", "Location", "Developer"],
-        headTitle: "📚 MODEL SCHOOL PISHIN", heroTitle: "🎓 GOVT MODEL HIGHER SECONDARY SCHOOL PISHIN",
-        secs: ["📖 About Our School", "👩‍🏫 Our Honorable Teachers", "🏆 Position Holders", "📋 Apply For Admission", "🏫 School Gallery", "📍 Our Location", "💻 Meet The Developer"],
-        metrics: ["Students", "Teachers", "Library Books", "Computers"],
-        form: ["Student Full Name *", "Father's Name *", "Select Class", "WhatsApp Number *", "Date of Birth", "Complete Address"],
-        admTitle: "Online Admission Form", btnApply: "Submit Application", uploadTxt: "Upload Student Photo", dirBtn: "Get Directions",
-        footer: "© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website"
-    },
-    ur: {
-        nav: ["ہوم", "ہمارے بارے میں", "اساتذہ", "پوزیشن ہولڈرز", "داخلہ", "گیلری", "مقام", "ڈویلپر"],
-        headTitle: "📚 ماڈل سکول پشین", heroTitle: "🎓 گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین",
-        secs: ["📖 ہمارے سکول کے بارے میں", "👩‍🏫 ہمارے قابل احترام اساتذہ", "🏆 پوزیشن ہولڈرز", "📋 داخلے کے لیے اپلائی کریں", "🏫 سکول کی گیلری", "📍 ہمارا مقام", "💻 ڈویلپر سے ملیں"],
-        metrics: ["طلباء", "اساتذہ", "لائبریری کی کتابیں", "کمپیوٹرز"],
-        form: ["طالب علم کا پورا نام *", "والد کا نام *", "کلاس منتخب کریں", "واٹس ایپ نمبر *", "تاریخ پیدائش", "مکمل پتہ"],
-        admTitle: "آن لائن داخلہ فارم", btnApply: "درخواست جمع کروائیں", uploadTxt: "تصویر اپ لوڈ کریں", dirBtn: "راستہ حاصل کریں",
-        footer: "© گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین | 1890 سے | آفیشل ویب سائٹ"
-    }
+    en: { nav: ["Home", "About", "Teachers", "Position Holders", "Admission", "Gallery", "Location", "Developer"], headTitle: "📚 MODEL SCHOOL PISHIN", heroTitle: "🎓 GOVT MODEL HIGHER SECONDARY SCHOOL PISHIN", secs: ["📖 About Our School", "👩‍🏫 Our Honorable Teachers", "🏆 Position Holders", "📋 Apply For Admission", "🏫 School Gallery", "📍 Our Location", "💻 Meet The Developer"], metrics: ["Students", "Teachers", "Library Books", "Computers"], form: ["Student Full Name *", "Father's Name *", "Select Class", "WhatsApp Number *", "Date of Birth", "Complete Address"], admTitle: "Online Admission Form", btnApply: "Submit Application", uploadTxt: "Upload Student Photo", dirBtn: "Get Directions", footer: "© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website" },
+    ur: { nav: ["ہوم", "ہمارے بارے میں", "اساتذہ", "پوزیشن ہولڈرز", "داخلہ", "گیلری", "مقام", "ڈویلپر"], headTitle: "📚 ماڈل سکول پشین", heroTitle: "🎓 گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین", secs: ["📖 ہمارے سکول کے بارے میں", "👩‍🏫 ہمارے قابل احترام اساتذہ", "🏆 پوزیشن ہولڈرز", "📋 داخلے کے لیے اپلائی کریں", "🏫 سکول کی گیلری", "📍 ہمارا مقام", "💻 ڈویلپر سے ملیں"], metrics: ["طلباء", "اساتذہ", "لائبریری کی کتابیں", "کمپیوٹرز"], form: ["طالب علم کا پورا نام *", "والد کا نام *", "کلاس منتخب کریں", "واٹس ایپ نمبر *", "تاریخ پیدائش", "مکمل پتہ"], admTitle: "آن لائن داخلہ فارم", btnApply: "درخواست جمع کروائیں", uploadTxt: "تصویر اپ لوڈ کریں", dirBtn: "راستہ حاصل کریں", footer: "© گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین | 1890 سے | آفیشل ویب سائٹ" }
   };
 
   let currentLang = localStorage.getItem('lang') || 'en';
-  
-  function toggleLanguage() {
-      currentLang = currentLang === 'en' ? 'ur' : 'en';
-      localStorage.setItem('lang', currentLang);
-      applyTranslations();
-  }
-
-  function applyTranslations() {
-      let t = langPack[currentLang];
-      document.body.classList.toggle('urdu-mode', currentLang === 'ur');
-      
-      // Update UI texts
-      let navs = document.querySelectorAll('#navLinks a');
-      navs.forEach((n, i) => { if(t.nav[i]) n.innerText = t.nav[i]; });
-      
-      document.getElementById('headTitle').innerText = t.headTitle;
-      document.getElementById('mainHeroTitle').innerText = t.heroTitle;
-      
-      let secTitles = document.querySelectorAll('.section-title');
-      secTitles.forEach((s, i) => { if(t.secs[i]) s.innerText = t.secs[i]; });
-      
-      let formLbls = document.querySelectorAll('.form-group label:not(.custom-file-upload)');
-      formLbls.forEach((l, i) => { if(t.form[i]) l.innerText = t.form[i]; });
-      
-      document.querySelector('.admission-card h3').innerText = t.admTitle;
-      document.getElementById('btnSubmitForm').innerText = t.btnApply;
-      document.getElementById('admPicText').innerText = t.uploadTxt;
-      document.getElementById('btnDir').innerHTML = `<i class="fas fa-location-arrow"></i> ${t.dirBtn}`;
-      document.getElementById('footerTxt').innerText = t.footer;
-      
-      renderDashboardMetrics(); // refresh labels
-  }
-
-  // THEME TOGGLE (LIGHT / DARK)
-  function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const icon = document.querySelector('#themeToggleBtn i');
-      if(document.body.classList.contains('light-mode')) {
-          icon.className = 'fas fa-sun'; // Sun icon for light mode
-          localStorage.setItem('theme', 'light');
-      } else {
-          icon.className = 'fas fa-moon'; // Moon icon for dark mode
-          localStorage.setItem('theme', 'dark');
-      }
-  }
+  function toggleLanguage() { currentLang = currentLang === 'en' ? 'ur' : 'en'; localStorage.setItem('lang', currentLang); applyTranslations(); }
+  function applyTranslations() { let t = langPack[currentLang]; document.body.classList.toggle('urdu-mode', currentLang === 'ur'); let navs = document.querySelectorAll('#navLinks a'); navs.forEach((n, i) => { if(t.nav[i]) n.innerText = t.nav[i]; }); document.getElementById('headTitle').innerText = t.headTitle; document.getElementById('mainHeroTitle').innerText = t.heroTitle; let secTitles = document.querySelectorAll('.section-title'); secTitles.forEach((s, i) => { if(t.secs[i]) s.innerText = t.secs[i]; }); let formLbls = document.querySelectorAll('.form-group label:not(.custom-file-upload)'); formLbls.forEach((l, i) => { if(t.form[i]) l.innerText = t.form[i]; }); document.querySelector('.admission-card h3').innerText = t.admTitle; document.getElementById('btnSubmitForm').innerText = t.btnApply; document.getElementById('admPicText').innerText = t.uploadTxt; document.getElementById('btnDir').innerHTML = `<i class="fas fa-location-arrow"></i> ${t.dirBtn}`; document.getElementById('footerTxt').innerText = t.footer; renderDashboardMetrics(); }
+  function toggleTheme() { document.body.classList.toggle('light-mode'); const icon = document.querySelector('#themeToggleBtn i'); if(document.body.classList.contains('light-mode')) { icon.className = 'fas fa-sun'; localStorage.setItem('theme', 'light'); } else { icon.className = 'fas fa-moon'; localStorage.setItem('theme', 'dark'); } }
 
   let defaultData = {
     logos: { headerLogo: "", bgLogo: "" },
     metrics: { students: "1250", teachers: "45", books: "3200", computers: "50" }, 
-    newsAndVideo: { videoData: "", newsItems: ["📢 New session 2026 started", "🏆 Annual sports gala next month", "✨ Midterm exams schedule announced"] },
-    teachers: [{ name: "Prof. Saeed Ahmed", subject: "Mathematics", designation: "SST Science", img: "https://randomuser.me/api/portraits/men/41.jpg", whatsapp: "923178022878" }],
-    positionHolders: [{ name: "Ali Haider", father: "Muhammad Khan", class: "9th Class", rollNo: "209", marks: "450/514", img: "https://randomuser.me/api/portraits/men/1.jpg" }],
-    gallery: [{ img: "https://picsum.photos/id/20/800/600", caption: "Central Library" }],
-    about: { desc: "Model School Pishin has been a beacon of quality education since 1890. We nurture minds with discipline and innovation.", vision: "Knowledge, Ethics & Character", mission: "Empower students through quality education.", principal: { name: "Prof. Ahmed Raza", message: "We shape future leaders with care.", img: "https://randomuser.me/api/portraits/men/50.jpg", whatsapp: "923178022878" } },
+    newsAndVideo: { videoData: "", newsItems: ["📢 New session started", "🏆 Annual sports gala"] },
+    about: { desc: "Model School Pishin has been a beacon of quality education since 1890.", vision: "Knowledge, Ethics & Character", mission: "Empower students through quality education.", principal: { name: "Prof. Ahmed Raza", message: "We shape future leaders with care.", img: "https://randomuser.me/api/portraits/men/50.jpg", whatsapp: "923178022878" } },
     developer: { name: "Akhtar Mohammad", class: "10th", role: "Student & Web Developer", skills: ["Website Dev", "App Dev"], img: "https://randomuser.me/api/portraits/men/15.jpg" },
     admissions: []
   };
   
-  let schoolData = {}, isAdmin = false;
-  let dbKey = "schoolMasterV11";
-  
-  function saveToLocal() { localStorage.setItem(dbKey, JSON.stringify(schoolData)); }
-  function loadFromLocal() { 
-    let saved = localStorage.getItem(dbKey); 
-    if(saved) schoolData = JSON.parse(saved); 
-    else schoolData = JSON.parse(JSON.stringify(defaultData)); 
-    renderAll(); 
-    
-    // Initialize Theme & Lang
-    if(localStorage.getItem('theme') === 'light') { toggleTheme(); }
-    applyTranslations();
-  }
-  
-  function renderAll() { 
-    renderLogos(); renderDashboardMetrics(); renderNewsAndVideo(); renderAbout(); renderTeachers(); renderPositionHolders(); renderGallery(); renderDeveloper(); 
+  let schoolData = { teachers: [], positionHolders: [], gallery: [] };
+
+  // 1.5 SUPABASE AUTH STATE LISTENER (New)
+  _supabase.auth.onAuthStateChange((event, session) => {
+    if (session) {
+      // User is logged in
+      document.getElementById("adminPanel").style.display = "flex";
+    } else {
+      // User is logged out
+      document.getElementById("adminPanel").style.display = "none";
+      document.getElementById("adminModal").style.display = "none";
+    }
+  });
+
+  // 2. SUPABASE FILE UPLOAD HELPER
+  async function uploadToStorage(file, folder) {
+    if (!file) return null;
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+    const { data, error } = await _supabase.storage.from('school_assets').upload(fileName, file);
+    if (error) { console.error("Upload error:", error); alert("Image upload failed! Did you enable bucket permissions?"); return null; }
+    const { data: publicUrlData } = _supabase.storage.from('school_assets').getPublicUrl(fileName);
+    return publicUrlData.publicUrl;
   }
 
+  // 3. FETCH ALL DATA FROM SUPABASE
+  async function loadFromSupabase() { 
+    // Fetch Settings
+    const { data: sData } = await _supabase.from('school_settings').select('data').eq('id', 1).single();
+    if(sData && sData.data) {
+        schoolData.logos = sData.data.logos || defaultData.logos;
+        schoolData.metrics = sData.data.metrics || defaultData.metrics;
+        schoolData.newsAndVideo = sData.data.newsAndVideo || defaultData.newsAndVideo;
+        schoolData.about = sData.data.about || defaultData.about;
+        schoolData.developer = sData.data.developer || defaultData.developer;
+        schoolData.admissions = sData.data.admissions || defaultData.admissions;
+    } else {
+        await _supabase.from('school_settings').insert([{ id: 1, data: defaultData }]);
+        Object.assign(schoolData, defaultData);
+    }
+
+    // Fetch Teachers
+    const { data: tData } = await _supabase.from('teachers').select('*');
+    if(tData) schoolData.teachers = tData;
+
+    // Fetch Position Holders
+    const { data: pData } = await _supabase.from('position_holders').select('*');
+    if(pData) schoolData.positionHolders = pData;
+
+    // Fetch Gallery
+    const { data: gData } = await _supabase.from('gallery').select('*');
+    if(gData) schoolData.gallery = gData;
+
+    renderAll(); 
+    if(localStorage.getItem('theme') === 'light') toggleTheme();
+    applyTranslations();
+  }
+
+  // Helper to save settings back to JSONB column
+  async function saveSettingsToSupabase() {
+      let payload = { logos: schoolData.logos, metrics: schoolData.metrics, newsAndVideo: schoolData.newsAndVideo, about: schoolData.about, developer: schoolData.developer, admissions: schoolData.admissions };
+      await _supabase.from('school_settings').upsert({ id: 1, data: payload });
+  }
+
+  // 4. REALTIME SUBSCRIPTION
+  function setupRealtime() {
+      _supabase.channel('public-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'teachers' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'position_holders' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'school_settings' }, () => loadFromSupabase())
+      .subscribe();
+  }
+
+  // RENDER FUNCTIONS (UI untouched)
+  function renderAll() { renderLogos(); renderDashboardMetrics(); renderNewsAndVideo(); renderAbout(); renderTeachers(); renderPositionHolders(); renderGallery(); renderDeveloper(); }
+
   function renderLogos() {
-    let headerLogoImg = document.getElementById("publicHeaderLogo");
-    let heroOverlay = document.getElementById("heroBgOverlay");
+    let headerLogoImg = document.getElementById("publicHeaderLogo"); let heroOverlay = document.getElementById("heroBgOverlay");
     if(schoolData.logos.headerLogo) { headerLogoImg.src = schoolData.logos.headerLogo; headerLogoImg.style.display = "block"; } else { headerLogoImg.style.display = "none"; }
     if(schoolData.logos.bgLogo) { heroOverlay.style.backgroundImage = `url(${schoolData.logos.bgLogo})`; heroOverlay.style.display = "block"; } else { heroOverlay.style.display = "none"; }
   }
 
   function renderDashboardMetrics() {
-    let m = schoolData.metrics;
-    let t = langPack[currentLang].metrics; // Translated labels
-    document.getElementById("publicMetricsGrid").innerHTML = `
-      <div class="metric-card"><i class="fas fa-user-graduate metric-icon"></i><div class="metric-number">${m.students}</div><div class="metric-label">${t[0]}</div></div>
-      <div class="metric-card"><i class="fas fa-chalkboard-teacher metric-icon"></i><div class="metric-number">${m.teachers}</div><div class="metric-label">${t[1]}</div></div>
-      <div class="metric-card"><i class="fas fa-book metric-icon"></i><div class="metric-number">${m.books}</div><div class="metric-label">${t[2]}</div></div>
-      <div class="metric-card"><i class="fas fa-desktop metric-icon"></i><div class="metric-number">${m.computers}</div><div class="metric-label">${t[3]}</div></div>
-    `;
+    let m = schoolData.metrics; let t = langPack[currentLang].metrics; 
+    document.getElementById("publicMetricsGrid").innerHTML = `<div class="metric-card"><i class="fas fa-user-graduate metric-icon"></i><div class="metric-number">${m.students}</div><div class="metric-label">${t[0]}</div></div><div class="metric-card"><i class="fas fa-chalkboard-teacher metric-icon"></i><div class="metric-number">${m.teachers}</div><div class="metric-label">${t[1]}</div></div><div class="metric-card"><i class="fas fa-book metric-icon"></i><div class="metric-number">${m.books}</div><div class="metric-label">${t[2]}</div></div><div class="metric-card"><i class="fas fa-desktop metric-icon"></i><div class="metric-number">${m.computers}</div><div class="metric-label">${t[3]}</div></div>`;
   }
   
-  /* === REST OF YOUR ADMIN/SAVE FUNCTIONS REMAIN UNCHANGED === */
+  function previewHeaderLogo(input) { if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("headerLogoPreview").src=e.target.result; document.getElementById("headerLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
+  function previewBgLogo(input) { if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("bgLogoPreview").src=e.target.result; document.getElementById("bgLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
   
-  function previewHeaderLogo(input) { if(input.files[0]) { let r=new FileReader(); r.onload=e=> { document.getElementById("headerLogoPreview").src=e.target.result; document.getElementById("headerLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
-  function previewBgLogo(input) { if(input.files[0]) { let r=new FileReader(); r.onload=e=> { document.getElementById("bgLogoPreview").src=e.target.result; document.getElementById("bgLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
-  function saveLogos() { let hFile = document.getElementById("uploadHeaderLogo").files[0]; let bgFile = document.getElementById("uploadBgLogo").files[0]; let complete = () => { saveToLocal(); renderLogos(); document.getElementById("uploadHeaderLogo").value = ""; document.getElementById("uploadBgLogo").value = ""; document.getElementById("headerLogoPreview").style.display = "none"; document.getElementById("bgLogoPreview").style.display = "none"; openAdminMaster('adminLogosModal'); alert("Logos Updated Successfully!"); }; if(hFile && bgFile) { let r1 = new FileReader(); r1.onload = e1 => { schoolData.logos.headerLogo = e1.target.result; let r2 = new FileReader(); r2.onload = e2 => { schoolData.logos.bgLogo = e2.target.result; complete(); }; r2.readAsDataURL(bgFile); }; r1.readAsDataURL(hFile); } else if(hFile) { let r = new FileReader(); r.onload = e => { schoolData.logos.headerLogo = e.target.result; complete(); }; r.readAsDataURL(hFile); } else if(bgFile) { let r = new FileReader(); r.onload = e => { schoolData.logos.bgLogo = e.target.result; complete(); }; r.readAsDataURL(bgFile); } else { complete(); } }
-  function saveDashboardMetrics() { schoolData.metrics.students = document.getElementById("editStudentsCount").value; schoolData.metrics.teachers = document.getElementById("editTeachersCount").value; schoolData.metrics.books = document.getElementById("editBooksCount").value; schoolData.metrics.computers = document.getElementById("editComputersCount").value; saveToLocal(); renderDashboardMetrics(); openAdminMaster('adminMetricsModal'); alert("Dashboard Metrics Updated!"); }
-  function renderNewsAndVideo() { let newsArray = schoolData.newsAndVideo.newsItems; let contentDiv = document.getElementById('tickerContainer'); if(newsArray.length > 0) { contentDiv.innerHTML = `<div class="ticker-text" id="publicNewsText" style="transform: translateY(0); opacity: 1;">${newsArray[0]}</div>`; clearInterval(window.newsInterval); let i = 0; window.newsInterval = setInterval(() => { let el = document.getElementById("publicNewsText"); if(!el) return; el.style.transform = "translateY(-100%)"; el.style.opacity = "0"; setTimeout(() => { i = (i + 1) % newsArray.length; el.innerHTML = newsArray[i]; el.style.transition = "none"; el.style.transform = "translateY(100%)"; void el.offsetWidth; el.style.transition = "all 0.5s ease"; el.style.transform = "translateY(0)"; el.style.opacity = "1"; }, 500); }, 3000); } else { contentDiv.innerHTML = ""; } let vid = schoolData.newsAndVideo.videoData, videoEl = document.getElementById("schoolVideoPlayer"), placeholder = document.getElementById("videoPlaceholderMsg"); if(vid && vid.trim()) { videoEl.src = vid; videoEl.style.display = "block"; placeholder.style.display = "none"; videoEl.play().catch(e=>{}); } else { videoEl.style.display = "none"; placeholder.style.display = "block"; } }
-  function saveNewsVideo() { let file = document.getElementById("uploadVideoFile").files[0]; let newsRaw = document.getElementById("editNewsText").value; schoolData.newsAndVideo.newsItems = newsRaw.split(",").map(i=>i.trim()).filter(i=>i); let complete = () => { saveToLocal(); renderNewsAndVideo(); document.getElementById("uploadVideoFile").value = ""; openAdminMaster('adminNewsVideoModal'); alert("News & Video Updated!"); }; if(file) { let reader=new FileReader(); reader.onload = ev => { schoolData.newsAndVideo.videoData = ev.target.result; complete(); }; reader.readAsDataURL(file); } else { complete(); } }
-  function renderAbout() { document.getElementById("aboutText").innerText = schoolData.about.desc; document.getElementById("visionMissionBox").innerHTML = `<div class="vm-box"><i class="fas fa-eye fa-2x" style="color:var(--accent);"></i><h3>Vision</h3><p>${schoolData.about.vision}</p></div><div class="vm-box"><i class="fas fa-bullseye fa-2x" style="color:#ff4757;"></i><h3>Mission</h3><p>${schoolData.about.mission}</p></div>`; let p = schoolData.about.principal; document.getElementById("principalBox").innerHTML = `<img src="${p.img}" style="width:90px;height:90px;border-radius:50%;border:3px solid white;"><h3 style="color:var(--accent);">${p.name}</h3><span style="background:rgba(0,0,0,0.3);padding:2px 10px;border-radius:20px;">Principal</span><p style="font-style:italic;margin-top:10px; color:#ffb703;">“Click for details”</p>`; document.getElementById("principalBox").onclick = () => { document.getElementById("pubPrinImg").src = p.img; document.getElementById("pubPrinName").innerText = p.name; document.getElementById("pubPrinMsg").innerText = `"${p.message}"`; document.getElementById("pubPrinWa").href = `https://wa.me/${p.whatsapp}?text=Hello%20Principal%20Sir`; document.getElementById("publicPrincipalModal").style.display = "flex"; }; }
-  function saveAbout() { schoolData.about.desc=document.getElementById("editAboutDesc").value; schoolData.about.vision=document.getElementById("editVision").value; schoolData.about.mission=document.getElementById("editMission").value; saveToLocal(); renderAbout(); openAdminMaster('adminAboutModal'); alert("About Section Updated!"); }
+  // ASYNC SAVES TO SUPABASE
+  async function saveLogos() { 
+      let hFile = document.getElementById("uploadHeaderLogo").files[0]; 
+      let bgFile = document.getElementById("uploadBgLogo").files[0]; 
+      
+      if(hFile) { let url = await uploadToStorage(hFile, 'logos'); if(url) schoolData.logos.headerLogo = url; }
+      if(bgFile) { let url = await uploadToStorage(bgFile, 'logos'); if(url) schoolData.logos.bgLogo = url; }
+      
+      await saveSettingsToSupabase();
+      renderLogos(); document.getElementById("uploadHeaderLogo").value = ""; document.getElementById("uploadBgLogo").value = ""; openAdminMaster('adminLogosModal'); alert("Logos Updated Successfully!"); 
+  }
+
+  async function saveDashboardMetrics() { 
+      schoolData.metrics.students = document.getElementById("editStudentsCount").value; schoolData.metrics.teachers = document.getElementById("editTeachersCount").value; schoolData.metrics.books = document.getElementById("editBooksCount").value; schoolData.metrics.computers = document.getElementById("editComputersCount").value; 
+      await saveSettingsToSupabase(); renderDashboardMetrics(); openAdminMaster('adminMetricsModal'); alert("Dashboard Metrics Updated!"); 
+  }
+
+  function renderNewsAndVideo() { 
+      let newsArray = schoolData.newsAndVideo.newsItems; let contentDiv = document.getElementById('tickerContainer'); 
+      if(newsArray.length > 0) { contentDiv.innerHTML = `<div class="ticker-text" id="publicNewsText" style="transform: translateY(0); opacity: 1;">${newsArray[0]}</div>`; clearInterval(window.newsInterval); let i = 0; window.newsInterval = setInterval(() => { let el = document.getElementById("publicNewsText"); if(!el) return; el.style.transform = "translateY(-100%)"; el.style.opacity = "0"; setTimeout(() => { i = (i + 1) % newsArray.length; el.innerHTML = newsArray[i]; el.style.transition = "none"; el.style.transform = "translateY(100%)"; void el.offsetWidth; el.style.transition = "all 0.5s ease"; el.style.transform = "translateY(0)"; el.style.opacity = "1"; }, 500); }, 3000); } else { contentDiv.innerHTML = ""; } 
+      let vid = schoolData.newsAndVideo.videoData, videoEl = document.getElementById("schoolVideoPlayer"), placeholder = document.getElementById("videoPlaceholderMsg"); if(vid && vid.trim()) { videoEl.src = vid; videoEl.style.display = "block"; placeholder.style.display = "none"; videoEl.play().catch(e=>{}); } else { videoEl.style.display = "none"; placeholder.style.display = "block"; } 
+  }
+
+  async function saveNewsVideo() { 
+      let file = document.getElementById("uploadVideoFile").files[0]; 
+      schoolData.newsAndVideo.newsItems = document.getElementById("editNewsText").value.split(",").map(i=>i.trim()).filter(i=>i); 
+      if(file) { let url = await uploadToStorage(file, 'videos'); if(url) schoolData.newsAndVideo.videoData = url; }
+      await saveSettingsToSupabase(); renderNewsAndVideo(); document.getElementById("uploadVideoFile").value = ""; openAdminMaster('adminNewsVideoModal'); alert("News & Video Updated!"); 
+  }
+
+  function renderAbout() { 
+      document.getElementById("aboutText").innerText = schoolData.about.desc; document.getElementById("visionMissionBox").innerHTML = `<div class="vm-box"><i class="fas fa-eye fa-2x" style="color:var(--accent);"></i><h3>Vision</h3><p>${schoolData.about.vision}</p></div><div class="vm-box"><i class="fas fa-bullseye fa-2x" style="color:#ff4757;"></i><h3>Mission</h3><p>${schoolData.about.mission}</p></div>`; let p = schoolData.about.principal; document.getElementById("principalBox").innerHTML = `<img src="${p.img}" style="width:90px;height:90px;border-radius:50%;border:3px solid white;"><h3 style="color:var(--accent);">${p.name}</h3><span style="background:rgba(0,0,0,0.3);padding:2px 10px;border-radius:20px;">Principal</span><p style="font-style:italic;margin-top:10px; color:#ffb703;">“Click for details”</p>`; document.getElementById("principalBox").onclick = () => { document.getElementById("pubPrinImg").src = p.img; document.getElementById("pubPrinName").innerText = p.name; document.getElementById("pubPrinMsg").innerText = `"${p.message}"`; document.getElementById("pubPrinWa").href = `https://wa.me/${p.whatsapp}?text=Hello%20Principal%20Sir`; document.getElementById("publicPrincipalModal").style.display = "flex"; }; 
+  }
+
+  async function saveAbout() { 
+      schoolData.about.desc=document.getElementById("editAboutDesc").value; schoolData.about.vision=document.getElementById("editVision").value; schoolData.about.mission=document.getElementById("editMission").value; 
+      await saveSettingsToSupabase(); renderAbout(); openAdminMaster('adminAboutModal'); alert("About Section Updated!"); 
+  }
+
   function previewPrincipalPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("prinPicPreview").src=e.target.result; document.getElementById("prinPicPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
-  function savePrincipal(){ let file=document.getElementById("editPrinPic").files[0]; let complete=(img)=>{ schoolData.about.principal.name=document.getElementById("editPrinName").value; schoolData.about.principal.message=document.getElementById("editPrinMsg").value; schoolData.about.principal.whatsapp=document.getElementById("editPrinWa").value; if(img) schoolData.about.principal.img=img; saveToLocal(); renderAbout(); document.getElementById("editPrinPic").value = ""; document.getElementById("prinPicPreview").style.display = "none"; openAdminMaster('adminPrincipalModal'); alert("Principal Info Updated!"); }; if(file){ let r=new FileReader(); r.onload=e=>complete(e.target.result); r.readAsDataURL(file); } else complete(null); }
-  function renderTeachers() { document.getElementById("teachersGrid").innerHTML = schoolData.teachers.map((t,idx)=>`<div class="person-card" onclick="openPublicTeacher(${idx})"><img src="${t.img}"><h3>${t.name}</h3><p>${t.subject}</p></div>`).join(''); }
-  function openPublicTeacher(idx){ let t=schoolData.teachers[idx]; document.getElementById("pubTeachImg").src=t.img; document.getElementById("pubTeachName").innerText=t.name; document.getElementById("pubTeachDesig").innerText=t.designation; document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; document.getElementById("publicTeacherModal").style.display="flex"; }
-  function populateAdminTeachers(){ let list=document.getElementById("adminTeachersListArea"); list.innerHTML=schoolData.teachers.map((t,i)=>`<div class="list-item-admin"><div><img src="${t.img}" style="width:40px;height:40px;border-radius:50%;"> ${t.name} (${t.subject})</div><div><button onclick="openTeacherForm(${i})" class="btn btn-primary" style="padding:5px 10px;">Edit</button><button onclick="deleteTeacher(${i})" class="btn btn-danger" style="padding:5px 10px;">Del</button></div></div>`).join(''); }
-  function openTeacherForm(idx){ document.getElementById("adminTeacherListModal").style.display="none"; document.getElementById("adminTeacherFormModal").style.display="flex"; document.getElementById("teacherIndex").value=idx!==null?idx:""; if(idx!==null){ let t=schoolData.teachers[idx]; document.getElementById("teacherName").value=t.name; document.getElementById("teacherSubject").value=t.subject; document.getElementById("teacherDesignation").value=t.designation; document.getElementById("teacherWhatsapp").value=t.whatsapp; document.getElementById("teacherImgPreview").src=t.img; document.getElementById("teacherImgPreview").style.display="block"; } else { document.getElementById("teacherName").value=""; document.getElementById("teacherSubject").value=""; document.getElementById("teacherDesignation").value=""; document.getElementById("teacherWhatsapp").value=""; document.getElementById("teacherImgUpload").value=""; document.getElementById("teacherImgPreview").style.display="none"; } }
+  
+  async function savePrincipal(){ 
+      let file=document.getElementById("editPrinPic").files[0]; 
+      schoolData.about.principal.name=document.getElementById("editPrinName").value; schoolData.about.principal.message=document.getElementById("editPrinMsg").value; schoolData.about.principal.whatsapp=document.getElementById("editPrinWa").value; 
+      if(file) { let url = await uploadToStorage(file, 'principal'); if(url) schoolData.about.principal.img = url; }
+      await saveSettingsToSupabase(); renderAbout(); document.getElementById("editPrinPic").value = ""; openAdminMaster('adminPrincipalModal'); alert("Principal Info Updated!"); 
+  }
+
+  // TEACHERS (Saving to Table)
+  function renderTeachers() { document.getElementById("teachersGrid").innerHTML = schoolData.teachers.map((t,idx)=>`<div class="person-card" onclick="openPublicTeacher(${idx})"><img src="${t.img_url}"><h3>${t.name}</h3><p>${t.subject}</p></div>`).join(''); }
+  function openPublicTeacher(idx){ let t=schoolData.teachers[idx]; document.getElementById("pubTeachImg").src=t.img_url; document.getElementById("pubTeachName").innerText=t.name; document.getElementById("pubTeachDesig").innerText=t.designation; document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; document.getElementById("publicTeacherModal").style.display="flex"; }
+  function populateAdminTeachers(){ document.getElementById("adminTeachersListArea").innerHTML=schoolData.teachers.map((t,i)=>`<div class="list-item-admin"><div><img src="${t.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${t.name}</div><div><button onclick="openTeacherForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteTeacher(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
+  function openTeacherForm(idx){ document.getElementById("adminTeacherListModal").style.display="none"; document.getElementById("adminTeacherFormModal").style.display="flex"; document.getElementById("teacherIndex").value=idx!==null?idx:""; if(idx!==null){ let t=schoolData.teachers[idx]; document.getElementById("teacherName").value=t.name; document.getElementById("teacherSubject").value=t.subject; document.getElementById("teacherDesignation").value=t.designation; document.getElementById("teacherWhatsapp").value=t.whatsapp; document.getElementById("teacherImgPreview").src=t.img_url; document.getElementById("teacherImgPreview").style.display="block"; } else { document.getElementById("teacherName").value=""; document.getElementById("teacherSubject").value=""; document.getElementById("teacherDesignation").value=""; document.getElementById("teacherWhatsapp").value=""; document.getElementById("teacherImgUpload").value=""; document.getElementById("teacherImgPreview").style.display="none"; } }
   function previewTeacherImg(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("teacherImgPreview").src=e.target.result; document.getElementById("teacherImgPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
-  function saveTeacherFinal(){ let idx=document.getElementById("teacherIndex").value; let file=document.getElementById("teacherImgUpload").files[0]; let complete=(img)=>{ let newT={ name:document.getElementById("teacherName").value, subject:document.getElementById("teacherSubject").value, designation:document.getElementById("teacherDesignation").value, whatsapp:document.getElementById("teacherWhatsapp").value, img:img||(idx!==""?schoolData.teachers[idx].img:"https://randomuser.me/api/portraits/men/default.jpg") }; if(idx==="") schoolData.teachers.push(newT); else schoolData.teachers[idx]=newT; saveToLocal(); renderTeachers(); populateAdminTeachers(); document.getElementById("teacherName").value=""; document.getElementById("teacherSubject").value=""; document.getElementById("teacherDesignation").value=""; document.getElementById("teacherWhatsapp").value=""; document.getElementById("teacherImgUpload").value=""; document.getElementById("teacherImgPreview").style.display="none"; document.getElementById("adminTeacherFormModal").style.display="none"; document.getElementById("adminTeacherListModal").style.display="flex"; alert("Teacher Profile Saved!"); }; if(file){ let r=new FileReader(); r.onload=e=>complete(e.target.result); r.readAsDataURL(file); } else complete(null); }
-  function deleteTeacher(idx){ if(confirm("Delete teacher?")){ schoolData.teachers.splice(idx,1); saveToLocal(); renderTeachers(); populateAdminTeachers(); } }
-  function renderPositionHolders(){ document.getElementById("studentsGrid").innerHTML = schoolData.positionHolders.map((s,idx)=>`<div class="person-card" onclick="openPublicStudent(${idx})"><img src="${s.img}" style="border-color:var(--accent);"><h3>${s.name}</h3><p>${s.class}</p><span class="marks-label">${s.marks}</span></div>`).join(''); }
-  function openPublicStudent(idx){ let s=schoolData.positionHolders[idx]; document.getElementById("pubStuImg").src=s.img; document.getElementById("pubStuName").innerText=s.name; document.getElementById("pubStuFather").innerText=s.father; document.getElementById("pubStuClass").innerText=s.class; document.getElementById("pubStuRoll").innerText=s.rollNo; document.getElementById("pubStuMarks").innerText=s.marks; document.getElementById("publicStudentModal").style.display="flex"; }
-  function populateAdminStudents(){ let list=document.getElementById("adminStudentsListArea"); list.innerHTML=schoolData.positionHolders.map((s,i)=>`<div class="list-item-admin"><div><img src="${s.img}" style="width:40px;height:40px;border-radius:50%;"> ${s.name} (${s.class})</div><div><button onclick="openStudentForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteStudent(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
-  function openStudentForm(idx){ document.getElementById("adminStudentsListModal").style.display="none"; document.getElementById("adminStudentFormModal").style.display="flex"; document.getElementById("studentIndex").value=idx!==null?idx:""; if(idx!==null){ let s=schoolData.positionHolders[idx]; document.getElementById("studentName").value=s.name; document.getElementById("studentFather").value=s.father; document.getElementById("studentClass").value=s.class; document.getElementById("studentRoll").value=s.rollNo; document.getElementById("studentMarks").value=s.marks; document.getElementById("studentImgPreview").src=s.img; document.getElementById("studentImgPreview").style.display="block"; } else { document.getElementById("studentName").value=""; document.getElementById("studentFather").value=""; document.getElementById("studentClass").value=""; document.getElementById("studentRoll").value=""; document.getElementById("studentMarks").value=""; document.getElementById("studentImgUpload").value=""; document.getElementById("studentImgPreview").style.display="none"; } }
+  
+  async function saveTeacherFinal(){ 
+      document.getElementById("btnSaveTeacher").innerText = "Saving...";
+      let idx=document.getElementById("teacherIndex").value; let file=document.getElementById("teacherImgUpload").files[0]; 
+      let newT={ name:document.getElementById("teacherName").value, subject:document.getElementById("teacherSubject").value, designation:document.getElementById("teacherDesignation").value, whatsapp:document.getElementById("teacherWhatsapp").value, img_url: (idx!==""?schoolData.teachers[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") }; 
+      if(file) { let url = await uploadToStorage(file, 'teachers'); if(url) newT.img_url = url; }
+      
+      if(idx==="") { await _supabase.from('teachers').insert([newT]); } else { await _supabase.from('teachers').update(newT).eq('id', schoolData.teachers[idx].id); }
+      await loadFromSupabase(); // refresh
+      document.getElementById("adminTeacherFormModal").style.display="none"; document.getElementById("adminTeacherListModal").style.display="flex"; document.getElementById("btnSaveTeacher").innerText = "Save Teacher";
+  }
+  async function deleteTeacher(idx){ if(confirm("Delete teacher?")){ await _supabase.from('teachers').delete().eq('id', schoolData.teachers[idx].id); await loadFromSupabase(); } }
+
+  // POSITION HOLDERS
+  function renderPositionHolders(){ document.getElementById("studentsGrid").innerHTML = schoolData.positionHolders.map((s,idx)=>`<div class="person-card" onclick="openPublicStudent(${idx})"><img src="${s.img_url}" style="border-color:var(--accent);"><h3>${s.name}</h3><p>${s.class_name}</p><span class="marks-label">${s.marks}</span></div>`).join(''); }
+  function openPublicStudent(idx){ let s=schoolData.positionHolders[idx]; document.getElementById("pubStuImg").src=s.img_url; document.getElementById("pubStuName").innerText=s.name; document.getElementById("pubStuFather").innerText=s.father_name; document.getElementById("pubStuClass").innerText=s.class_name; document.getElementById("pubStuRoll").innerText=s.roll_no; document.getElementById("pubStuMarks").innerText=s.marks; document.getElementById("publicStudentModal").style.display="flex"; }
+  function populateAdminStudents(){ document.getElementById("adminStudentsListArea").innerHTML=schoolData.positionHolders.map((s,i)=>`<div class="list-item-admin"><div><img src="${s.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${s.name}</div><div><button onclick="openStudentForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteStudent(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
+  function openStudentForm(idx){ document.getElementById("adminStudentsListModal").style.display="none"; document.getElementById("adminStudentFormModal").style.display="flex"; document.getElementById("studentIndex").value=idx!==null?idx:""; if(idx!==null){ let s=schoolData.positionHolders[idx]; document.getElementById("studentName").value=s.name; document.getElementById("studentFather").value=s.father_name; document.getElementById("studentClass").value=s.class_name; document.getElementById("studentRoll").value=s.roll_no; document.getElementById("studentMarks").value=s.marks; document.getElementById("studentImgPreview").src=s.img_url; document.getElementById("studentImgPreview").style.display="block"; } else { document.getElementById("studentName").value=""; document.getElementById("studentFather").value=""; document.getElementById("studentClass").value=""; document.getElementById("studentRoll").value=""; document.getElementById("studentMarks").value=""; document.getElementById("studentImgUpload").value=""; document.getElementById("studentImgPreview").style.display="none"; } }
   function previewStudentImg(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("studentImgPreview").src=e.target.result; document.getElementById("studentImgPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
-  function saveStudentFinal(){ let idx=document.getElementById("studentIndex").value; let file=document.getElementById("studentImgUpload").files[0]; let complete=(img)=>{ let newS={ name:document.getElementById("studentName").value, father:document.getElementById("studentFather").value, class:document.getElementById("studentClass").value, rollNo:document.getElementById("studentRoll").value, marks:document.getElementById("studentMarks").value, img:img||(idx!==""?schoolData.positionHolders[idx].img:"https://randomuser.me/api/portraits/men/default.jpg") }; if(idx==="") schoolData.positionHolders.push(newS); else schoolData.positionHolders[idx]=newS; saveToLocal(); renderPositionHolders(); populateAdminStudents(); document.getElementById("studentName").value=""; document.getElementById("studentFather").value=""; document.getElementById("studentClass").value=""; document.getElementById("studentRoll").value=""; document.getElementById("studentMarks").value=""; document.getElementById("studentImgUpload").value=""; document.getElementById("studentImgPreview").style.display="none"; document.getElementById("adminStudentFormModal").style.display="none"; document.getElementById("adminStudentsListModal").style.display="flex"; alert("Position Holder Saved!"); }; if(file){ let r=new FileReader(); r.onload=e=>complete(e.target.result); r.readAsDataURL(file); } else complete(null); }
-  function deleteStudent(idx){ if(confirm("Delete student?")){ schoolData.positionHolders.splice(idx,1); saveToLocal(); renderPositionHolders(); populateAdminStudents(); } }
-  function renderGallery(){ document.getElementById("galleryGrid").innerHTML = schoolData.gallery.map((g,idx)=>`<div class="gallery-card" onclick="openPublicGallery(${idx})"><img src="${g.img}"><div class="gallery-caption">${g.caption}</div></div>`).join(''); }
-  function openPublicGallery(idx){ let g=schoolData.gallery[idx]; document.getElementById("fullGalleryImg").src=g.img; document.getElementById("fullGalleryCaption").innerText=g.caption; document.getElementById("btnDownloadImg").href=g.img; document.getElementById("btnShareImg").href=`https://wa.me/?text=Check%20this%20from%20Model%20School%20Pishin:%20${g.caption}`; document.getElementById("publicGalleryModal").style.display="flex"; }
-  function populateAdminGallery(){ let list=document.getElementById("adminGalleryListArea"); list.innerHTML=schoolData.gallery.map((g,i)=>`<div class="list-item-admin"><div><img src="${g.img}" width="40"> ${g.caption}</div><button onclick="deleteGallery(${i})" class="btn btn-danger">Del</button></div>`).join(''); }
-  function saveGalleryPicture(){ let file=document.getElementById("galleryUploadFile").files[0]; let cap=document.getElementById("galleryCaptionInput").value; if(!file) return alert("Please Select an Image"); let r=new FileReader(); r.onload=ev=>{ schoolData.gallery.push({img:ev.target.result, caption:cap}); saveToLocal(); renderGallery(); populateAdminGallery(); document.getElementById("galleryUploadFile").value=""; document.getElementById("galleryCaptionInput").value=""; document.getElementById("adminGalleryAddModal").style.display="none"; document.getElementById("adminGalleryListModal").style.display="flex"; alert("Picture Added Successfully!"); }; r.readAsDataURL(file); }
-  function deleteGallery(idx){ if(confirm("Delete image?")){ schoolData.gallery.splice(idx,1); saveToLocal(); renderGallery(); populateAdminGallery(); } }
-  function renderDeveloper(){ let d=schoolData.developer; document.getElementById("developerCard").innerHTML=`<img src="${d.img}" class="dev-img"><h3 style="color:var(--accent);">${d.name}</h3><p>Class: ${d.class} | ${d.role}</p><div style="margin-top:5px;">${d.skills.map(s=>`<span class="skill-badge">💻 ${s}</span>`).join('')}</div><div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button id="adminLoginBtn" class="btn btn-primary" style="flex:1;"><i class="fas fa-user-shield"></i> Admin Login</button></div>`; document.getElementById("adminLoginBtn")?.addEventListener("click",()=>{ let pwd=prompt("Enter Admin Password:"); if(pwd==="admin123"){ isAdmin=true; document.getElementById("adminPanel").style.display="flex"; alert("Admin mode active. Please click the bottom right gear icon to open settings."); } else alert("Wrong password"); }); }
+  
+  async function saveStudentFinal(){ 
+      document.getElementById("btnSaveStudent").innerText = "Saving...";
+      let idx=document.getElementById("studentIndex").value; let file=document.getElementById("studentImgUpload").files[0]; 
+      let newS={ name:document.getElementById("studentName").value, father_name:document.getElementById("studentFather").value, class_name:document.getElementById("studentClass").value, roll_no:document.getElementById("studentRoll").value, marks:document.getElementById("studentMarks").value, img_url: (idx!==""?schoolData.positionHolders[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") }; 
+      if(file) { let url = await uploadToStorage(file, 'students'); if(url) newS.img_url = url; }
+      if(idx==="") { await _supabase.from('position_holders').insert([newS]); } else { await _supabase.from('position_holders').update(newS).eq('id', schoolData.positionHolders[idx].id); }
+      await loadFromSupabase(); document.getElementById("adminStudentFormModal").style.display="none"; document.getElementById("adminStudentsListModal").style.display="flex"; document.getElementById("btnSaveStudent").innerText = "Save Position Holder";
+  }
+  async function deleteStudent(idx){ if(confirm("Delete student?")){ await _supabase.from('position_holders').delete().eq('id', schoolData.positionHolders[idx].id); await loadFromSupabase(); } }
+
+  // GALLERY
+  function renderGallery(){ document.getElementById("galleryGrid").innerHTML = schoolData.gallery.map((g,idx)=>`<div class="gallery-card" onclick="openPublicGallery(${idx})"><img src="${g.img_url}"><div class="gallery-caption">${g.caption}</div></div>`).join(''); }
+  function openPublicGallery(idx){ let g=schoolData.gallery[idx]; document.getElementById("fullGalleryImg").src=g.img_url; document.getElementById("fullGalleryCaption").innerText=g.caption; document.getElementById("btnDownloadImg").href=g.img_url; document.getElementById("btnShareImg").href=`https://wa.me/?text=Check%20this%20from%20Model%20School%20Pishin:%20${g.caption}`; document.getElementById("publicGalleryModal").style.display="flex"; }
+  function populateAdminGallery(){ document.getElementById("adminGalleryListArea").innerHTML=schoolData.gallery.map((g,i)=>`<div class="list-item-admin"><div><img src="${g.img_url}" width="40"> ${g.caption}</div><button onclick="deleteGallery(${i})" class="btn btn-danger">Del</button></div>`).join(''); }
+  function openGalleryAdd() { document.getElementById("adminGalleryListModal").style.display="none"; document.getElementById("adminGalleryAddModal").style.display="flex"; }
+  
+  async function saveGalleryPicture(){ 
+      let file=document.getElementById("galleryUploadFile").files[0]; let caption=document.getElementById("galleryCaptionInput").value; 
+      if(!file) return alert("Please Select an Image"); 
+      document.getElementById("btnSaveGallery").innerText = "Uploading...";
+      let url = await uploadToStorage(file, 'gallery');
+      if(url) { await _supabase.from('gallery').insert([{ img_url: url, caption }]); await loadFromSupabase(); }
+      document.getElementById("galleryUploadFile").value=""; document.getElementById("galleryCaptionInput").value=""; document.getElementById("adminGalleryAddModal").style.display="none"; document.getElementById("adminGalleryListModal").style.display="flex"; document.getElementById("btnSaveGallery").innerText = "Add to Gallery";
+  }
+  async function deleteGallery(idx){ if(confirm("Delete image?")){ await _supabase.from('gallery').delete().eq('id', schoolData.gallery[idx].id); await loadFromSupabase(); } }
+
+  // DEVELOPER - UPDATE: Now using Supabase Auth
+  function renderDeveloper(){ 
+    let d=schoolData.developer; 
+    document.getElementById("developerCard").innerHTML=`<img src="${d.img}" class="dev-img"><h3 style="color:var(--accent);">${d.name}</h3><p>Class: ${d.class} | ${d.role}</p><div style="margin-top:5px;">${d.skills.map(s=>`<span class="skill-badge">💻 ${s}</span>`).join('')}</div><div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button id="adminLoginBtn" class="btn btn-primary" style="flex:1;"><i class="fas fa-user-shield"></i> Admin Login</button></div>`; 
+    
+    // Instead of simple prompt, open Supabase Login Modal
+    document.getElementById("adminLoginBtn")?.addEventListener("click", () => { 
+        document.getElementById("developerLoginModal").style.display = "flex";
+    }); 
+  }
+  
   function previewDevPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=> { document.getElementById("devPicPreview").src=e.target.result; document.getElementById("devPicPreview").style.display="block";}; r.readAsDataURL(input.files[0]); } }
-  function saveDeveloper(){ let file=document.getElementById("devPicUpload").files[0]; let complete=(img)=>{ schoolData.developer.name=document.getElementById("devName").value; schoolData.developer.class=document.getElementById("devClass").value; schoolData.developer.role=document.getElementById("devRole").value; schoolData.developer.skills=document.getElementById("devSkills").value.split(",").map(s=>s.trim()); if(img) schoolData.developer.img=img; saveToLocal(); renderDeveloper(); document.getElementById("devPicUpload").value = ""; document.getElementById("devPicPreview").style.display = "none"; openAdminMaster('adminDeveloperModal'); alert("Developer profile updated successfully!"); }; if(file){ let r=new FileReader(); r.onload=e=>complete(e.target.result); r.readAsDataURL(file); } else complete(null); }
-  function closeModal(id){ document.getElementById(id).style.display="none"; }
-  function openAdminMaster(curr){ document.getElementById(curr).style.display="none"; document.getElementById("adminModal").style.display="flex"; }
-  function openAdminSection(modalId){ document.getElementById("adminModal").style.display="none"; document.getElementById(modalId).style.display="flex"; if(modalId==='adminLogosModal') { if(schoolData.logos.headerLogo) { document.getElementById("headerLogoPreview").src = schoolData.logos.headerLogo; document.getElementById("headerLogoPreview").style.display = "block"; } else { document.getElementById("headerLogoPreview").style.display = "none"; } if(schoolData.logos.bgLogo) { document.getElementById("bgLogoPreview").src = schoolData.logos.bgLogo; document.getElementById("bgLogoPreview").style.display = "block"; } else { document.getElementById("bgLogoPreview").style.display = "none"; } } else if(modalId==='adminMetricsModal') { document.getElementById("editStudentsCount").value = schoolData.metrics.students; document.getElementById("editTeachersCount").value = schoolData.metrics.teachers; document.getElementById("editBooksCount").value = schoolData.metrics.books; document.getElementById("editComputersCount").value = schoolData.metrics.computers; } else if(modalId==='adminNewsVideoModal') document.getElementById("editNewsText").value=schoolData.newsAndVideo.newsItems.join(", "); else if(modalId==='adminAboutModal'){ document.getElementById("editAboutDesc").value=schoolData.about.desc; document.getElementById("editVision").value=schoolData.about.vision; document.getElementById("editMission").value=schoolData.about.mission; } else if(modalId==='adminPrincipalModal'){ let p=schoolData.about.principal; document.getElementById("editPrinName").value=p.name; document.getElementById("editPrinMsg").value=p.message; document.getElementById("editPrinWa").value=p.whatsapp; document.getElementById("prinPicPreview").src=p.img; document.getElementById("prinPicPreview").style.display="block"; } else if(modalId==='adminTeacherListModal') populateAdminTeachers(); else if(modalId==='adminStudentsListModal') populateAdminStudents(); else if(modalId==='adminGalleryListModal') populateAdminGallery(); else if(modalId==='adminDeveloperModal'){ let d=schoolData.developer; document.getElementById("devName").value=d.name; document.getElementById("devClass").value=d.class; document.getElementById("devRole").value=d.role; document.getElementById("devSkills").value=d.skills.join(", "); document.getElementById("devPicPreview").src=d.img; document.getElementById("devPicPreview").style.display="block"; } }
+  
+  async function saveDeveloper(){ 
+      let file=document.getElementById("devPicUpload").files[0]; 
+      schoolData.developer.name=document.getElementById("devName").value; schoolData.developer.class=document.getElementById("devClass").value; schoolData.developer.role=document.getElementById("devRole").value; schoolData.developer.skills=document.getElementById("devSkills").value.split(",").map(s=>s.trim()); 
+      if(file){ let url = await uploadToStorage(file, 'developer'); if(url) schoolData.developer.img = url; }
+      await saveSettingsToSupabase(); renderDeveloper(); openAdminMaster('adminDeveloperModal'); alert("Developer profile updated successfully!"); 
+  }
+
+  // 1.6 SUPABASE LOGIN & LOGOUT FUNCTIONS (New)
+  async function loginDeveloperSupabase() {
+      let email = document.getElementById("devAuthEmail").value;
+      let password = document.getElementById("devAuthPass").value;
+      let btn = document.getElementById("btnDevLogin");
+
+      if(!email || !password) return alert("ای میل اور پاسورڈ درج کریں۔");
+
+      btn.innerText = "Checking...";
+      
+      const { data, error } = await _supabase.auth.signInWithPassword({
+          email: email,
+          password: password,
+      });
+
+      if(error) {
+          alert("لاگ ان ناکام ہو گیا: " + error.message);
+          btn.innerText = "Secure Login";
+      } else {
+          document.getElementById("developerLoginModal").style.display = "none";
+          document.getElementById("devAuthEmail").value = "";
+          document.getElementById("devAuthPass").value = "";
+          alert("خوش آمدید ڈیولپر!");
+          btn.innerText = "Secure Login";
+          // Note: Admin Panel will automatically show up due to onAuthStateChange listener
+      }
+  }
+
+  // Logout Event Setup
+  document.getElementById("logoutAdminBtn").addEventListener("click", async function() { 
+      await _supabase.auth.signOut();
+      alert("ڈیولپر کامیابی سے لاگ آؤٹ ہو گیا ہے۔"); 
+  });
+
+  // ADMISSIONS
   function previewAdmsnPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("admPicPreview").src=e.target.result; document.getElementById("admPicPreview").style.display="block"; document.getElementById("admPicText").innerText="Photo Selected"; }; r.readAsDataURL(input.files[0]); } }
-  function submitAdmission(){ let name=document.getElementById("admName").value, father=document.getElementById("admFather").value, cls=document.getElementById("admClass").value, phone=document.getElementById("admPhone").value, dob=document.getElementById("admDob").value, address=document.getElementById("admAddress").value, file=document.getElementById("admPic").files[0]; if(!name||!father||!phone||!file) return alert("Please fill required fields and upload photo."); let reader=new FileReader(); reader.onload=ev=>{ let newApp={id:Date.now(),name,father,class:cls,phone,dob,address,img:ev.target.result,applyDate:new Date().toLocaleDateString(),status:'pending'}; schoolData.admissions.push(newApp); saveToLocal(); alert("Application submitted!"); document.getElementById("admName").value=""; document.getElementById("admFather").value=""; document.getElementById("admPhone").value=""; document.getElementById("admDob").value=""; document.getElementById("admAddress").value=""; document.getElementById("admPic").value=""; document.getElementById("admPicPreview").style.display="none"; document.getElementById("admPicText").innerText="Upload Student Photo"; }; reader.readAsDataURL(file); }
+  
+  async function submitAdmission(){ 
+      let name=document.getElementById("admName").value, father=document.getElementById("admFather").value, cls=document.getElementById("admClass").value, phone=document.getElementById("admPhone").value, dob=document.getElementById("admDob").value, address=document.getElementById("admAddress").value, file=document.getElementById("admPic").files[0]; 
+      if(!name||!father||!phone||!file) return alert("Please fill required fields and upload photo."); 
+      document.getElementById("btnSubmitForm").innerText = "Submitting...";
+      
+      let url = await uploadToStorage(file, 'admissions');
+      if(url) {
+          let newApp={id:Date.now(), name, father, class:cls, phone, dob, address, img:url, applyDate:new Date().toLocaleDateString(), status:'pending'}; 
+          schoolData.admissions.push(newApp); await saveSettingsToSupabase(); 
+          alert("Application submitted successfully!"); 
+          document.getElementById("admName").value=""; document.getElementById("admFather").value=""; document.getElementById("admPhone").value=""; document.getElementById("admDob").value=""; document.getElementById("admAddress").value=""; document.getElementById("admPic").value=""; document.getElementById("admPicPreview").style.display="none"; document.getElementById("admPicText").innerText="Upload Student Photo";
+      }
+      document.getElementById("btnSubmitForm").innerText = langPack[currentLang].btnApply;
+  }
+  
   function loginPrincipal(){ let email=document.getElementById("prinEmail").value, pass=document.getElementById("prinPass").value; if(email==="admin@school.com" && pass==="1234"){ document.getElementById("principalLoginModal").style.display="none"; openPrincipalDashboard(); } else alert("Invalid credentials!"); }
   function openPrincipalDashboard(){ document.getElementById("principalDashboardModal").style.display="flex"; let pending=schoolData.admissions.filter(a=>a.status==='pending'); let area=document.getElementById("admissionRequestsArea"); if(pending.length===0){ area.innerHTML="<p style='text-align:center;padding:2rem;'>No pending requests.</p>"; return; } area.innerHTML=pending.map(app=>`<div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:1rem;margin-bottom:1rem;"><div style="display:flex;gap:15px;align-items:center;"><img src="${app.img}" style="width:50px;height:50px;border-radius:50%;"><div><strong style="color:var(--accent);">${app.name}</strong><br>Class: ${app.class}</div></div><div style="display:flex;gap:10px;margin-top:10px;"><button onclick="viewApplication(${app.id})" class="btn btn-primary">View</button><button onclick="acceptApplication(${app.id},'${app.phone}')" class="btn btn-success">Accept</button><button onclick="rejectApplication(${app.id},'${app.phone}')" class="btn btn-danger">Reject</button></div></div>`).join(''); }
   function viewApplication(id){ let app=schoolData.admissions.find(a=>a.id===id); if(app){ document.getElementById("viewAppImg").src=app.img; document.getElementById("viewAppName").innerText=app.name; document.getElementById("viewAppClass").innerText=app.class; document.getElementById("viewAppFather").innerText=app.father; document.getElementById("viewAppPhone").innerText=app.phone; document.getElementById("viewAppDob").innerText=app.dob; document.getElementById("viewAppDate").innerText=app.applyDate; document.getElementById("viewAppAddress").innerText=app.address; document.getElementById("principalDashboardModal").style.display="none"; document.getElementById("viewAppModal").style.display="flex"; } }
-  function acceptApplication(id,phone){ let idx=schoolData.admissions.findIndex(a=>a.id===id); if(idx>-1){ schoolData.admissions[idx].status='accepted'; saveToLocal(); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Your%20admission%20is%20accepted!`,'_blank'); } }
-  function rejectApplication(id,phone){ let idx=schoolData.admissions.findIndex(a=>a.id===id); if(idx>-1){ schoolData.admissions[idx].status='rejected'; saveToLocal(); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Application%20rejected%20due%20to%20limited%20seats.`,'_blank'); } }
+  async function acceptApplication(id,phone){ let idx=schoolData.admissions.findIndex(a=>a.id===id); if(idx>-1){ schoolData.admissions[idx].status='accepted'; await saveSettingsToSupabase(); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Your%20admission%20is%20accepted!`,'_blank'); } }
+  async function rejectApplication(id,phone){ let idx=schoolData.admissions.findIndex(a=>a.id===id); if(idx>-1){ schoolData.admissions[idx].status='rejected'; await saveSettingsToSupabase(); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Application%20rejected%20due%20to%20limited%20seats.`,'_blank'); } }
+
+  function closeModal(id){ document.getElementById(id).style.display="none"; }
+  function openAdminMaster(curr){ document.getElementById(curr).style.display="none"; document.getElementById("adminModal").style.display="flex"; }
+  function openAdminSection(modalId){ document.getElementById("adminModal").style.display="none"; document.getElementById(modalId).style.display="flex"; if(modalId==='adminLogosModal') { if(schoolData.logos.headerLogo) { document.getElementById("headerLogoPreview").src = schoolData.logos.headerLogo; document.getElementById("headerLogoPreview").style.display = "block"; } else { document.getElementById("headerLogoPreview").style.display = "none"; } if(schoolData.logos.bgLogo) { document.getElementById("bgLogoPreview").src = schoolData.logos.bgLogo; document.getElementById("bgLogoPreview").style.display = "block"; } else { document.getElementById("bgLogoPreview").style.display = "none"; } } else if(modalId==='adminMetricsModal') { document.getElementById("editStudentsCount").value = schoolData.metrics.students; document.getElementById("editTeachersCount").value = schoolData.metrics.teachers; document.getElementById("editBooksCount").value = schoolData.metrics.books; document.getElementById("editComputersCount").value = schoolData.metrics.computers; } else if(modalId==='adminNewsVideoModal') document.getElementById("editNewsText").value=schoolData.newsAndVideo.newsItems.join(", "); else if(modalId==='adminAboutModal'){ document.getElementById("editAboutDesc").value=schoolData.about.desc; document.getElementById("editVision").value=schoolData.about.vision; document.getElementById("editMission").value=schoolData.about.mission; } else if(modalId==='adminPrincipalModal'){ let p=schoolData.about.principal; document.getElementById("editPrinName").value=p.name; document.getElementById("editPrinMsg").value=p.message; document.getElementById("editPrinWa").value=p.whatsapp; document.getElementById("prinPicPreview").src=p.img; document.getElementById("prinPicPreview").style.display="block"; } else if(modalId==='adminTeacherListModal') populateAdminTeachers(); else if(modalId==='adminStudentsListModal') populateAdminStudents(); else if(modalId==='adminGalleryListModal') populateAdminGallery(); else if(modalId==='adminDeveloperModal'){ let d=schoolData.developer; document.getElementById("devName").value=d.name; document.getElementById("devClass").value=d.class; document.getElementById("devRole").value=d.role; document.getElementById("devSkills").value=d.skills.join(", "); document.getElementById("devPicPreview").src=d.img; document.getElementById("devPicPreview").style.display="block"; } }
 
   document.getElementById("menuIcon").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("active"));
-
   document.getElementById("openAdminModal").addEventListener("click", function() { document.getElementById("adminModal").style.display = "flex"; });
-  document.getElementById("logoutAdminBtn").addEventListener("click", function() { isAdmin = false; document.getElementById("adminPanel").style.display = "none"; alert("Admin logged out successfully."); });
   
-  loadFromLocal();
+  // INIT DB AND REALTIME
+  loadFromSupabase().then(() => setupRealtime());
+
 </script>
 </body>
 </html>
