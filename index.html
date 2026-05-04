@@ -127,7 +127,7 @@
     body.light-mode .metric-card, body.light-mode .person-card, body.light-mode .admission-card, body.light-mode .vm-box, body.light-mode #principalBox, body.light-mode .location-wrapper, body.light-mode .developer-card { border: 1px solid #d1d9e6; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
     body.light-mode input, body.light-mode select, body.light-mode textarea { background: #ffffff; border: 1px solid #ced4da; color: #1e2a3e; }
     body.light-mode .custom-file-upload { border-color: #a0aec0; background: #f8f9fa; }
-    body.light-mode .metric-label, body.light-mode .person-card p, body.light-mode .student-details p, body.light-mode #pubPrinMsg { color: #4a5568 !important; }
+    body.light-mode .metric-label, body.light-mode .person-card p, body.light-mode .student-details p, body.light-mode #pubPrinMsg, body.light-mode #pubTeachMsg { color: #4a5568 !important; }
     body.light-mode .fab-theme { background: #ffb703; color: white; }
     body.light-mode .modal-content { color: white; }
 
@@ -157,7 +157,6 @@
 <body>
 
 <div class="floating-action-menu">
-    
     <div class="fab-btn fab-theme" id="themeToggleBtn" title="Light / Dark Mode" onclick="toggleTheme()"><i class="fas fa-moon"></i></div>
     <a href="https://wa.me/923178022878?text=Hello%20Model%20School" target="_blank" class="fab-btn fab-whatsapp"><i class="fab fa-whatsapp"></i></a>
 </div>
@@ -225,7 +224,9 @@
 <div id="principalLoginModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('principalLoginModal')">×</span><i class="fas fa-user-shield fa-3x" style="color:var(--accent);"></i><h2>Principal Login</h2><input type="email" id="prinEmail" placeholder="Email"><input type="password" id="prinPass" placeholder="Password"><button onclick="loginPrincipal()" class="btn btn-primary">Login</button></div></div>
 <div id="principalDashboardModal" class="modal"><div class="modal-content" style="max-width:700px;"><span class="close-modal" onclick="closeModal('principalDashboardModal')">×</span><h2 style="color:var(--accent);">📌 Admission Requests</h2><div id="admissionRequestsArea"></div></div></div>
 <div id="viewAppModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('viewAppModal'); document.getElementById('principalDashboardModal').style.display='flex';">×</span><img id="viewAppImg"><h2 id="viewAppName"></h2><p style="color:var(--accent);">Class: <span id="viewAppClass"></span></p><div class="student-details"><p><strong>Father:</strong> <span id="viewAppFather"></span></p><p><strong>Phone:</strong> <span id="viewAppPhone"></span></p><p><strong>DOB:</strong> <span id="viewAppDob"></span></p><p><strong>Applied:</strong> <span id="viewAppDate"></span></p><p><strong>Address:</strong> <span id="viewAppAddress"></span></p></div></div></div>
-<div id="publicTeacherModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicTeacherModal')">×</span><img id="pubTeachImg"><h2 id="pubTeachName"></h2><p id="pubTeachDesig" style="color:var(--accent);"></p><p id="pubTeachSub"></p><a id="pubTeachWa" href="#" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></div></div>
+
+<div id="publicTeacherModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicTeacherModal')">×</span><img id="pubTeachImg"><h2 id="pubTeachName"></h2><p id="pubTeachDesig" style="color:var(--accent);"></p><p id="pubTeachClass" style="font-weight: 500; margin-top: 5px; color: #ffb703;"></p><p id="pubTeachSub" style="margin-top: 5px;"></p><p id="pubTeachMsg" style="margin: 15px 0; font-style: italic; color: #ddd;"></p><a id="pubTeachWa" href="#" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></div></div>
+
 <div id="publicStudentModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicStudentModal')">×</span><img id="pubStuImg"><h2 id="pubStuName"></h2><p style="color:var(--accent);"> Position Holder</p><div class="student-details"><p><strong>Father:</strong> <span id="pubStuFather"></span></p><p><strong>Class:</strong> <span id="pubStuClass"></span></p><p><strong>Roll No:</strong> <span id="pubStuRoll"></span></p><p><strong>Marks:</strong> <span id="pubStuMarks" style="color:var(--accent);"></span></p></div></div></div>
 <div id="publicGalleryModal" class="modal"><div class="modal-content" style="max-width:700px; text-align:center;"><span class="close-modal" onclick="closeModal('publicGalleryModal')">×</span><img id="fullGalleryImg" style="width:100%; border-radius:1rem;"><h3 id="fullGalleryCaption" style="margin:1rem 0; color:var(--accent);"></h3><div style="display:flex; gap:1rem; justify-content:center;"><a id="btnDownloadImg" href="#" download class="btn btn-primary">Download</a><a id="btnShareImg" href="#" target="_blank" class="btn btn-whatsapp">WhatsApp</a></div></div></div>
 
@@ -236,7 +237,9 @@
 <div id="adminAboutModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminAboutModal')">← Back</span><h3>Edit About School</h3><textarea id="editAboutDesc" rows="3"></textarea><input id="editVision" placeholder="Vision"><input id="editMission" placeholder="Mission"><button onclick="saveAbout()" class="btn btn-primary">Save Changes</button></div></div>
 <div id="adminPrincipalModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminPrincipalModal')">← Back</span><h3>Principal Info</h3><input id="editPrinName" placeholder="Name"><textarea id="editPrinMsg" rows="2" placeholder="Message"></textarea><input id="editPrinWa" placeholder="WhatsApp Number"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="editPrinPic" accept="image/*" onchange="previewPrincipalPic(this)"><i class="fas fa-user-tie fa-2x"></i><br><span>Upload Principal Picture</span></label><img id="prinPicPreview" class="img-preview"><button onclick="savePrincipal()" class="btn btn-primary">Save Principal</button></div></div>
 <div id="adminTeacherListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminTeacherListModal')">← Back</span><button onclick="openTeacherForm(null)" class="btn btn-primary">➕ Add Teacher</button><div id="adminTeachersListArea" style="margin-top:1rem;"></div></div></div>
-<div id="adminTeacherFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminTeacherFormModal'); document.getElementById('adminTeacherListModal').style.display='flex';">← Back</span><h3>Teacher Info</h3><input type="hidden" id="teacherIndex"><input id="teacherName" placeholder="Full Name"><input id="teacherSubject" placeholder="Subject"><input id="teacherDesignation" placeholder="Designation"><input id="teacherWhatsapp" placeholder="WhatsApp"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="teacherImgUpload" accept="image/*" onchange="previewTeacherImg(this)"><i class="fas fa-chalkboard-teacher fa-2x"></i><br><span>Upload Teacher Picture</span></label><img id="teacherImgPreview" class="img-preview"><button onclick="saveTeacherFinal()" class="btn btn-primary" id="btnSaveTeacher">Save Teacher</button></div></div>
+
+<div id="adminTeacherFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminTeacherFormModal'); document.getElementById('adminTeacherListModal').style.display='flex';">← Back</span><h3>Teacher Info</h3><input type="hidden" id="teacherIndex"><input id="teacherName" placeholder="Full Name"><input id="teacherSubject" placeholder="Subject"><input id="teacherDesignation" placeholder="Designation"><input id="teacherClassIncharge" placeholder="Class Incharge (e.g. 10th)"><textarea id="teacherMessage" rows="2" placeholder="Teacher's Message / Quote"></textarea><input id="teacherWhatsapp" placeholder="WhatsApp"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="teacherImgUpload" accept="image/*" onchange="previewTeacherImg(this)"><i class="fas fa-chalkboard-teacher fa-2x"></i><br><span>Upload Teacher Picture</span></label><img id="teacherImgPreview" class="img-preview"><button onclick="saveTeacherFinal()" class="btn btn-primary" id="btnSaveTeacher">Save Teacher</button></div></div>
+
 <div id="adminStudentsListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminStudentsListModal')">← Back</span><button onclick="openStudentForm(null)" class="btn btn-primary">➕ Add Position Holder</button><div id="adminStudentsListArea"></div></div></div>
 <div id="adminStudentFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminStudentFormModal'); document.getElementById('adminStudentsListModal').style.display='flex';">← Back</span><h3>Student Details</h3><input type="hidden" id="studentIndex"><input id="studentName" placeholder="Name"><input id="studentFather" placeholder="Father"><input id="studentClass" placeholder="Class"><input id="studentRoll" placeholder="Roll No"><input id="studentMarks" placeholder="Marks (e.g. 450/514)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="studentImgUpload" accept="image/*" onchange="previewStudentImg(this)"><i class="fas fa-user-graduate fa-2x"></i><br><span>Upload Student Photo</span></label><img id="studentImgPreview" class="img-preview"><button onclick="saveStudentFinal()" class="btn btn-primary" id="btnSaveStudent">Save Position Holder</button></div></div>
 <div id="adminGalleryListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminGalleryListModal')">← Back</span><button onclick="openGalleryAdd()" class="btn btn-primary">➕ Add Picture</button><div id="adminGalleryListArea"></div></div></div>
@@ -250,7 +253,6 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkZWR4ZnZncnBrcnJoZ3hxemZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjMyNjcsImV4cCI6MjA5MzEzOTI2N30.1Vqv0ybMTrEqN7zbsxLGJaHyoJYuh7hinFHWVrPJnWw'
   );
 
-  // Translation Pack (Untouched)
   const langPack = {
     en: { nav: ["Home", "About", "Teachers", "Position Holders", "Admission", "Gallery", "Location", "Developer"], headTitle: "📚 MODEL SCHOOL PISHIN", heroTitle: "🎓 GOVT MODEL HIGHER SECONDARY SCHOOL PISHIN", secs: ["📖 About Our School", "👩‍🏫 Our Honorable Teachers", "🏆 Position Holders", "📋 Apply For Admission", "🏫 School Gallery", "📍 Our Location", "💻 Meet The Developer"], metrics: ["Students", "Teachers", "Library Books", "Computers"], form: ["Student Full Name *", "Father's Name *", "Select Class", "WhatsApp Number *", "Date of Birth", "Complete Address"], admTitle: "Online Admission Form", btnApply: "Submit Application", uploadTxt: "Upload Student Photo", dirBtn: "Get Directions", footer: "© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website" },
     ur: { nav: ["ہوم", "ہمارے بارے میں", "اساتذہ", "پوزیشن ہولڈرز", "داخلہ", "گیلری", "مقام", "ڈویلپر"], headTitle: "📚 ماڈل سکول پشین", heroTitle: "🎓 گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین", secs: ["📖 ہمارے سکول کے بارے میں", "👩‍🏫 ہمارے قابل احترام اساتذہ", "🏆 پوزیشن ہولڈرز", "📋 داخلے کے لیے اپلائی کریں", "🏫 سکول کی گیلری", "📍 ہمارا مقام", "💻 ڈویلپر سے ملیں"], metrics: ["طلباء", "اساتذہ", "لائبریری کی کتابیں", "کمپیوٹرز"], form: ["طالب علم کا پورا نام *", "والد کا نام *", "کلاس منتخب کریں", "واٹس ایپ نمبر *", "تاریخ پیدائش", "مکمل پتہ"], admTitle: "آن لائن داخلہ فارم", btnApply: "درخواست جمع کروائیں", uploadTxt: "تصویر اپ لوڈ کریں", dirBtn: "راستہ حاصل کریں", footer: "© گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین | 1890 سے | آفیشل ویب سائٹ" }
@@ -272,19 +274,15 @@
   
   let schoolData = { teachers: [], positionHolders: [], gallery: [] };
 
-  // 1.5 SUPABASE AUTH STATE LISTENER (New)
   _supabase.auth.onAuthStateChange((event, session) => {
     if (session) {
-      // User is logged in
       document.getElementById("adminPanel").style.display = "flex";
     } else {
-      // User is logged out
       document.getElementById("adminPanel").style.display = "none";
       document.getElementById("adminModal").style.display = "none";
     }
   });
 
-  // 2. SUPABASE FILE UPLOAD HELPER
   async function uploadToStorage(file, folder) {
     if (!file) return null;
     const fileExt = file.name.split('.').pop();
@@ -295,9 +293,7 @@
     return publicUrlData.publicUrl;
   }
 
-  // 3. FETCH ALL DATA FROM SUPABASE
   async function loadFromSupabase() { 
-    // Fetch Settings
     const { data: sData } = await _supabase.from('school_settings').select('data').eq('id', 1).single();
     if(sData && sData.data) {
         schoolData.logos = sData.data.logos || defaultData.logos;
@@ -310,31 +306,22 @@
         await _supabase.from('school_settings').insert([{ id: 1, data: defaultData }]);
         Object.assign(schoolData, defaultData);
     }
-
-    // Fetch Teachers
     const { data: tData } = await _supabase.from('teachers').select('*');
     if(tData) schoolData.teachers = tData;
-
-    // Fetch Position Holders
     const { data: pData } = await _supabase.from('position_holders').select('*');
     if(pData) schoolData.positionHolders = pData;
-
-    // Fetch Gallery
     const { data: gData } = await _supabase.from('gallery').select('*');
     if(gData) schoolData.gallery = gData;
-
     renderAll(); 
     if(localStorage.getItem('theme') === 'light') toggleTheme();
     applyTranslations();
   }
 
-  // Helper to save settings back to JSONB column
   async function saveSettingsToSupabase() {
       let payload = { logos: schoolData.logos, metrics: schoolData.metrics, newsAndVideo: schoolData.newsAndVideo, about: schoolData.about, developer: schoolData.developer, admissions: schoolData.admissions };
       await _supabase.from('school_settings').upsert({ id: 1, data: payload });
   }
 
-  // 4. REALTIME SUBSCRIPTION
   function setupRealtime() {
       _supabase.channel('public-changes')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'teachers' }, () => loadFromSupabase())
@@ -344,7 +331,6 @@
       .subscribe();
   }
 
-  // RENDER FUNCTIONS (UI untouched)
   function renderAll() { renderLogos(); renderDashboardMetrics(); renderNewsAndVideo(); renderAbout(); renderTeachers(); renderPositionHolders(); renderGallery(); renderDeveloper(); }
 
   function renderLogos() {
@@ -382,14 +368,11 @@
   function previewHeaderLogo(input) { if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("headerLogoPreview").src=e.target.result; document.getElementById("headerLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
   function previewBgLogo(input) { if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("bgLogoPreview").src=e.target.result; document.getElementById("bgLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
   
-  // ASYNC SAVES TO SUPABASE
   async function saveLogos() { 
       let hFile = document.getElementById("uploadHeaderLogo").files[0]; 
       let bgFile = document.getElementById("uploadBgLogo").files[0]; 
-      
       if(hFile) { let url = await uploadToStorage(hFile, 'logos'); if(url) schoolData.logos.headerLogo = url; }
       if(bgFile) { let url = await uploadToStorage(bgFile, 'logos'); if(url) schoolData.logos.bgLogo = url; }
-      
       await saveSettingsToSupabase();
       renderLogos(); document.getElementById("uploadHeaderLogo").value = ""; document.getElementById("uploadBgLogo").value = ""; openAdminMaster('adminLogosModal'); alert("Logos Updated Successfully!"); 
   }
@@ -430,17 +413,64 @@
       await saveSettingsToSupabase(); renderAbout(); document.getElementById("editPrinPic").value = ""; openAdminMaster('adminPrincipalModal'); alert("Principal Info Updated!"); 
   }
 
-  // TEACHERS (Saving to Table)
+  // --- TEACHERS (Updated with Class Incharge & Message) ---
   function renderTeachers() { document.getElementById("teachersGrid").innerHTML = schoolData.teachers.map((t,idx)=>`<div class="person-card" onclick="openPublicTeacher(${idx})"><img src="${t.img_url}"><h3>${t.name}</h3><p>${t.subject}</p></div>`).join(''); }
-  function openPublicTeacher(idx){ let t=schoolData.teachers[idx]; document.getElementById("pubTeachImg").src=t.img_url; document.getElementById("pubTeachName").innerText=t.name; document.getElementById("pubTeachDesig").innerText=t.designation; document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; document.getElementById("publicTeacherModal").style.display="flex"; }
+  
+  function openPublicTeacher(idx){ 
+      let t=schoolData.teachers[idx]; 
+      document.getElementById("pubTeachImg").src=t.img_url; 
+      document.getElementById("pubTeachName").innerText=t.name; 
+      document.getElementById("pubTeachDesig").innerText=t.designation; 
+      document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; 
+      document.getElementById("pubTeachClass").innerText = t.class_incharge ? `Class Incharge: ${t.class_incharge}` : "";
+      document.getElementById("pubTeachMsg").innerText = t.message ? `"${t.message}"` : "";
+      document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; 
+      document.getElementById("publicTeacherModal").style.display="flex"; 
+  }
+  
   function populateAdminTeachers(){ document.getElementById("adminTeachersListArea").innerHTML=schoolData.teachers.map((t,i)=>`<div class="list-item-admin"><div><img src="${t.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${t.name}</div><div><button onclick="openTeacherForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteTeacher(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
-  function openTeacherForm(idx){ document.getElementById("adminTeacherListModal").style.display="none"; document.getElementById("adminTeacherFormModal").style.display="flex"; document.getElementById("teacherIndex").value=idx!==null?idx:""; if(idx!==null){ let t=schoolData.teachers[idx]; document.getElementById("teacherName").value=t.name; document.getElementById("teacherSubject").value=t.subject; document.getElementById("teacherDesignation").value=t.designation; document.getElementById("teacherWhatsapp").value=t.whatsapp; document.getElementById("teacherImgPreview").src=t.img_url; document.getElementById("teacherImgPreview").style.display="block"; } else { document.getElementById("teacherName").value=""; document.getElementById("teacherSubject").value=""; document.getElementById("teacherDesignation").value=""; document.getElementById("teacherWhatsapp").value=""; document.getElementById("teacherImgUpload").value=""; document.getElementById("teacherImgPreview").style.display="none"; } }
+  
+  function openTeacherForm(idx){ 
+      document.getElementById("adminTeacherListModal").style.display="none"; 
+      document.getElementById("adminTeacherFormModal").style.display="flex"; 
+      document.getElementById("teacherIndex").value=idx!==null?idx:""; 
+      
+      if(idx!==null){ 
+          let t=schoolData.teachers[idx]; 
+          document.getElementById("teacherName").value=t.name; 
+          document.getElementById("teacherSubject").value=t.subject; 
+          document.getElementById("teacherDesignation").value=t.designation; 
+          document.getElementById("teacherClassIncharge").value=t.class_incharge || "";
+          document.getElementById("teacherMessage").value=t.message || "";
+          document.getElementById("teacherWhatsapp").value=t.whatsapp; 
+          document.getElementById("teacherImgPreview").src=t.img_url; 
+          document.getElementById("teacherImgPreview").style.display="block"; 
+      } else { 
+          document.getElementById("teacherName").value=""; 
+          document.getElementById("teacherSubject").value=""; 
+          document.getElementById("teacherDesignation").value=""; 
+          document.getElementById("teacherClassIncharge").value="";
+          document.getElementById("teacherMessage").value="";
+          document.getElementById("teacherWhatsapp").value=""; 
+          document.getElementById("teacherImgUpload").value=""; 
+          document.getElementById("teacherImgPreview").style.display="none"; 
+      } 
+  }
+  
   function previewTeacherImg(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("teacherImgPreview").src=e.target.result; document.getElementById("teacherImgPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
   
   async function saveTeacherFinal(){ 
       document.getElementById("btnSaveTeacher").innerText = "Saving...";
       let idx=document.getElementById("teacherIndex").value; let file=document.getElementById("teacherImgUpload").files[0]; 
-      let newT={ name:document.getElementById("teacherName").value, subject:document.getElementById("teacherSubject").value, designation:document.getElementById("teacherDesignation").value, whatsapp:document.getElementById("teacherWhatsapp").value, img_url: (idx!==""?schoolData.teachers[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") }; 
+      let newT={ 
+          name: document.getElementById("teacherName").value, 
+          subject: document.getElementById("teacherSubject").value, 
+          designation: document.getElementById("teacherDesignation").value, 
+          class_incharge: document.getElementById("teacherClassIncharge").value,
+          message: document.getElementById("teacherMessage").value,
+          whatsapp: document.getElementById("teacherWhatsapp").value, 
+          img_url: (idx!==""?schoolData.teachers[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") 
+      }; 
       if(file) { let url = await uploadToStorage(file, 'teachers'); if(url) newT.img_url = url; }
       
       if(idx==="") { await _supabase.from('teachers').insert([newT]); } else { await _supabase.from('teachers').update(newT).eq('id', schoolData.teachers[idx].id); }
@@ -449,7 +479,7 @@
   }
   async function deleteTeacher(idx){ if(confirm("Delete teacher?")){ await _supabase.from('teachers').delete().eq('id', schoolData.teachers[idx].id); await loadFromSupabase(); } }
 
-  // POSITION HOLDERS
+  // --- POSITION HOLDERS ---
   function renderPositionHolders(){ document.getElementById("studentsGrid").innerHTML = schoolData.positionHolders.map((s,idx)=>`<div class="person-card" onclick="openPublicStudent(${idx})"><img src="${s.img_url}" style="border-color:var(--accent);"><h3>${s.name}</h3><p>${s.class_name}</p><span class="marks-label">${s.marks}</span></div>`).join(''); }
   function openPublicStudent(idx){ let s=schoolData.positionHolders[idx]; document.getElementById("pubStuImg").src=s.img_url; document.getElementById("pubStuName").innerText=s.name; document.getElementById("pubStuFather").innerText=s.father_name; document.getElementById("pubStuClass").innerText=s.class_name; document.getElementById("pubStuRoll").innerText=s.roll_no; document.getElementById("pubStuMarks").innerText=s.marks; document.getElementById("publicStudentModal").style.display="flex"; }
   function populateAdminStudents(){ document.getElementById("adminStudentsListArea").innerHTML=schoolData.positionHolders.map((s,i)=>`<div class="list-item-admin"><div><img src="${s.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${s.name}</div><div><button onclick="openStudentForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteStudent(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
@@ -466,7 +496,7 @@
   }
   async function deleteStudent(idx){ if(confirm("Delete student?")){ await _supabase.from('position_holders').delete().eq('id', schoolData.positionHolders[idx].id); await loadFromSupabase(); } }
 
-  // GALLERY
+  // --- GALLERY ---
   function renderGallery(){ document.getElementById("galleryGrid").innerHTML = schoolData.gallery.map((g,idx)=>`<div class="gallery-card" onclick="openPublicGallery(${idx})"><img src="${g.img_url}"><div class="gallery-caption">${g.caption}</div></div>`).join(''); }
   function openPublicGallery(idx){ let g=schoolData.gallery[idx]; document.getElementById("fullGalleryImg").src=g.img_url; document.getElementById("fullGalleryCaption").innerText=g.caption; document.getElementById("btnDownloadImg").href=g.img_url; document.getElementById("btnShareImg").href=`https://wa.me/?text=Check%20this%20from%20Model%20School%20Pishin:%20${g.caption}`; document.getElementById("publicGalleryModal").style.display="flex"; }
   function populateAdminGallery(){ document.getElementById("adminGalleryListArea").innerHTML=schoolData.gallery.map((g,i)=>`<div class="list-item-admin"><div><img src="${g.img_url}" width="40"> ${g.caption}</div><button onclick="deleteGallery(${i})" class="btn btn-danger">Del</button></div>`).join(''); }
@@ -482,17 +512,12 @@
   }
   async function deleteGallery(idx){ if(confirm("Delete image?")){ await _supabase.from('gallery').delete().eq('id', schoolData.gallery[idx].id); await loadFromSupabase(); } }
 
-  // DEVELOPER - UPDATE: Now using Supabase Auth
+  // --- DEVELOPER & LOGIN ---
   function renderDeveloper(){ 
     let d=schoolData.developer; 
     document.getElementById("developerCard").innerHTML=`<img src="${d.img}" class="dev-img"><h3 style="color:var(--accent);">${d.name}</h3><p>Class: ${d.class} | ${d.role}</p><div style="margin-top:5px;">${d.skills.map(s=>`<span class="skill-badge">💻 ${s}</span>`).join('')}</div><div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button id="adminLoginBtn" class="btn btn-primary" style="flex:1;"><i class="fas fa-user-shield"></i> Admin Login</button></div>`; 
-    
-    // Instead of simple prompt, open Supabase Login Modal
-    document.getElementById("adminLoginBtn")?.addEventListener("click", () => { 
-        document.getElementById("developerLoginModal").style.display = "flex";
-    }); 
+    document.getElementById("adminLoginBtn")?.addEventListener("click", () => { document.getElementById("developerLoginModal").style.display = "flex"; }); 
   }
-  
   function previewDevPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=> { document.getElementById("devPicPreview").src=e.target.result; document.getElementById("devPicPreview").style.display="block";}; r.readAsDataURL(input.files[0]); } }
   
   async function saveDeveloper(){ 
@@ -502,7 +527,6 @@
       await saveSettingsToSupabase(); renderDeveloper(); openAdminMaster('adminDeveloperModal'); alert("Developer profile updated successfully!"); 
   }
 
-  // 1.6 SUPABASE LOGIN & LOGOUT FUNCTIONS (New)
   async function loginDeveloperSupabase() {
       let email = document.getElementById("devAuthEmail").value;
       let password = document.getElementById("devAuthPass").value;
@@ -511,32 +535,14 @@
       if(!email || !password) return alert("ای میل اور پاسورڈ درج کریں۔");
 
       btn.innerText = "Checking...";
-      
-      const { data, error } = await _supabase.auth.signInWithPassword({
-          email: email,
-          password: password,
-      });
-
-      if(error) {
-          alert("لاگ ان ناکام ہو گیا: " + error.message);
-          btn.innerText = "Secure Login";
-      } else {
-          document.getElementById("developerLoginModal").style.display = "none";
-          document.getElementById("devAuthEmail").value = "";
-          document.getElementById("devAuthPass").value = "";
-          alert("خوش آمدید ڈیولپر!");
-          btn.innerText = "Secure Login";
-          // Note: Admin Panel will automatically show up due to onAuthStateChange listener
-      }
+      const { data, error } = await _supabase.auth.signInWithPassword({ email: email, password: password });
+      if(error) { alert("لاگ ان ناکام ہو گیا: " + error.message); btn.innerText = "Secure Login"; } 
+      else { document.getElementById("developerLoginModal").style.display = "none"; document.getElementById("devAuthEmail").value = ""; document.getElementById("devAuthPass").value = ""; alert("خوش آمدید ڈیولپر!"); btn.innerText = "Secure Login"; }
   }
 
-  // Logout Event Setup
-  document.getElementById("logoutAdminBtn").addEventListener("click", async function() { 
-      await _supabase.auth.signOut();
-      alert("ڈیولپر کامیابی سے لاگ آؤٹ ہو گیا ہے۔"); 
-  });
+  document.getElementById("logoutAdminBtn").addEventListener("click", async function() { await _supabase.auth.signOut(); alert("ڈیولپر کامیابی سے لاگ آؤٹ ہو گیا ہے۔"); });
 
-  // ADMISSIONS
+  // --- ADMISSIONS ---
   function previewAdmsnPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("admPicPreview").src=e.target.result; document.getElementById("admPicPreview").style.display="block"; document.getElementById("admPicText").innerText="Photo Selected"; }; r.readAsDataURL(input.files[0]); } }
   
   async function submitAdmission(){ 
@@ -566,17 +572,10 @@
 
   document.getElementById("menuIcon").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("active"));
   document.getElementById("openAdminModal").addEventListener("click", function() { document.getElementById("adminModal").style.display = "flex"; });
-  
-  // Close menu when link clicked
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('active');
-    });
-  });
+  document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('active'); }); });
 
-  // INIT DB AND REALTIME
+  // INIT
   loadFromSupabase().then(() => setupRealtime());
-
 </script>
 </body>
 </html>
