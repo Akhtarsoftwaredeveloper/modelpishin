@@ -31,36 +31,34 @@
     .nav-links a:hover { color: var(--accent); border-bottom: 2px solid var(--accent); }
     .menu-icon { display: none; font-size: 1.5rem; cursor: pointer; }
     
-    .hero { background: linear-gradient(145deg, var(--dark-blue) 0%, var(--dark-blue-deep) 100%); padding: 3rem 1rem; text-align: center; border-bottom: 4px solid var(--accent); position: relative; overflow: hidden; }
+    .hero { background: var(--dark-blue-deep); padding: 4rem 1rem; text-align: center; border-bottom: 4px solid var(--accent); position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; justify-content: center;}
     #heroBgOverlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; background-size: contain; background-position: center; background-repeat: no-repeat; opacity: 0.1; z-index: 0; display: none; filter: grayscale(50%); }
     
-    /* 2️⃣ & 3️⃣ Hero Section Slide Up */
-    .hero-content { position: relative; z-index: 1; animation: slideInUp 1s ease; }
-    @keyframes slideInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .hero-slider-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; display: none; }
+    .hero-slider-wrapper { display: flex; transition: transform 1.2s ease-in-out; height: 100%; }
+    .hero-slide { min-width: 100%; height: 100%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #071e38; }
+    .hero-slide img { width: 100%; height: 100%; object-fit: contain; }
+    .hero-tint { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 47, 90, 0.35); z-index: 1; pointer-events: none; } 
+    
+    .hero-content { position: relative; z-index: 2; width: 100%; animation: slideInUp 1s ease; }
+    @keyframes slideInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-    .hero h1 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .hero h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 2rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
     
     .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
-    .metric-card { background: var(--dark-blue-card); border: 1px solid rgba(255,183,3,0.3); border-radius: 1rem; padding: 1.2rem 0.5rem; color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.4); backdrop-filter: blur(5px); opacity: 0.9; }
     
-    /* 🔟 Card Hover Lift */
-    .metric-card:hover { transform: translateY(-8px) scale(1.05); border-color: var(--accent); background: var(--dark-blue-card); box-shadow: 0 10px 20px rgba(255,183,3,0.15); opacity: 1; }
-    
-    /* 1️⃣1️⃣ Icon Rotate Animation */
-    .metric-icon { font-size: 2.2rem; color: var(--accent); margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); transition: transform 0.3s; }
+    .metric-card { 
+        background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 1rem; padding: 1.2rem 0.5rem; color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.3s ease; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    }
+    .metric-card:hover { transform: translateY(-8px) scale(1.05); border-color: var(--accent); background: rgba(255, 255, 255, 0.25); box-shadow: 0 10px 20px rgba(255,183,3,0.3); }
+    .metric-icon { font-size: 2.2rem; color: var(--accent); margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); transition: transform 0.3s; }
     .metric-card:hover .metric-icon { transform: rotate(10deg) scale(1.1); }
-    
-    .metric-number { font-size: 1.7rem; font-weight: 800; margin-bottom: 2px; color: var(--white); }
-    .metric-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #ddd; text-align: center; }
+    .metric-number { font-size: 1.7rem; font-weight: 800; margin-bottom: 2px; color: var(--white); text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+    .metric-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; text-align: center; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
 
-    /* 9️⃣ Button Shine Effect */
     .btn { padding: 0.6rem 1.4rem; border-radius: 2rem; font-weight: 600; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-decoration: none; justify-content: center; position: relative; overflow: hidden; z-index: 1; }
     .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: rgba(255,255,255,0.2); transition: all 0.4s ease; z-index: -1; }
     .btn:hover::before { left: 0; }
-    
     .btn-primary { background: var(--accent); color: #1e2a3e; }
     .btn-primary:hover { background: #e6a000; transform: scale(1.05); }
     .btn-success { background: #198754; color: white; }
@@ -72,15 +70,15 @@
     .section-title { font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center; position: relative; display: inline-block; width: 100%; color: var(--white); }
     .section-title:after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 70px; height: 3px; background: var(--accent); border-radius: 3px; }
     
-    .news-ticker-wrap { background: #ff4757; border-radius: 10px; padding: 10px 15px; display: flex; align-items: center; margin-bottom: 1rem; box-shadow: var(--shadow); border: 1px solid white; height: 50px;}
-    
-    /* 7️⃣ Pulse Animation (News Icon) */
+    .news-ticker-wrap { background: #ff4757; border-radius: 10px; padding: 10px 15px; display: flex; align-items: center; margin-bottom: 1rem; box-shadow: var(--shadow); border: 1px solid white; height: 60px;}
     .news-ticker-wrap i { color: white; font-size: 1.2rem; margin-right: 15px; z-index: 10; padding-right: 10px; border-right: 1px solid rgba(255,255,255,0.3); animation: pulse 2s infinite; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-    
-    .ticker-content { flex: 1; position: relative; height: 25px; overflow: hidden; display: flex; align-items: center; }
-    .ticker-text { position: absolute; width: 100%; transition: all 0.5s ease; font-weight: 500; font-size: 0.95rem; left: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: white;}
-    
+    .ticker-content { flex: 1; position: relative; height: 40px; overflow: hidden; display: flex; align-items: center; }
+    .vertical-news-ul { margin: 0; padding: 0; list-style: none; position: absolute; width: 100%; animation: tickerUp 10s linear infinite; display: flex; flex-direction: column; top: 0;}
+    .vertical-news-ul:hover { animation-play-state: paused; }
+    .vertical-news-ul li { font-weight: 500; font-size: 0.95rem; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px 0; height: 40px;}
+    @keyframes tickerUp { 0% { transform: translateY(100%); } 100% { transform: translateY(-100%); } }
+
     .video-auto-frame { background: #000; border-radius: 1.5rem; overflow: hidden; border: 3px solid var(--accent); box-shadow: var(--shadow); margin: 0 0 1rem 0; position: relative; width: 100%; }
     .video-auto-frame video { width: 100%; height: auto; max-height: 420px; object-fit: cover; display: block; background: black; }
     
@@ -99,13 +97,10 @@
     .marks-label { background: rgba(0,0,0,0.3); font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 5px; color: #ffb703;}
     
     .gallery-grid-captions { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
-    
-    /* 1️⃣2️⃣ Gallery Image Zoom */
     .gallery-card { background: var(--dark-blue-card); border-radius: 1.5rem; overflow: hidden; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; border: 2px solid transparent; }
     .gallery-card:hover { border-color: var(--white); transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
     .gallery-card img { width: 100%; height: 160px; object-fit: contain; background-color: #051629; transition: transform 0.5s ease; }
     .gallery-card:hover img { transform: scale(1.08); }
-    
     .gallery-caption { padding: 0.6rem; font-size: 0.85rem; text-align: center; background: rgba(0,0,0,0.6); font-weight: 500; color: white;}
     
     .admission-card { background: var(--dark-blue-card); padding: 2rem; border-radius: 1.5rem; max-width: 650px; margin: 0 auto; box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.1); }
@@ -117,26 +112,15 @@
     .location-wrapper { background: var(--dark-blue-card); border-radius: 2rem; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); }
     .location-text { padding: 1.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; color: var(--white); }
     
-    /* 4️⃣ & 5️⃣ Modal Popup Animation */
-    @keyframes popOut {
-      0% { transform: scale(0.8); opacity: 0; }
-      80% { transform: scale(1.05); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
+    @keyframes popOut { 0% { transform: scale(0.8); opacity: 0; } 80% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; z-index: 2100; padding: 1rem; backdrop-filter: blur(5px); }
     .modal-content { background: var(--dark-blue-card); max-width: 500px; width: 100%; border-radius: 2rem; padding: 2rem; color: white; max-height: 90vh; overflow-y: auto; box-shadow: 0 15px 30px rgba(0,0,0,0.5); position: relative; border: 1px solid rgba(255,255,255,0.1); animation: popOut 0.5s ease forwards; }
-    
-    /* 1️⃣3️⃣ Close Button Rotate */
     .close-modal { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: bold; cursor: pointer; color: #ff4757; transition: 0.3s; z-index:10;}
     .close-modal:hover { color: #ff6b81; transform: rotate(90deg) scale(1.1); }
     
     .profile-modal-view { text-align: center; }
-    
-    /* 6️⃣ Image Fade Scale Animation */
     .profile-modal-view img { width: 130px; height: 130px; border-radius: 50%; border: 4px solid var(--white); object-fit: cover; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); animation: fadeInScale 0.6s ease; }
     @keyframes fadeInScale { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
     .student-details { background: rgba(0,0,0,0.2); border-radius: 1rem; padding: 1rem; margin-top: 1rem; text-align: left; }
     .student-details p { font-size: 0.9rem; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px;}
     .student-details strong { color: var(--accent); width: 120px; display: inline-block;}
@@ -145,40 +129,69 @@
     input:focus, textarea:focus, select:focus { border-color: var(--accent); background: rgba(0,0,0,0.4); transform: translateY(-2px); box-shadow: 0 5px 10px rgba(0,0,0,0.2); }
     
     .floating-action-menu { position: fixed; bottom: 25px; left: 25px; z-index: 1000; display: flex; flex-direction: column; gap: 12px; }
-    
-    /* 1️⃣4️⃣ Floating Button Animation */
     .fab-btn { width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.6rem; box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: 2px solid white; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-decoration: none; }
     .fab-btn:hover { transform: scale(1.15) translateY(-5px); }
-    
     .fab-whatsapp { background: #25D366; }
     .fab-theme { background: #1e2a3e; color: #ffb703; }
     
+    /* --- INLINE SOCIAL PANEL --- */
+    .social-floating-panel { position: relative; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: center; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px 30px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: 0.3s; margin: 2rem auto 0 auto; max-width: fit-content; z-index: 10;}
+    .social-floating-panel:hover { background: rgba(255, 255, 255, 0.15); border-color: var(--accent); }
+    .social-action-btn { background: none; border: none; color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.3s; position: relative; outline: none;}
+    .social-action-btn i { font-size: 1.8rem; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.5)); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.3s; }
+    .social-action-btn:hover i { transform: scale(1.2); color: var(--accent); }
+    .social-action-btn span { font-size: 0.75rem; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+    
+    /* Like Animation */
+    .social-action-btn.liked i { color: #ff4757; animation: heartBurst 0.5s forwards; }
+    @keyframes heartBurst { 0% { transform: scale(1); } 50% { transform: scale(1.5); } 100% { transform: scale(1); } }
+    .floating-heart { position: fixed; font-size: 2rem; color: #ff4757; pointer-events: none; animation: floatUp 1s ease-out forwards; z-index: 9999; }
+    @keyframes floatUp { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-100px) scale(1.5); } }
+
+    /* --- MODERN FOOTER --- */
+    footer { background: var(--dark-blue-deep); text-align: center; padding: 3rem 1.5rem 1.5rem 1.5rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--white); }
+    .footer-content { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .social-links-container { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+    .social-icon-btn { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.3rem; text-decoration: none; transition: 0.3s; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .social-icon-btn:hover { transform: translateY(-5px) scale(1.1); }
+    .icon-fb:hover { background: #1877F2; border-color: #1877F2; }
+    .icon-insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: #bc1888; }
+    .icon-tiktok:hover { background: #000000; border-color: #00f2fe; text-shadow: 2px 2px 0px #ff0050, -2px -2px 0px #00f2fe; }
+    .icon-yt:hover { background: #FF0000; border-color: #FF0000; }
+    .icon-wa:hover { background: #25D366; border-color: #25D366; }
+
     .admin-float-bar { position: fixed; bottom: 25px; right: 25px; z-index: 1100; display: none; gap: 12px; flex-direction: column;}
     .admin-circle { background: var(--accent); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: var(--shadow); color: #1e2a3e; font-size: 1.6rem; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid white; }
     .admin-circle:hover { transform: scale(1.15) translateY(-5px); }
     .img-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 10px auto; border: 2px solid gold; display: none; background: #071e38; }
     .admin-btn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 1rem 0; }
     .list-item-admin { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 1rem; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 10px; }
-    footer { background: var(--dark-blue-deep); text-align: center; padding: 1.5rem; font-size: 0.8rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--white); }
     .developer-card { background: var(--dark-blue-card); border-radius: 2rem; padding: 2rem; text-align: center; max-width: 500px; margin: 0 auto; border: 1px solid rgba(255,255,255,0.1); color: var(--white); transition: 0.3s; }
     .developer-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--accent); }
     .dev-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid var(--white); margin-bottom: 1rem; }
     .skill-badge { background: rgba(0,0,0,0.4); border-radius: 30px; padding: 0.4rem 1rem; display: inline-block; margin: 0.3rem; font-size: 0.8rem; color: var(--accent); border: 1px solid var(--accent); transition: 0.3s;}
     .skill-badge:hover { background: var(--accent); color: var(--dark-blue); }
 
-    /* 1️⃣ Scroll Reveal Animation Class */
     .reveal-element { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
     .reveal-element.active { opacity: 1; transform: translateY(0); }
 
     body.light-mode { --dark-blue: #f0f4f8; --dark-blue-deep: #ffffff; --dark-blue-card: #ffffff; --white: #1e2a3e; color: #1e2a3e; }
     body.light-mode .nav-links a { color: #1e2a3e; }
     body.light-mode header { box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-    body.light-mode .metric-card, body.light-mode .person-card, body.light-mode .admission-card, body.light-mode .vm-box, body.light-mode #principalBox, body.light-mode .location-wrapper, body.light-mode .developer-card { border: 1px solid #d1d9e6; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    body.light-mode .metric-card { background: rgba(0, 0, 0, 0.05); border: 1px solid #d1d9e6; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    body.light-mode .metric-card:hover { background: rgba(0, 0, 0, 0.1); }
+    body.light-mode .person-card, body.light-mode .admission-card, body.light-mode .vm-box, body.light-mode #principalBox, body.light-mode .location-wrapper, body.light-mode .developer-card { border: 1px solid #d1d9e6; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
     body.light-mode input, body.light-mode select, body.light-mode textarea { background: #ffffff; border: 1px solid #ced4da; color: #1e2a3e; }
     body.light-mode .custom-file-upload { border-color: #a0aec0; background: #f8f9fa; }
     body.light-mode .metric-label, body.light-mode .person-card p, body.light-mode .student-details p, body.light-mode #pubPrinMsg, body.light-mode #pubTeachMsg { color: #4a5568 !important; }
+    body.light-mode .metric-number { color: #1e2a3e; text-shadow: none; }
     body.light-mode .fab-theme { background: #ffb703; color: white; }
     body.light-mode .modal-content { color: white; }
+    body.light-mode .hero-tint { background: rgba(240, 244, 248, 0.7); }
+    body.light-mode .social-floating-panel { background: rgba(0, 0, 0, 0.05); border-color: rgba(0,0,0,0.1); }
+    body.light-mode .social-action-btn i { color: #1e2a3e; }
+    body.light-mode .social-action-btn span { color: #1e2a3e; text-shadow: none; }
+    body.light-mode .social-icon-btn { color: #1e2a3e; border-color: rgba(0,0,0,0.2); }
 
     body.urdu-mode, body.urdu-mode * { font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', sans-serif !important; }
     body.urdu-mode { direction: rtl; }
@@ -189,23 +202,27 @@
     body.urdu-mode input[type="tel"], body.urdu-mode input[type="email"] { direction: ltr; text-align: right; }
     body.urdu-mode .student-details { text-align: right; }
 
-    /* 8️⃣ Mobile Menu Slide Down */
     @keyframes slideDown { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
 
     @media (max-width: 760px) {
       .school-name h2 { font-size: 0.95rem; line-height: 1.2; }
       body.urdu-mode .school-name h2 { font-size: 1.1rem !important; line-height: 1.3; }
-      
       .nav-links { display: none; width: 100%; flex-direction: column; background: var(--dark-blue-deep); padding: 1rem; border-radius: 1.5rem; margin-top: 0.5rem; text-align: center; transform-origin: top; }
       .nav-links.active { display: flex; animation: slideDown 0.3s ease-out forwards; }
       .menu-icon { display: block; color: var(--white); }
       .compact-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-      .hero h1 { font-size: 1.3rem; }
+      .hero { padding: 3rem 1rem; min-height: 60vh; }
+      .hero h1 { font-size: 1.3rem; margin-bottom: 1.5rem; }
       .section-title { font-size: 1.4rem; }
       .metrics-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 0.8rem !important; }
       .metric-card { padding: 1rem 0.5rem !important; min-height: auto !important; }
       .metric-icon { font-size: 1.8rem !important; }
       .metric-number { font-size: 1.4rem !important; }
+      
+      /* Mobile Panel Adjustments */
+      .social-floating-panel { padding: 10px 15px; gap: 15px; margin-top: 1.5rem; border-radius: 20px;}
+      .social-action-btn i { font-size: 1.4rem; }
+      .social-action-btn span { font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -231,10 +248,37 @@
 
 <main>
   <section id="home" class="hero">
+    <div class="hero-slider-container" id="heroSliderContainer">
+      <div class="hero-slider-wrapper" id="heroSliderWrapper"></div>
+      <div class="hero-tint"></div> </div>
     <div id="heroBgOverlay"></div>
+
     <div class="hero-content">
         <h1 id="mainHeroTitle" data-aos="zoom-in">🎓 GOVT MODEL HIGHER SECONDARY SCHOOL PISHIN</h1>
         <div class="metrics-grid reveal-element" id="publicMetricsGrid" data-aos="fade-up" data-aos-delay="200"></div>
+        
+        <div class="social-floating-panel reveal-element" data-aos="fade-up" data-aos-delay="400">
+            <button class="social-action-btn" id="btnLikePage" onclick="handleLike(this)">
+                <i class="fas fa-heart"></i>
+                <span id="siteLikesCount">0</span>
+            </button>
+            <button class="social-action-btn" onclick="openCommentsModal()">
+                <i class="fas fa-comment-dots"></i>
+                <span id="siteCommentsCount">0</span>
+            </button>
+            <button class="social-action-btn" onclick="openRatingModal()">
+                <i class="fas fa-star" style="color: var(--accent);"></i>
+                <span id="siteRatingAvg">0.0</span>
+            </button>
+            <button class="social-action-btn" onclick="shareWebsite()">
+                <i class="fas fa-share"></i>
+                <span>Share</span>
+            </button>
+            <div class="social-action-btn" style="cursor: default;">
+                <i class="fas fa-eye" style="color: #00f2fe;"></i>
+                <span id="siteViewsCount">0</span>
+            </div>
+        </div>
     </div>
   </section>
 
@@ -243,7 +287,11 @@
       <i class="fas fa-bullhorn"></i>
       <div class="ticker-content" id="tickerContainer"></div>
     </div>
-    <div class="video-auto-frame" id="publicVideoContainer" data-aos="zoom-in"><video id="schoolVideoPlayer" autoplay loop controls playsinline style="width:100%; display:none;"></video><div id="videoPlaceholderMsg" style="background:#071e38; text-align:center; padding:60px 20px; color:#ffb703; font-weight:bold;">🎬 No video uploaded. Admin can add a video from settings.</div></div>
+    
+    <div class="video-auto-frame" id="publicVideoContainer" data-aos="zoom-in">
+      <video id="schoolVideoPlayer" autoplay loop controls playsinline style="width:100%; display:none;"></video>
+      <div id="videoPlaceholderMsg" style="background:#071e38; text-align:center; padding:60px 20px; color:#ffb703; font-weight:bold;">🎬 No video uploaded. Admin can add a video from settings.</div>
+    </div>
   </div>
 
   <section id="about"><div class="container reveal-element"><h2 class="section-title" data-aos="fade-up">About Our School</h2><div data-aos="fade-up" data-aos-delay="100"><p id="aboutText" style="line-height:1.8;"></p><div class="vision-mission-grid reveal-element" id="visionMissionBox"></div><div id="principalBox" class="reveal-element" data-aos="zoom-in" data-aos-delay="200"></div></div></div></section>
@@ -254,80 +302,143 @@
   <section id="contact"><div class="container reveal-element"><h2 class="section-title" data-aos="fade-up">📍 Our Location</h2><div class="location-wrapper" data-aos="zoom-in"><iframe src="https://maps.google.com/maps?q=Govt%20Model%20High%20School%20Pishin&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen loading="lazy"></iframe><div class="location-text"><h3 style="color:var(--accent);"><i class="fas fa-map-marker-alt"></i> Govt. Model Higher Secondary School</h3><p>Main Bazar, Near Balochistan University Pishin Campus, Balochistan, Pakistan.</p><a href="https://maps.google.com/maps?q=Govt%20Model%20High%20School%20Pishin" target="_blank" class="btn btn-primary" id="btnDir"><i class="fas fa-location-arrow"></i> Get Directions</a></div></div></div></section>
   <section id="developer" style="padding-bottom: 3rem;"><div class="container reveal-element"><h2 class="section-title" data-aos="fade-up">💻 Meet The Developer</h2><div id="developerCard" class="developer-card" data-aos="fade-up" data-aos-delay="200"></div></div></section>
 </main>
-<footer><p id="footerTxt">© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website</p></footer>
+
+<footer>
+  <div class="footer-content">
+    <h3>Connect With Us</h3>
+    <div class="social-links-container">
+      <a href="#" target="_blank" class="social-icon-btn icon-fb" id="linkFb"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" target="_blank" class="social-icon-btn icon-insta" id="linkInsta"><i class="fab fa-instagram"></i></a>
+      <a href="#" target="_blank" class="social-icon-btn icon-tiktok" id="linkTiktok"><i class="fab fa-tiktok"></i></a>
+      <a href="#" target="_blank" class="social-icon-btn icon-yt" id="linkYt"><i class="fab fa-youtube"></i></a>
+      <a href="#" target="_blank" class="social-icon-btn icon-wa" id="linkWaGroup" title="WhatsApp Group"><i class="fas fa-users"></i></a>
+      <a href="#" target="_blank" class="social-icon-btn icon-wa" id="linkWaChannel" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <p id="footerTxt">© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website</p>
+  </div>
+</footer>
 
 <div id="adminPanel" class="admin-float-bar"><div class="admin-circle" id="openAdminModal" title="Admin Settings"><i class="fas fa-cogs"></i></div><div class="admin-circle" id="logoutAdminBtn" style="background:#dc3545;" title="Logout"><i class="fas fa-power-off"></i></div></div>
 
-<div id="developerLoginModal" class="modal">
-    <div class="modal-content" style="text-align: center;">
-        <span class="close-modal" onclick="closeModal('developerLoginModal')">×</span>
-        <i class="fas fa-laptop-code fa-3x" style="color:var(--accent); margin-bottom: 15px;"></i>
-        <h2 style="margin-bottom: 20px;">Developer Admin Login</h2>
-        <div class="form-group" style="text-align: left;">
-            <label>Admin Email</label>
-            <input type="email" id="devAuthEmail" placeholder="e.g. admin@yourdomain.com">
+<div id="publicCommentsModal" class="modal">
+    <div class="modal-content" style="max-height: 80vh; display: flex; flex-direction: column;">
+        <span class="close-modal" onclick="closeModal('publicCommentsModal')">×</span>
+        <h3 style="color: var(--accent); margin-bottom: 1rem;"><i class="fas fa-comments"></i> Public Comments</h3>
+        <div id="commentsListArea" style="flex: 1; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 1rem; padding: 10px; margin-bottom: 1rem; text-align: left;">
+            <p style="text-align:center; color:#ccc;">Loading comments...</p>
         </div>
-        <div class="form-group" style="text-align: left;">
-            <label>Password</label>
-            <input type="password" id="devAuthPass" placeholder="Enter Supabase Password">
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="commentUserName" placeholder="Your Name" style="width: 30%; margin-bottom:0;">
+            <input type="text" id="commentTextInput" placeholder="Write a comment..." style="width: 70%; margin-bottom:0;">
         </div>
-        <button onclick="loginDeveloperSupabase()" class="btn btn-primary" id="btnDevLogin" style="width: 100%;">Secure Login</button>
+        <button class="btn btn-primary" onclick="submitComment()" style="margin-top: 10px; width: 100%;">Post Comment</button>
     </div>
 </div>
 
+<div id="publicRatingModal" class="modal">
+    <div class="modal-content" style="text-align: center;">
+        <span class="close-modal" onclick="closeModal('publicRatingModal')">×</span>
+        <h3 style="color: var(--accent); margin-bottom: 1rem;">Rate Our School</h3>
+        <div style="font-size: 2.5rem; display: flex; justify-content: center; gap: 10px; cursor: pointer; color: #ddd; margin-bottom: 1.5rem;" id="starRatingSystem">
+            <i class="fas fa-star" onclick="submitRating(1)"></i>
+            <i class="fas fa-star" onclick="submitRating(2)"></i>
+            <i class="fas fa-star" onclick="submitRating(3)"></i>
+            <i class="fas fa-star" onclick="submitRating(4)"></i>
+            <i class="fas fa-star" onclick="submitRating(5)"></i>
+        </div>
+        <p>Your feedback helps us improve!</p>
+    </div>
+</div>
+
+<div id="developerLoginModal" class="modal"><div class="modal-content" style="text-align: center;"><span class="close-modal" onclick="closeModal('developerLoginModal')">×</span><i class="fas fa-laptop-code fa-3x" style="color:var(--accent); margin-bottom: 15px;"></i><h2 style="margin-bottom: 20px;">Developer Admin Login</h2><div class="form-group" style="text-align: left;"><label>Admin Email</label><input type="email" id="devAuthEmail" placeholder="e.g. admin@yourdomain.com"></div><div class="form-group" style="text-align: left;"><label>Password</label><input type="password" id="devAuthPass" placeholder="Enter Supabase Password"></div><button onclick="loginDeveloperSupabase()" class="btn btn-primary" id="btnDevLogin" style="width: 100%;">Secure Login</button></div></div>
 <div id="publicPrincipalModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicPrincipalModal')">×</span><img id="pubPrinImg"><h2 id="pubPrinName"></h2><p style="color:var(--accent); font-weight:bold;">Principal</p><p id="pubPrinMsg" style="margin: 1.5rem 0; font-style: italic; color: #ddd;"></p><div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:15px;"><a id="pubPrinWa" href="#" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button onclick="closeModal('publicPrincipalModal'); document.getElementById('principalLoginModal').style.display='flex';" class="btn btn-primary" style="flex:1;"><i class="fas fa-sign-in-alt"></i> Login</button></div></div></div>
 <div id="principalLoginModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('principalLoginModal')">×</span><i class="fas fa-user-shield fa-3x" style="color:var(--accent);"></i><h2>Principal Login</h2><input type="email" id="prinEmail" placeholder="Principal Email"><input type="password" id="prinPass" placeholder="Password"><button onclick="loginPrincipal()" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Login</button></div></div>
 <div id="principalDashboardModal" class="modal"><div class="modal-content" style="max-width:700px;"><span class="close-modal" onclick="closeModal('principalDashboardModal')">×</span><h2 style="color:var(--accent);">📌 Admission Requests</h2><div id="admissionRequestsArea"></div></div></div>
 <div id="viewAppModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('viewAppModal'); document.getElementById('principalDashboardModal').style.display='flex';">×</span><img id="viewAppImg"><h2 id="viewAppName"></h2><p style="color:var(--accent);">Class: <span id="viewAppClass"></span></p><div class="student-details"><p><strong>Father:</strong> <span id="viewAppFather"></span></p><p><strong>Phone:</strong> <span id="viewAppPhone"></span></p><p><strong>DOB:</strong> <span id="viewAppDob"></span></p><p><strong>Applied:</strong> <span id="viewAppDate"></span></p><p><strong>Address:</strong> <span id="viewAppAddress"></span></p></div></div></div>
 
 <div id="publicTeacherModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicTeacherModal')">×</span><img id="pubTeachImg"><h2 id="pubTeachName"></h2><p id="pubTeachDesig" style="color:var(--accent);"></p><p id="pubTeachClass" style="font-weight: 500; margin-top: 5px; color: #ffb703;"></p><p id="pubTeachSub" style="margin-top: 5px;"></p><p id="pubTeachMsg" style="margin: 15px 0; font-style: italic; color: #ddd;"></p><a id="pubTeachWa" href="#" target="_blank" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a></div></div>
-
 <div id="publicStudentModal" class="modal"><div class="modal-content profile-modal-view"><span class="close-modal" onclick="closeModal('publicStudentModal')">×</span><img id="pubStuImg"><h2 id="pubStuName"></h2><p style="color:var(--accent);"> Position Holder</p><div class="student-details"><p><strong>Father:</strong> <span id="pubStuFather"></span></p><p><strong>Class:</strong> <span id="pubStuClass"></span></p><p><strong>Roll No:</strong> <span id="pubStuRoll"></span></p><p><strong>Marks:</strong> <span id="pubStuMarks" style="color:var(--accent);"></span></p></div></div></div>
 <div id="publicGalleryModal" class="modal"><div class="modal-content" style="max-width:700px; text-align:center;"><span class="close-modal" onclick="closeModal('publicGalleryModal')">×</span><img id="fullGalleryImg" style="width:100%; border-radius:1rem; max-height: 60vh; object-fit: contain; background: black;"><h3 id="fullGalleryCaption" style="margin:1rem 0; color:var(--accent);"></h3><div style="display:flex; gap:1rem; justify-content:center;"><a id="btnDownloadImg" href="#" download class="btn btn-primary">Download</a><a id="btnShareImg" href="#" target="_blank" class="btn btn-whatsapp">WhatsApp</a></div></div></div>
 
-<div id="adminModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminModal')">×</span><h2 style="text-align:center;">🛠️ Admin Panel</h2><div class="admin-btn-grid"><button class="btn btn-primary" onclick="openAdminSection('adminMetricsModal')">DASHBOARD</button><button class="btn btn-primary" onclick="openAdminSection('adminLogosModal')" style="background: #198754; color:white;">✨ Logos Settings</button><button class="btn btn-primary" onclick="openAdminSection('adminNewsVideoModal')">News & Video</button><button class="btn btn-primary" onclick="openAdminSection('adminAboutModal')">About</button><button class="btn btn-primary" onclick="openAdminSection('adminPrincipalModal')">Principal</button><button class="btn btn-primary" onclick="openAdminSection('adminTeacherListModal')">Teachers</button><button class="btn btn-primary" onclick="openAdminSection('adminStudentsListModal')">Position Holders</button><button class="btn btn-primary" onclick="openAdminSection('adminGalleryListModal')">Gallery</button><button class="btn btn-primary" onclick="openAdminSection('adminDeveloperModal')">Developer</button></div></div></div>
-<div id="adminLogosModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminLogosModal')">← Back</span><h3>Manage School Logos</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="uploadHeaderLogo" accept="image/*" onchange="previewHeaderLogo(this)"><i class="fas fa-certificate fa-2x"></i><br><span>Upload Top Header Logo</span></label><img id="headerLogoPreview" class="img-preview" style="border-radius: 50%;"><label class="custom-file-upload" style="margin-bottom: 1rem; margin-top: 1rem;"><input type="file" id="uploadBgLogo" accept="image/*" onchange="previewBgLogo(this)"><i class="fas fa-image fa-2x"></i><br><span>Upload Background Logo (Hero)</span></label><img id="bgLogoPreview" class="img-preview" style="border-radius: 1rem; width: 150px; height: auto;"><button onclick="saveLogos()" class="btn btn-primary" style="width:100%; margin-top:1rem;">Save Logos</button></div></div>
-<div id="adminMetricsModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminMetricsModal')">← Back</span><h3>Edit Dashboard Counts</h3><label>Total Students</label><input id="editStudentsCount" type="number" placeholder="e.g. 1500"><label>Total Teachers</label><input id="editTeachersCount" type="number" placeholder="e.g. 45"><label>Library Books</label><input id="editBooksCount" type="number" placeholder="e.g. 3200"><label>Computers</label><input id="editComputersCount" type="number" placeholder="e.g. 50"><button onclick="saveDashboardMetrics()" class="btn btn-primary" style="width:100%;">Save Dashboard</button></div></div>
-<div id="adminNewsVideoModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminNewsVideoModal')">← Back</span><h3>Manage News & Video</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="uploadVideoFile" accept="video/*"><i class="fas fa-video fa-2x"></i><br><span>Upload Video (MP4) - AutoPlay</span></label><label>News Items (comma separated)</label><textarea id="editNewsText" rows="3"></textarea><button onclick="saveNewsVideo()" class="btn btn-primary">Save Changes</button></div></div>
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('adminModal')">×</span>
+        <h2 style="text-align:center;">🛠️ Admin Panel</h2>
+        <div class="admin-btn-grid">
+            <button class="btn btn-primary" onclick="openAdminSection('adminMetricsModal')">DASHBOARD</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminLogosModal')" style="background: #198754; color:white;">✨ Logos Settings</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminNewsVideoModal')">News & Video</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminAboutModal')">About</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminPrincipalModal')">Principal</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminTeacherListModal')">Teachers</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminStudentsListModal')">Position Holders</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminGalleryListModal')">Gallery</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminDeveloperModal')">Developer</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminSocialLinksModal')" style="background: #e1306c;">🔗 Social Links</button>
+            <button class="btn btn-primary" onclick="openAdminSection('adminManageCommentsModal')" style="background: #1877F2;">💬 Manage Comments</button>
+        </div>
+    </div>
+</div>
+
+<div id="adminSocialLinksModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="openAdminMaster('adminSocialLinksModal')">← Back</span>
+        <h3>Update Social Links</h3>
+        <label>Facebook Page URL</label><input id="editFbLink" type="text" placeholder="https://facebook.com/...">
+        <label>Instagram URL</label><input id="editInstaLink" type="text" placeholder="https://instagram.com/...">
+        <label>TikTok URL</label><input id="editTiktokLink" type="text" placeholder="https://tiktok.com/...">
+        <label>YouTube Channel URL</label><input id="editYtLink" type="text" placeholder="https://youtube.com/...">
+        <label>WhatsApp Group Link</label><input id="editWaGroupLink" type="text" placeholder="https://chat.whatsapp.com/...">
+        <label>WhatsApp Channel Link</label><input id="editWaChannelLink" type="text" placeholder="https://whatsapp.com/channel/...">
+        <button onclick="saveSocialLinks()" class="btn btn-primary" style="width:100%; margin-top: 1rem;">Save Links</button>
+    </div>
+</div>
+
+<div id="adminManageCommentsModal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="close-modal" onclick="openAdminMaster('adminManageCommentsModal')">← Back</span>
+        <h3>Manage Public Comments</h3>
+        <div id="adminCommentsListArea" style="margin-top:1rem; max-height: 60vh; overflow-y:auto;"></div>
+    </div>
+</div>
+
+<div id="adminLogosModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminLogosModal')">← Back</span><h3>Manage School Logos</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="uploadHeaderLogo" accept="image/*" onchange="previewHeaderLogo(this)"><i class="fas fa-certificate fa-2x"></i><br><span>Upload Top Header Logo</span></label><img id="headerLogoPreview" class="img-preview" style="border-radius: 50%;"><label class="custom-file-upload" style="margin-bottom: 1rem; margin-top: 1rem;"><input type="file" id="uploadBgLogo" accept="image/*" onchange="previewBgLogo(this)"><i class="fas fa-image fa-2x"></i><br><span>Upload Background Logo (Static)</span></label><img id="bgLogoPreview" class="img-preview" style="border-radius: 1rem; width: 150px; height: auto;"><button onclick="saveLogos()" class="btn btn-primary" style="width:100%; margin-top:1rem;">Save Logos</button></div></div>
+
+<div id="adminMetricsModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminMetricsModal')">← Back</span>
+  <h3>Edit Dashboard Counts</h3><label>Total Students</label><input id="editStudentsCount" type="number" placeholder="e.g. 1500"><label>Total Teachers</label><input id="editTeachersCount" type="number" placeholder="e.g. 45"><label>Library Books</label><input id="editBooksCount" type="number" placeholder="e.g. 3200"><label>Computers</label><input id="editComputersCount" type="number" placeholder="e.g. 50">
+  <button onclick="saveDashboardMetrics()" class="btn btn-primary" style="width:100%; margin-bottom:1.5rem;">Save Dashboard</button>
+  <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 1rem;">
+  <h3>Manage Dashboard Slider Images</h3>
+  <label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="uploadSliderFile" accept="image/*" onchange="addSliderImage()"><i class="fas fa-images fa-2x"></i><br><span id="sliderUploadText">Add Slider Image</span></label>
+  <div id="adminSliderListArea"></div>
+</div></div>
+
+<div id="adminNewsVideoModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminNewsVideoModal')">← Back</span><h3>Manage Video</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="uploadVideoFile" accept="video/*"><i class="fas fa-video fa-2x"></i><br><span>Upload Video (MP4) - AutoPlay</span></label><button onclick="saveVideoOnly()" class="btn btn-primary" style="width:100%; margin-bottom: 1.5rem;">Save Video</button><hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 1rem;"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;"><h3>News Items</h3><button onclick="openNewsForm(null)" class="btn btn-primary">➕ Add News</button></div><div id="adminNewsListArea"></div></div></div>
+<div id="adminNewsFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminNewsFormModal'); document.getElementById('adminNewsVideoModal').style.display='flex';">← Back</span><h3>News Item</h3><input type="hidden" id="newsIndex"><textarea id="newsTextInput" rows="3" placeholder="Enter news text here..." style="font-family: inherit;"></textarea><button onclick="saveNewsItem()" class="btn btn-primary" id="btnSaveNews">Save News</button></div></div>
+
 <div id="adminAboutModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminAboutModal')">← Back</span><h3>Edit About School</h3><textarea id="editAboutDesc" rows="3"></textarea><input id="editVision" placeholder="Vision"><input id="editMission" placeholder="Mission"><button onclick="saveAbout()" class="btn btn-primary">Save Changes</button></div></div>
 <div id="adminPrincipalModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminPrincipalModal')">← Back</span><h3>Principal Info</h3><input id="editPrinName" placeholder="Name"><textarea id="editPrinMsg" rows="2" placeholder="Message"></textarea><input id="editPrinWa" placeholder="WhatsApp Number"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="editPrinPic" accept="image/*" onchange="previewPrincipalPic(this)"><i class="fas fa-user-tie fa-2x"></i><br><span>Upload Principal Picture</span></label><img id="prinPicPreview" class="img-preview"><button onclick="savePrincipal()" class="btn btn-primary">Save Principal</button></div></div>
 <div id="adminTeacherListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminTeacherListModal')">← Back</span><button onclick="openTeacherForm(null)" class="btn btn-primary">➕ Add Teacher</button><div id="adminTeachersListArea" style="margin-top:1rem;"></div></div></div>
-
 <div id="adminTeacherFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminTeacherFormModal'); document.getElementById('adminTeacherListModal').style.display='flex';">← Back</span><h3>Teacher Info</h3><input type="hidden" id="teacherIndex"><input id="teacherName" placeholder="Full Name"><input id="teacherSubject" placeholder="Subject"><input id="teacherDesignation" placeholder="Designation"><input id="teacherClassIncharge" placeholder="Class Incharge (e.g. 10th)"><textarea id="teacherMessage" rows="2" placeholder="Teacher's Message / Quote"></textarea><input id="teacherWhatsapp" placeholder="WhatsApp"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="teacherImgUpload" accept="image/*" onchange="previewTeacherImg(this)"><i class="fas fa-chalkboard-teacher fa-2x"></i><br><span>Upload Teacher Picture</span></label><img id="teacherImgPreview" class="img-preview"><button onclick="saveTeacherFinal()" class="btn btn-primary" id="btnSaveTeacher">Save Teacher</button></div></div>
-
 <div id="adminStudentsListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminStudentsListModal')">← Back</span><button onclick="openStudentForm(null)" class="btn btn-primary">➕ Add Position Holder</button><div id="adminStudentsListArea"></div></div></div>
 <div id="adminStudentFormModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminStudentFormModal'); document.getElementById('adminStudentsListModal').style.display='flex';">← Back</span><h3>Student Details</h3><input type="hidden" id="studentIndex"><input id="studentName" placeholder="Name"><input id="studentFather" placeholder="Father"><input id="studentClass" placeholder="Class"><input id="studentRoll" placeholder="Roll No"><input id="studentMarks" placeholder="Marks (e.g. 450/514)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="studentImgUpload" accept="image/*" onchange="previewStudentImg(this)"><i class="fas fa-user-graduate fa-2x"></i><br><span>Upload Student Photo</span></label><img id="studentImgPreview" class="img-preview"><button onclick="saveStudentFinal()" class="btn btn-primary" id="btnSaveStudent">Save Position Holder</button></div></div>
 <div id="adminGalleryListModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminGalleryListModal')">← Back</span><button onclick="openGalleryAdd()" class="btn btn-primary">➕ Add Picture</button><div id="adminGalleryListArea"></div></div></div>
-<div id="adminGalleryAddModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminGalleryAddModal'); document.getElementById('adminGalleryListModal').style.display='flex';">← Back</span><h3>Add Picture</h3><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="galleryUploadFile" accept="image/*"><i class="fas fa-images fa-2x"></i><br><span>Select Gallery Picture</span></label><input id="galleryCaptionInput" placeholder="Caption"><button onclick="saveGalleryPicture()" class="btn btn-primary" id="btnSaveGallery">Add to Gallery</button></div></div>
+<div id="adminGalleryAddModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="closeModal('adminGalleryAddModal'); document.getElementById('adminGalleryListModal').style.display='flex';">← Back</span><h3 id="galleryFormTitle">Add Picture</h3><input type="hidden" id="galleryIndex"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="galleryUploadFile" accept="image/*" onchange="previewGalleryImg(this)"><i class="fas fa-images fa-2x"></i><br><span>Select Gallery Picture</span></label><img id="galleryImgPreview" class="img-preview" style="border-radius: 10px; width: 120px; height: 80px;"><input id="galleryCaptionInput" placeholder="Caption"><button onclick="saveGalleryPicture()" class="btn btn-primary" id="btnSaveGallery">Add to Gallery</button></div></div>
 <div id="adminDeveloperModal" class="modal"><div class="modal-content"><span class="close-modal" onclick="openAdminMaster('adminDeveloperModal')">← Back</span><h3>Developer Profile</h3><input id="devName" placeholder="Name"><input id="devClass" placeholder="Class"><input id="devRole" placeholder="Role"><input id="devSkills" placeholder="Skills (comma separated)"><label class="custom-file-upload" style="margin-bottom: 1rem;"><input type="file" id="devPicUpload" accept="image/*" onchange="previewDevPic(this)"><i class="fas fa-laptop-code fa-2x"></i><br><span>Upload Developer Photo</span></label><img id="devPicPreview" class="img-preview"><button onclick="saveDeveloper()" class="btn btn-primary" id="btnSaveDeveloper">Save Developer Info</button></div></div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script>
-  // Initialize AOS (Animations)
-  AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100
-  });
+  AOS.init({ duration: 800, once: true, offset: 100 });
 
-  // 1️⃣ Scroll Reveal Logic (Intersection Observer)
   function initScrollAnimations() {
       const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add('active');
-              }
-          });
+          entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); } });
       }, { threshold: 0.1 });
-
-      document.querySelectorAll('.reveal-element').forEach(el => {
-          observer.observe(el);
-      });
+      document.querySelectorAll('.reveal-element').forEach(el => { observer.observe(el); });
   }
   setTimeout(initScrollAnimations, 300);
 
-  // 1. SUPABASE INITIALIZATION
   const _supabase = supabase.createClient(
     'https://vdedxfvgrpkrrhgxqzfo.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkZWR4ZnZncnBrcnJoZ3hxemZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjMyNjcsImV4cCI6MjA5MzEzOTI2N30.1Vqv0ybMTrEqN7zbsxLGJaHyoJYuh7hinFHWVrPJnWw'
@@ -344,7 +455,7 @@
   function toggleTheme() { document.body.classList.toggle('light-mode'); const icon = document.querySelector('#themeToggleBtn i'); if(document.body.classList.contains('light-mode')) { icon.className = 'fas fa-sun'; localStorage.setItem('theme', 'light'); } else { icon.className = 'fas fa-moon'; localStorage.setItem('theme', 'dark'); } }
 
   let defaultData = {
-    logos: { headerLogo: "", bgLogo: "" },
+    logos: { headerLogo: "", bgLogo: "", sliderImages: [] }, 
     metrics: { students: "1250", teachers: "45", books: "3200", computers: "50" }, 
     newsAndVideo: { videoData: "", newsItems: ["📢 New session started", " Annual sports gala"] },
     about: { desc: "Model School Pishin has been a beacon of quality education since 1890.", vision: "Knowledge, Ethics & Character", mission: "Empower students through quality education.", principal: { name: "Kalim Ullah", message: "We shape future leaders with care.", img: "https://randomuser.me/api/portraits/men/50.jpg", whatsapp: "923178022878" } },
@@ -353,15 +464,20 @@
   };
   
   let schoolData = { teachers: [], positionHolders: [], gallery: [] };
+  let publicComments = [];
 
   _supabase.auth.onAuthStateChange((event, session) => {
-    if (session) {
-      document.getElementById("adminPanel").style.display = "flex";
-    } else {
-      document.getElementById("adminPanel").style.display = "none";
-      document.getElementById("adminModal").style.display = "none";
-    }
+    if (session) { document.getElementById("adminPanel").style.display = "flex"; } 
+    else { document.getElementById("adminPanel").style.display = "none"; document.getElementById("adminModal").style.display = "none"; }
   });
+
+  async function deleteFileFromStorage(fileUrl) {
+      if (!fileUrl || !fileUrl.includes('supabase.co/storage/v1/object/public/school_assets/')) return;
+      try {
+          const path = fileUrl.split('/public/school_assets/')[1];
+          if (path) { await _supabase.storage.from('school_assets').remove([path]); }
+      } catch (e) { console.error("Storage delete exception:", e); }
+  }
 
   async function uploadToStorage(file, folder) {
     if (!file) return null;
@@ -377,6 +493,7 @@
     const { data: sData } = await _supabase.from('school_settings').select('data').eq('id', 1).single();
     if(sData && sData.data) {
         schoolData.logos = sData.data.logos || defaultData.logos;
+        if(!schoolData.logos.sliderImages) schoolData.logos.sliderImages = [];
         schoolData.metrics = sData.data.metrics || defaultData.metrics;
         schoolData.newsAndVideo = sData.data.newsAndVideo || defaultData.newsAndVideo;
         schoolData.about = sData.data.about || defaultData.about;
@@ -386,12 +503,15 @@
         await _supabase.from('school_settings').insert([{ id: 1, data: defaultData }]);
         Object.assign(schoolData, defaultData);
     }
-    const { data: tData } = await _supabase.from('teachers').select('*');
-    if(tData) schoolData.teachers = tData;
-    const { data: pData } = await _supabase.from('position_holders').select('*');
-    if(pData) schoolData.positionHolders = pData;
-    const { data: gData } = await _supabase.from('gallery').select('*');
-    if(gData) schoolData.gallery = gData;
+    const { data: tData } = await _supabase.from('teachers').select('*'); if(tData) schoolData.teachers = tData;
+    const { data: pData } = await _supabase.from('position_holders').select('*'); if(pData) schoolData.positionHolders = pData;
+    const { data: gData } = await _supabase.from('gallery').select('*'); if(gData) schoolData.gallery = gData;
+    
+    // Fetch Social Data
+    fetchSocialMetrics();
+    fetchComments();
+    fetchSocialLinks();
+
     renderAll(); 
     if(localStorage.getItem('theme') === 'light') toggleTheme();
     applyTranslations();
@@ -408,8 +528,186 @@
       .on('postgres_changes', { event: '*', schema: 'public', table: 'position_holders' }, () => loadFromSupabase())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadFromSupabase())
       .on('postgres_changes', { event: '*', schema: 'public', table: 'school_settings' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'social_metrics' }, () => fetchSocialMetrics(false))
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, () => fetchComments())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'social_links' }, () => fetchSocialLinks())
       .subscribe();
   }
+
+  // ==========================================
+  // NEW SOCIAL MEDIA & TIKTOK SYSTEM LOGIC
+  // ==========================================
+  
+  async function fetchSocialMetrics(incrementViewCount = true) {
+      const { data, error } = await _supabase.from('social_metrics').select('*').eq('id', 1).single();
+      if (data) {
+          document.getElementById('siteLikesCount').innerText = formatCount(data.likes);
+          document.getElementById('siteViewsCount').innerText = formatCount(data.views + (incrementViewCount ? 1 : 0));
+          
+          let avg = data.rating_count > 0 ? (data.rating_sum / data.rating_count).toFixed(1) : "0.0";
+          document.getElementById('siteRatingAvg').innerText = avg;
+
+          if (incrementViewCount && !sessionStorage.getItem('viewCounted')) {
+              await _supabase.from('social_metrics').update({ views: data.views + 1 }).eq('id', 1);
+              sessionStorage.setItem('viewCounted', 'true');
+          }
+      }
+  }
+
+  async function fetchComments() {
+      const { data, error } = await _supabase.from('comments').select('*').order('created_at', { ascending: false });
+      if (data) {
+          publicComments = data;
+          document.getElementById('siteCommentsCount').innerText = formatCount(data.length);
+          renderCommentsList();
+      }
+  }
+
+  async function fetchSocialLinks() {
+      const { data, error } = await _supabase.from('social_links').select('*').eq('id', 1).single();
+      if (data) {
+          if(data.facebook) { document.getElementById('linkFb').href = data.facebook; document.getElementById('linkFb').style.display = 'flex'; } else { document.getElementById('linkFb').style.display = 'none'; }
+          if(data.instagram) { document.getElementById('linkInsta').href = data.instagram; document.getElementById('linkInsta').style.display = 'flex'; } else { document.getElementById('linkInsta').style.display = 'none'; }
+          if(data.tiktok) { document.getElementById('linkTiktok').href = data.tiktok; document.getElementById('linkTiktok').style.display = 'flex'; } else { document.getElementById('linkTiktok').style.display = 'none'; }
+          if(data.youtube) { document.getElementById('linkYt').href = data.youtube; document.getElementById('linkYt').style.display = 'flex'; } else { document.getElementById('linkYt').style.display = 'none'; }
+          if(data.whatsapp_group) { document.getElementById('linkWaGroup').href = data.whatsapp_group; document.getElementById('linkWaGroup').style.display = 'flex'; } else { document.getElementById('linkWaGroup').style.display = 'none'; }
+          if(data.whatsapp_channel) { document.getElementById('linkWaChannel').href = data.whatsapp_channel; document.getElementById('linkWaChannel').style.display = 'flex'; } else { document.getElementById('linkWaChannel').style.display = 'none'; }
+          
+          // Populate Admin Panel
+          if(document.getElementById('editFbLink')) {
+              document.getElementById('editFbLink').value = data.facebook || '';
+              document.getElementById('editInstaLink').value = data.instagram || '';
+              document.getElementById('editTiktokLink').value = data.tiktok || '';
+              document.getElementById('editYtLink').value = data.youtube || '';
+              document.getElementById('editWaGroupLink').value = data.whatsapp_group || '';
+              document.getElementById('editWaChannelLink').value = data.whatsapp_channel || '';
+          }
+      }
+  }
+
+  async function handleLike(btnEl) {
+      if(localStorage.getItem('siteLiked')) return; // Prevent spam
+
+      // Heart burst animation
+      btnEl.classList.add('liked');
+      
+      // Create flying heart element
+      const heart = document.createElement('i');
+      heart.className = 'fas fa-heart floating-heart';
+      heart.style.left = (btnEl.getBoundingClientRect().left) + 'px';
+      heart.style.top = (btnEl.getBoundingClientRect().top) + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1000);
+
+      // Database update
+      const { data } = await _supabase.from('social_metrics').select('likes').eq('id', 1).single();
+      if(data) {
+          await _supabase.from('social_metrics').update({ likes: data.likes + 1 }).eq('id', 1);
+          localStorage.setItem('siteLiked', 'true');
+      }
+  }
+
+  function openCommentsModal() {
+      document.getElementById('publicCommentsModal').style.display = 'flex';
+      renderCommentsList();
+  }
+
+  function renderCommentsList() {
+      let area = document.getElementById('commentsListArea');
+      if(publicComments.length === 0) { area.innerHTML = "<p style='text-align:center; color:#ccc; margin-top:20px;'>No comments yet. Be the first!</p>"; return; }
+      
+      area.innerHTML = publicComments.map(c => `
+          <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 10px; margin-bottom: 8px;">
+              <strong style="color: var(--accent); font-size: 0.85rem;">${c.user_name}</strong>
+              <p style="font-size: 0.9rem; color: #fff; margin-top: 3px;">${c.comment_text}</p>
+              <small style="color: #aaa; font-size: 0.7rem;">${new Date(c.created_at).toLocaleDateString()}</small>
+          </div>
+      `).join('');
+      area.scrollTop = area.scrollHeight;
+  }
+
+  async function submitComment() {
+      let name = document.getElementById('commentUserName').value.trim();
+      let text = document.getElementById('commentTextInput').value.trim();
+      if(!name || !text) return alert("Please enter name and comment.");
+      
+      const { error } = await _supabase.from('comments').insert([{ user_name: name, comment_text: text }]);
+      if(!error) {
+          document.getElementById('commentTextInput').value = '';
+          // realtime will update the list
+      }
+  }
+
+  function openRatingModal() {
+      if(localStorage.getItem('siteRated')) { alert("You have already rated. Thank you!"); return; }
+      document.getElementById('publicRatingModal').style.display = 'flex';
+  }
+
+  async function submitRating(stars) {
+      document.getElementById('publicRatingModal').style.display = 'none';
+      const { data } = await _supabase.from('social_metrics').select('rating_sum, rating_count').eq('id', 1).single();
+      if(data) {
+          await _supabase.from('social_metrics').update({ 
+              rating_sum: data.rating_sum + stars, 
+              rating_count: data.rating_count + 1 
+          }).eq('id', 1);
+          localStorage.setItem('siteRated', 'true');
+          alert("Thank you for rating!");
+      }
+  }
+
+  function shareWebsite() {
+      if (navigator.share) {
+          navigator.share({ title: 'Model School Pishin', text: 'Check out the official website of Model School Pishin!', url: window.location.href });
+      } else {
+          navigator.clipboard.writeText(window.location.href); alert("Website link copied to clipboard!");
+      }
+  }
+
+  function formatCount(num) {
+      if(num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+      if(num >= 1000) return (num / 1000).toFixed(1) + 'K';
+      return num;
+  }
+
+  // --- ADMIN SOCIAL LINKS & COMMENTS ---
+  async function saveSocialLinks() {
+      let payload = {
+          facebook: document.getElementById('editFbLink').value.trim(),
+          instagram: document.getElementById('editInstaLink').value.trim(),
+          tiktok: document.getElementById('editTiktokLink').value.trim(),
+          youtube: document.getElementById('editYtLink').value.trim(),
+          whatsapp_group: document.getElementById('editWaGroupLink').value.trim(),
+          whatsapp_channel: document.getElementById('editWaChannelLink').value.trim()
+      };
+      await _supabase.from('social_links').upsert({ id: 1, ...payload });
+      alert("Social Links Updated!");
+      openAdminMaster('adminSocialLinksModal');
+  }
+
+  function renderAdminComments() {
+      let area = document.getElementById('adminCommentsListArea');
+      if(publicComments.length === 0) { area.innerHTML = "<p>No comments found.</p>"; return; }
+      
+      area.innerHTML = publicComments.map(c => `
+          <div class="list-item-admin" style="align-items: flex-start;">
+              <div style="flex:1;">
+                  <strong style="color:var(--accent);">${c.user_name}</strong> <span style="font-size:0.7rem; color:#aaa;">${new Date(c.created_at).toLocaleDateString()}</span><br>
+                  ${c.comment_text}
+              </div>
+              <button onclick="deleteAdminComment(${c.id})" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Delete</button>
+          </div>
+      `).join('');
+  }
+
+  async function deleteAdminComment(id) {
+      if(confirm("Delete this comment permanently?")) {
+          await _supabase.from('comments').delete().eq('id', id);
+          renderAdminComments(); // Realtime will update the underlying array eventually, but visual update helps
+      }
+  }
+  // ==========================================
+
 
   function renderAll() { renderLogos(); renderDashboardMetrics(); renderNewsAndVideo(); renderAbout(); renderTeachers(); renderPositionHolders(); renderGallery(); renderDeveloper(); }
 
@@ -425,7 +723,6 @@
     animateCounters();
   }
 
-  // 1️⃣5️⃣ Counter Animation
   function animateCounters() {
     const counters = document.querySelectorAll('.metric-number');
     const speed = 100;
@@ -434,13 +731,8 @@
       const updateCount = () => {
         const count = +counter.innerText;
         const inc = Math.max(1, target / speed);
-        if (count < target) {
-          counter.innerText = Math.ceil(count + inc);
-          if(+counter.innerText > target) counter.innerText = target;
-          setTimeout(updateCount, 30);
-        } else {
-          counter.innerText = target;
-        }
+        if (count < target) { counter.innerText = Math.ceil(count + inc); if(+counter.innerText > target) counter.innerText = target; setTimeout(updateCount, 30); } 
+        else { counter.innerText = target; }
       };
       updateCount();
     });
@@ -450,117 +742,118 @@
   function previewBgLogo(input) { if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("bgLogoPreview").src=e.target.result; document.getElementById("bgLogoPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
   
   async function saveLogos() { 
-      let hFile = document.getElementById("uploadHeaderLogo").files[0]; 
-      let bgFile = document.getElementById("uploadBgLogo").files[0]; 
-      if(hFile) { let url = await uploadToStorage(hFile, 'logos'); if(url) schoolData.logos.headerLogo = url; }
-      if(bgFile) { let url = await uploadToStorage(bgFile, 'logos'); if(url) schoolData.logos.bgLogo = url; }
+      let hFile = document.getElementById("uploadHeaderLogo").files[0]; let bgFile = document.getElementById("uploadBgLogo").files[0]; 
+      if(hFile) { let url = await uploadToStorage(hFile, 'logos'); if(url) { await deleteFileFromStorage(schoolData.logos.headerLogo); schoolData.logos.headerLogo = url; } }
+      if(bgFile) { let url = await uploadToStorage(bgFile, 'logos'); if(url) { await deleteFileFromStorage(schoolData.logos.bgLogo); schoolData.logos.bgLogo = url; } }
       await saveSettingsToSupabase();
       renderLogos(); document.getElementById("uploadHeaderLogo").value = ""; document.getElementById("uploadBgLogo").value = ""; openAdminMaster('adminLogosModal'); alert("Logos Updated Successfully!"); 
   }
 
   async function saveDashboardMetrics() { 
       schoolData.metrics.students = document.getElementById("editStudentsCount").value; schoolData.metrics.teachers = document.getElementById("editTeachersCount").value; schoolData.metrics.books = document.getElementById("editBooksCount").value; schoolData.metrics.computers = document.getElementById("editComputersCount").value; 
-      await saveSettingsToSupabase(); renderDashboardMetrics(); openAdminMaster('adminMetricsModal'); alert("Dashboard Metrics Updated!"); 
+      await saveSettingsToSupabase(); renderDashboardMetrics(); alert("Dashboard Metrics Updated!"); 
+  }
+
+  let slideIndex = 0; let autoSlideInterval;
+  
+  function renderGallerySlider() {
+      const wrapper = document.getElementById("heroSliderWrapper"); const container = document.getElementById("heroSliderContainer");
+      if(schoolData.logos.sliderImages && schoolData.logos.sliderImages.length > 0) {
+          container.style.display = "block"; wrapper.innerHTML = schoolData.logos.sliderImages.map(imgUrl => `<div class="hero-slide"><img src="${imgUrl}" alt="Slider"></div>`).join('');
+          slideIndex = 0; updateSlider(); resetAutoSlide();
+      } else { container.style.display = "none"; }
+  }
+  function updateSlider() { let wrapper = document.getElementById("heroSliderWrapper"); if(wrapper) { wrapper.style.transform = `translateX(-${slideIndex * 100}%)`; } }
+  function nextSlide() { if(!schoolData.logos.sliderImages || schoolData.logos.sliderImages.length===0) return; slideIndex = (slideIndex + 1) % schoolData.logos.sliderImages.length; updateSlider(); }
+  function startAutoSlide() { autoSlideInterval = setInterval(nextSlide, 5000); }
+  function resetAutoSlide() { clearInterval(autoSlideInterval); startAutoSlide(); }
+
+  function populateAdminSliderImages() {
+      document.getElementById("adminSliderListArea").innerHTML = (schoolData.logos.sliderImages || []).map((img, i) => `
+          <div class="list-item-admin"><div><img src="${img}" style="height: 40px; border-radius: 5px;"></div><div><button onclick="deleteSliderImage(${i})" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Del</button></div></div>
+      `).join('');
+  }
+
+  async function addSliderImage() {
+      let file = document.getElementById("uploadSliderFile").files[0]; if(!file) return;
+      document.getElementById("sliderUploadText").innerText = "Uploading...";
+      let url = await uploadToStorage(file, 'slider');
+      if(url) {
+          if(!schoolData.logos.sliderImages) schoolData.logos.sliderImages = []; schoolData.logos.sliderImages.push(url);
+          await saveSettingsToSupabase(); renderGallerySlider(); populateAdminSliderImages();
+      }
+      document.getElementById("uploadSliderFile").value = ""; document.getElementById("sliderUploadText").innerText = "Add Slider Image";
+  }
+
+  async function deleteSliderImage(idx) {
+      if(confirm("Delete this slider image?")) {
+          await deleteFileFromStorage(schoolData.logos.sliderImages[idx]); schoolData.logos.sliderImages.splice(idx, 1);
+          await saveSettingsToSupabase(); renderGallerySlider(); populateAdminSliderImages();
+      }
   }
 
   function renderNewsAndVideo() { 
       let newsArray = schoolData.newsAndVideo.newsItems; let contentDiv = document.getElementById('tickerContainer'); 
-      if(newsArray.length > 0) { contentDiv.innerHTML = `<div class="ticker-text" id="publicNewsText" style="transform: translateY(0); opacity: 1;">${newsArray[0]}</div>`; clearInterval(window.newsInterval); let i = 0; window.newsInterval = setInterval(() => { let el = document.getElementById("publicNewsText"); if(!el) return; el.style.transform = "translateY(-100%)"; el.style.opacity = "0"; setTimeout(() => { i = (i + 1) % newsArray.length; el.innerHTML = newsArray[i]; el.style.transition = "none"; el.style.transform = "translateY(100%)"; void el.offsetWidth; el.style.transition = "all 0.5s ease"; el.style.transform = "translateY(0)"; el.style.opacity = "1"; }, 500); }, 3000); } else { contentDiv.innerHTML = ""; } 
-      let vid = schoolData.newsAndVideo.videoData, videoEl = document.getElementById("schoolVideoPlayer"), placeholder = document.getElementById("videoPlaceholderMsg"); if(vid && vid.trim()) { videoEl.src = vid; videoEl.style.display = "block"; placeholder.style.display = "none"; videoEl.play().catch(e=>{}); } else { videoEl.style.display = "none"; placeholder.style.display = "block"; } 
+      if(newsArray && newsArray.length > 0) { 
+          let duration = Math.max(10, newsArray.length * 3);
+          contentDiv.innerHTML = `<ul class="vertical-news-ul" style="animation-duration: ${duration}s;">` + newsArray.map(n => `<li>${n}</li>`).join('') + newsArray.map(n => `<li>${n}</li>`).join('') + `</ul>`; 
+      } else { contentDiv.innerHTML = ""; } 
+      
+      let vid = schoolData.newsAndVideo.videoData; let videoEl = document.getElementById("schoolVideoPlayer"); let placeholder = document.getElementById("videoPlaceholderMsg");
+      if(vid && vid.trim()) { videoEl.src = vid; videoEl.style.display = "block"; placeholder.style.display = "none"; videoEl.play().catch(e=>{}); } else { videoEl.style.display = "none"; placeholder.style.display = "block"; }
+      renderGallerySlider();
   }
 
-  async function saveNewsVideo() { 
-      let file = document.getElementById("uploadVideoFile").files[0]; 
-      schoolData.newsAndVideo.newsItems = document.getElementById("editNewsText").value.split(",").map(i=>i.trim()).filter(i=>i); 
-      if(file) { let url = await uploadToStorage(file, 'videos'); if(url) schoolData.newsAndVideo.videoData = url; }
-      await saveSettingsToSupabase(); renderNewsAndVideo(); document.getElementById("uploadVideoFile").value = ""; openAdminMaster('adminNewsVideoModal'); alert("News & Video Updated!"); 
+  function populateAdminNews() {
+      document.getElementById("adminNewsListArea").innerHTML = schoolData.newsAndVideo.newsItems.map((n, i) => `
+          <div class="list-item-admin"><div style="flex:1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${n}</div><div><button onclick="openNewsForm(${i})" class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">Edit</button><button onclick="deleteNews(${i})" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Del</button></div></div>
+      `).join('');
+  }
+
+  function openNewsForm(idx) { document.getElementById("adminNewsVideoModal").style.display = "none"; document.getElementById("adminNewsFormModal").style.display = "flex"; document.getElementById("newsIndex").value = idx !== null ? idx : ""; document.getElementById("newsTextInput").value = idx !== null ? schoolData.newsAndVideo.newsItems[idx] : ""; }
+
+  async function saveNewsItem() {
+      let idx = document.getElementById("newsIndex").value; let text = document.getElementById("newsTextInput").value.trim(); if(!text) return alert("Please enter news text.");
+      if (idx === "") { schoolData.newsAndVideo.newsItems.push(text); } else { schoolData.newsAndVideo.newsItems[idx] = text; }
+      await saveSettingsToSupabase(); renderNewsAndVideo(); populateAdminNews(); document.getElementById("adminNewsFormModal").style.display = "none"; document.getElementById("adminNewsVideoModal").style.display = "flex";
+  }
+
+  async function deleteNews(idx) { if(confirm("Delete this news?")) { schoolData.newsAndVideo.newsItems.splice(idx, 1); await saveSettingsToSupabase(); renderNewsAndVideo(); populateAdminNews(); } }
+
+  async function saveVideoOnly() {
+      let file = document.getElementById("uploadVideoFile").files[0];
+      if(file) { let url = await uploadToStorage(file, 'videos'); if(url) { await deleteFileFromStorage(schoolData.newsAndVideo.videoData); schoolData.newsAndVideo.videoData = url; } await saveSettingsToSupabase(); renderNewsAndVideo(); document.getElementById("uploadVideoFile").value = ""; alert("Video Updated!"); } else { alert("Please select a video file first."); }
   }
 
   function renderAbout() { 
       document.getElementById("aboutText").innerText = schoolData.about.desc; document.getElementById("visionMissionBox").innerHTML = `<div class="vm-box" data-aos="fade-right"><i class="fas fa-eye fa-2x" style="color:var(--accent);"></i><h3>Vision</h3><p>${schoolData.about.vision}</p></div><div class="vm-box" data-aos="fade-left"><i class="fas fa-bullseye fa-2x" style="color:#ff4757;"></i><h3>Mission</h3><p>${schoolData.about.mission}</p></div>`; let p = schoolData.about.principal; document.getElementById("principalBox").innerHTML = `<img src="${p.img}" style="width:90px;height:90px;border-radius:50%;border:3px solid white;"><h3 style="color:var(--accent);">${p.name}</h3><span style="background:rgba(0,0,0,0.3);padding:2px 10px;border-radius:20px;">Principal</span><p style="font-style:italic;margin-top:10px; color:#ffb703;">“Click for details”</p>`; document.getElementById("principalBox").onclick = () => { document.getElementById("pubPrinImg").src = p.img; document.getElementById("pubPrinName").innerText = p.name; document.getElementById("pubPrinMsg").innerText = `"${p.message}"`; document.getElementById("pubPrinWa").href = `https://wa.me/${p.whatsapp}?text=Hello%20Principal%20Sir`; document.getElementById("publicPrincipalModal").style.display = "flex"; }; 
   }
 
-  async function saveAbout() { 
-      schoolData.about.desc=document.getElementById("editAboutDesc").value; schoolData.about.vision=document.getElementById("editVision").value; schoolData.about.mission=document.getElementById("editMission").value; 
-      await saveSettingsToSupabase(); renderAbout(); openAdminMaster('adminAboutModal'); alert("About Section Updated!"); 
-  }
-
+  async function saveAbout() { schoolData.about.desc=document.getElementById("editAboutDesc").value; schoolData.about.vision=document.getElementById("editVision").value; schoolData.about.mission=document.getElementById("editMission").value; await saveSettingsToSupabase(); renderAbout(); openAdminMaster('adminAboutModal'); alert("About Section Updated!"); }
   function previewPrincipalPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("prinPicPreview").src=e.target.result; document.getElementById("prinPicPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
   
   async function savePrincipal(){ 
-      let file=document.getElementById("editPrinPic").files[0]; 
-      schoolData.about.principal.name=document.getElementById("editPrinName").value; schoolData.about.principal.message=document.getElementById("editPrinMsg").value; schoolData.about.principal.whatsapp=document.getElementById("editPrinWa").value; 
-      if(file) { let url = await uploadToStorage(file, 'principal'); if(url) schoolData.about.principal.img = url; }
+      let file=document.getElementById("editPrinPic").files[0]; schoolData.about.principal.name=document.getElementById("editPrinName").value; schoolData.about.principal.message=document.getElementById("editPrinMsg").value; schoolData.about.principal.whatsapp=document.getElementById("editPrinWa").value; 
+      if(file) { let url = await uploadToStorage(file, 'principal'); if(url) { await deleteFileFromStorage(schoolData.about.principal.img); schoolData.about.principal.img = url; } }
       await saveSettingsToSupabase(); renderAbout(); document.getElementById("editPrinPic").value = ""; openAdminMaster('adminPrincipalModal'); alert("Principal Info Updated!"); 
   }
 
-  // --- TEACHERS ---
   function renderTeachers() { document.getElementById("teachersGrid").innerHTML = schoolData.teachers.map((t,idx)=>`<div class="person-card" data-aos="zoom-in" data-aos-delay="${(idx%4)*50}" onclick="openPublicTeacher(${idx})"><img src="${t.img_url}"><h3>${t.name}</h3><p>${t.subject}</p></div>`).join(''); }
-  
-  function openPublicTeacher(idx){ 
-      let t=schoolData.teachers[idx]; 
-      document.getElementById("pubTeachImg").src=t.img_url; 
-      document.getElementById("pubTeachName").innerText=t.name; 
-      document.getElementById("pubTeachDesig").innerText=t.designation; 
-      document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; 
-      document.getElementById("pubTeachClass").innerText = t.class_incharge ? `Class Incharge: ${t.class_incharge}` : "";
-      document.getElementById("pubTeachMsg").innerText = t.message ? `"${t.message}"` : "";
-      document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; 
-      document.getElementById("publicTeacherModal").style.display="flex"; 
-  }
-  
+  function openPublicTeacher(idx){ let t=schoolData.teachers[idx]; document.getElementById("pubTeachImg").src=t.img_url; document.getElementById("pubTeachName").innerText=t.name; document.getElementById("pubTeachDesig").innerText=t.designation; document.getElementById("pubTeachSub").innerHTML=`📖 ${t.subject}`; document.getElementById("pubTeachClass").innerText = t.class_incharge ? `Class Incharge: ${t.class_incharge}` : ""; document.getElementById("pubTeachMsg").innerText = t.message ? `"${t.message}"` : ""; document.getElementById("pubTeachWa").href=`https://wa.me/${t.whatsapp}?text=Hello%20Sir`; document.getElementById("publicTeacherModal").style.display="flex"; }
   function populateAdminTeachers(){ document.getElementById("adminTeachersListArea").innerHTML=schoolData.teachers.map((t,i)=>`<div class="list-item-admin"><div><img src="${t.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${t.name}</div><div><button onclick="openTeacherForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteTeacher(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
-  
-  function openTeacherForm(idx){ 
-      document.getElementById("adminTeacherListModal").style.display="none"; 
-      document.getElementById("adminTeacherFormModal").style.display="flex"; 
-      document.getElementById("teacherIndex").value=idx!==null?idx:""; 
-      
-      if(idx!==null){ 
-          let t=schoolData.teachers[idx]; 
-          document.getElementById("teacherName").value=t.name; 
-          document.getElementById("teacherSubject").value=t.subject; 
-          document.getElementById("teacherDesignation").value=t.designation; 
-          document.getElementById("teacherClassIncharge").value=t.class_incharge || "";
-          document.getElementById("teacherMessage").value=t.message || "";
-          document.getElementById("teacherWhatsapp").value=t.whatsapp; 
-          document.getElementById("teacherImgPreview").src=t.img_url; 
-          document.getElementById("teacherImgPreview").style.display="block"; 
-      } else { 
-          document.getElementById("teacherName").value=""; 
-          document.getElementById("teacherSubject").value=""; 
-          document.getElementById("teacherDesignation").value=""; 
-          document.getElementById("teacherClassIncharge").value="";
-          document.getElementById("teacherMessage").value="";
-          document.getElementById("teacherWhatsapp").value=""; 
-          document.getElementById("teacherImgUpload").value=""; 
-          document.getElementById("teacherImgPreview").style.display="none"; 
-      } 
-  }
-  
+  function openTeacherForm(idx){ document.getElementById("adminTeacherListModal").style.display="none"; document.getElementById("adminTeacherFormModal").style.display="flex"; document.getElementById("teacherIndex").value=idx!==null?idx:""; if(idx!==null){ let t=schoolData.teachers[idx]; document.getElementById("teacherName").value=t.name; document.getElementById("teacherSubject").value=t.subject; document.getElementById("teacherDesignation").value=t.designation; document.getElementById("teacherClassIncharge").value=t.class_incharge || ""; document.getElementById("teacherMessage").value=t.message || ""; document.getElementById("teacherWhatsapp").value=t.whatsapp; document.getElementById("teacherImgPreview").src=t.img_url; document.getElementById("teacherImgPreview").style.display="block"; } else { document.getElementById("teacherName").value=""; document.getElementById("teacherSubject").value=""; document.getElementById("teacherDesignation").value=""; document.getElementById("teacherClassIncharge").value=""; document.getElementById("teacherMessage").value=""; document.getElementById("teacherWhatsapp").value=""; document.getElementById("teacherImgUpload").value=""; document.getElementById("teacherImgPreview").style.display="none"; } }
   function previewTeacherImg(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("teacherImgPreview").src=e.target.result; document.getElementById("teacherImgPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
   
   async function saveTeacherFinal(){ 
-      document.getElementById("btnSaveTeacher").innerText = "Saving...";
-      let idx=document.getElementById("teacherIndex").value; let file=document.getElementById("teacherImgUpload").files[0]; 
-      let newT={ 
-          name: document.getElementById("teacherName").value, 
-          subject: document.getElementById("teacherSubject").value, 
-          designation: document.getElementById("teacherDesignation").value, 
-          class_incharge: document.getElementById("teacherClassIncharge").value,
-          message: document.getElementById("teacherMessage").value,
-          whatsapp: document.getElementById("teacherWhatsapp").value, 
-          img_url: (idx!==""?schoolData.teachers[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") 
-      }; 
-      if(file) { let url = await uploadToStorage(file, 'teachers'); if(url) newT.img_url = url; }
-      
-      if(idx==="") { await _supabase.from('teachers').insert([newT]); } else { await _supabase.from('teachers').update(newT).eq('id', schoolData.teachers[idx].id); }
-      await loadFromSupabase(); // refresh
-      document.getElementById("adminTeacherFormModal").style.display="none"; document.getElementById("adminTeacherListModal").style.display="flex"; document.getElementById("btnSaveTeacher").innerText = "Save Teacher";
+      document.getElementById("btnSaveTeacher").innerText = "Saving..."; let idx=document.getElementById("teacherIndex").value; let file=document.getElementById("teacherImgUpload").files[0]; 
+      let newT={ name: document.getElementById("teacherName").value, subject: document.getElementById("teacherSubject").value, designation: document.getElementById("teacherDesignation").value, class_incharge: document.getElementById("teacherClassIncharge").value, message: document.getElementById("teacherMessage").value, whatsapp: document.getElementById("teacherWhatsapp").value, img_url: (idx!==""?schoolData.teachers[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") }; 
+      if(file) { let url = await uploadToStorage(file, 'teachers'); if(url) { if (idx !== "" && schoolData.teachers[idx].img_url) { await deleteFileFromStorage(schoolData.teachers[idx].img_url); } newT.img_url = url; } } 
+      if(idx==="") { await _supabase.from('teachers').insert([newT]); } else { await _supabase.from('teachers').update(newT).eq('id', schoolData.teachers[idx].id); } 
+      await loadFromSupabase(); document.getElementById("adminTeacherFormModal").style.display="none"; document.getElementById("adminTeacherListModal").style.display="flex"; document.getElementById("btnSaveTeacher").innerText = "Save Teacher"; 
   }
-  async function deleteTeacher(idx){ if(confirm("Delete teacher?")){ await _supabase.from('teachers').delete().eq('id', schoolData.teachers[idx].id); await loadFromSupabase(); } }
+  
+  async function deleteTeacher(idx){ if(confirm("Delete teacher?")){ await deleteFileFromStorage(schoolData.teachers[idx].img_url); await _supabase.from('teachers').delete().eq('id', schoolData.teachers[idx].id); await loadFromSupabase(); } }
 
-  // --- POSITION HOLDERS ---
   function renderPositionHolders(){ document.getElementById("studentsGrid").innerHTML = schoolData.positionHolders.map((s,idx)=>`<div class="person-card" data-aos="flip-up" data-aos-delay="${(idx%4)*50}" onclick="openPublicStudent(${idx})"><img src="${s.img_url}" style="border-color:var(--accent);"><h3>${s.name}</h3><p>${s.class_name}</p><span class="marks-label">${s.marks}</span></div>`).join(''); }
   function openPublicStudent(idx){ let s=schoolData.positionHolders[idx]; document.getElementById("pubStuImg").src=s.img_url; document.getElementById("pubStuName").innerText=s.name; document.getElementById("pubStuFather").innerText=s.father_name; document.getElementById("pubStuClass").innerText=s.class_name; document.getElementById("pubStuRoll").innerText=s.roll_no; document.getElementById("pubStuMarks").innerText=s.marks; document.getElementById("publicStudentModal").style.display="flex"; }
   function populateAdminStudents(){ document.getElementById("adminStudentsListArea").innerHTML=schoolData.positionHolders.map((s,i)=>`<div class="list-item-admin"><div><img src="${s.img_url}" style="width:40px;height:40px;border-radius:50%;"> ${s.name}</div><div><button onclick="openStudentForm(${i})" class="btn btn-primary">Edit</button><button onclick="deleteStudent(${i})" class="btn btn-danger">Del</button></div></div>`).join(''); }
@@ -568,54 +861,38 @@
   function previewStudentImg(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>document.getElementById("studentImgPreview").src=e.target.result; document.getElementById("studentImgPreview").style.display="block"; r.readAsDataURL(input.files[0]); } }
   
   async function saveStudentFinal(){ 
-      document.getElementById("btnSaveStudent").innerText = "Saving...";
-      let idx=document.getElementById("studentIndex").value; let file=document.getElementById("studentImgUpload").files[0]; 
+      document.getElementById("btnSaveStudent").innerText = "Saving..."; let idx=document.getElementById("studentIndex").value; let file=document.getElementById("studentImgUpload").files[0]; 
       let newS={ name:document.getElementById("studentName").value, father_name:document.getElementById("studentFather").value, class_name:document.getElementById("studentClass").value, roll_no:document.getElementById("studentRoll").value, marks:document.getElementById("studentMarks").value, img_url: (idx!==""?schoolData.positionHolders[idx].img_url:"https://randomuser.me/api/portraits/men/default.jpg") }; 
-      if(file) { let url = await uploadToStorage(file, 'students'); if(url) newS.img_url = url; }
-      if(idx==="") { await _supabase.from('position_holders').insert([newS]); } else { await _supabase.from('position_holders').update(newS).eq('id', schoolData.positionHolders[idx].id); }
-      await loadFromSupabase(); document.getElementById("adminStudentFormModal").style.display="none"; document.getElementById("adminStudentsListModal").style.display="flex"; document.getElementById("btnSaveStudent").innerText = "Save Position Holder";
+      if(file) { let url = await uploadToStorage(file, 'students'); if(url) { if (idx !== "" && schoolData.positionHolders[idx].img_url) { await deleteFileFromStorage(schoolData.positionHolders[idx].img_url); } newS.img_url = url; } } 
+      if(idx==="") { await _supabase.from('position_holders').insert([newS]); } else { await _supabase.from('position_holders').update(newS).eq('id', schoolData.positionHolders[idx].id); } 
+      await loadFromSupabase(); document.getElementById("adminStudentFormModal").style.display="none"; document.getElementById("adminStudentsListModal").style.display="flex"; document.getElementById("btnSaveStudent").innerText = "Save Position Holder"; 
   }
-  async function deleteStudent(idx){ if(confirm("Delete student?")){ await _supabase.from('position_holders').delete().eq('id', schoolData.positionHolders[idx].id); await loadFromSupabase(); } }
+  async function deleteStudent(idx){ if(confirm("Delete student?")){ await deleteFileFromStorage(schoolData.positionHolders[idx].img_url); await _supabase.from('position_holders').delete().eq('id', schoolData.positionHolders[idx].id); await loadFromSupabase(); } }
 
-  // --- GALLERY ---
   function renderGallery(){ document.getElementById("galleryGrid").innerHTML = schoolData.gallery.map((g,idx)=>`<div class="gallery-card" data-aos="fade-up" data-aos-delay="${(idx%3)*100}" onclick="openPublicGallery(${idx})"><img src="${g.img_url}"><div class="gallery-caption">${g.caption}</div></div>`).join(''); }
   function openPublicGallery(idx){ let g=schoolData.gallery[idx]; document.getElementById("fullGalleryImg").src=g.img_url; document.getElementById("fullGalleryCaption").innerText=g.caption; document.getElementById("btnDownloadImg").href=g.img_url; document.getElementById("btnShareImg").href=`https://wa.me/?text=Check%20this%20from%20Model%20School%20Pishin:%20${g.caption}`; document.getElementById("publicGalleryModal").style.display="flex"; }
-  function populateAdminGallery(){ document.getElementById("adminGalleryListArea").innerHTML=schoolData.gallery.map((g,i)=>`<div class="list-item-admin"><div><img src="${g.img_url}" width="40"> ${g.caption}</div><button onclick="deleteGallery(${i})" class="btn btn-danger">Del</button></div>`).join(''); }
-  function openGalleryAdd() { document.getElementById("adminGalleryListModal").style.display="none"; document.getElementById("adminGalleryAddModal").style.display="flex"; }
+  function populateAdminGallery(){ document.getElementById("adminGalleryListArea").innerHTML=schoolData.gallery.map((g,i)=>`<div class="list-item-admin"><div><img src="${g.img_url}" width="40" style="border-radius:5px; height: 40px; object-fit:cover;"> ${g.caption}</div><div><button onclick="openGalleryEdit(${i})" class="btn btn-primary" style="padding: 5px 10px; font-size: 0.8rem;">Edit</button><button onclick="deleteGallery(${i})" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.8rem;">Del</button></div></div>`).join(''); }
+  function previewGalleryImg(input) { if(input.files[0]) { let r=new FileReader(); r.onload=e => { document.getElementById("galleryImgPreview").src=e.target.result; document.getElementById("galleryImgPreview").style.display="block"; }; r.readAsDataURL(input.files[0]); } }
+  function openGalleryAdd() { document.getElementById("adminGalleryListModal").style.display="none"; document.getElementById("adminGalleryAddModal").style.display="flex"; document.getElementById("galleryIndex").value = ""; document.getElementById("galleryFormTitle").innerText = "Add Picture"; document.getElementById("galleryUploadFile").value = ""; document.getElementById("galleryCaptionInput").value = ""; document.getElementById("galleryImgPreview").style.display = "none"; document.getElementById("btnSaveGallery").innerText = "Add to Gallery"; }
+  function openGalleryEdit(idx) { document.getElementById("adminGalleryListModal").style.display="none"; document.getElementById("adminGalleryAddModal").style.display="flex"; document.getElementById("galleryIndex").value = idx; document.getElementById("galleryFormTitle").innerText = "Edit Picture"; let g = schoolData.gallery[idx]; document.getElementById("galleryCaptionInput").value = g.caption; document.getElementById("galleryImgPreview").src = g.img_url; document.getElementById("galleryImgPreview").style.display = "block"; document.getElementById("btnSaveGallery").innerText = "Update Gallery"; }
   
   async function saveGalleryPicture(){ 
-      let file=document.getElementById("galleryUploadFile").files[0]; let caption=document.getElementById("galleryCaptionInput").value; 
-      if(!file) return alert("Please Select an Image"); 
-      document.getElementById("btnSaveGallery").innerText = "Uploading...";
-      let url = await uploadToStorage(file, 'gallery');
-      if(url) { await _supabase.from('gallery').insert([{ img_url: url, caption }]); await loadFromSupabase(); }
-      document.getElementById("galleryUploadFile").value=""; document.getElementById("galleryCaptionInput").value=""; document.getElementById("adminGalleryAddModal").style.display="none"; document.getElementById("adminGalleryListModal").style.display="flex"; document.getElementById("btnSaveGallery").innerText = "Add to Gallery";
+      let idx = document.getElementById("galleryIndex").value; let file = document.getElementById("galleryUploadFile").files[0]; let caption = document.getElementById("galleryCaptionInput").value; 
+      if(!file && idx === "") return alert("Please Select an Image"); 
+      document.getElementById("btnSaveGallery").innerText = "Uploading..."; let url = idx !== "" ? schoolData.gallery[idx].img_url : "";
+      if (file) { let uploadedUrl = await uploadToStorage(file, 'gallery'); if (uploadedUrl) { if (idx !== "" && schoolData.gallery[idx].img_url) { await deleteFileFromStorage(schoolData.gallery[idx].img_url); } url = uploadedUrl; } }
+      if (idx === "") { await _supabase.from('gallery').insert([{ img_url: url, caption }]); } else { await _supabase.from('gallery').update({ img_url: url, caption }).eq('id', schoolData.gallery[idx].id); }
+      await loadFromSupabase(); document.getElementById("adminGalleryAddModal").style.display="none"; document.getElementById("adminGalleryListModal").style.display="flex"; 
   }
-  async function deleteGallery(idx){ if(confirm("Delete image?")){ await _supabase.from('gallery').delete().eq('id', schoolData.gallery[idx].id); await loadFromSupabase(); } }
+  async function deleteGallery(idx){ if(confirm("Delete image?")){ await deleteFileFromStorage(schoolData.gallery[idx].img_url); await _supabase.from('gallery').delete().eq('id', schoolData.gallery[idx].id); await loadFromSupabase(); } }
 
-  // --- DEVELOPER & LOGIN ---
-  function renderDeveloper(){ 
-    let d=schoolData.developer; 
-    document.getElementById("developerCard").innerHTML=`<img src="${d.img}" class="dev-img" data-aos="zoom-in"><h3 style="color:var(--accent);">${d.name}</h3><p>Class: ${d.class} | ${d.role}</p><div style="margin-top:5px;">${d.skills.map(s=>`<span class="skill-badge">💻 ${s}</span>`).join('')}</div><div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button id="adminLoginBtn" class="btn btn-primary" style="flex:1;"><i class="fas fa-user-shield"></i> Admin Login</button></div>`; 
-    document.getElementById("adminLoginBtn")?.addEventListener("click", () => { document.getElementById("developerLoginModal").style.display = "flex"; }); 
-  }
+  function renderDeveloper(){ let d=schoolData.developer; document.getElementById("developerCard").innerHTML=`<img src="${d.img}" class="dev-img" data-aos="zoom-in"><h3 style="color:var(--accent);">${d.name}</h3><p>Class: ${d.class} | ${d.role}</p><div style="margin-top:5px;">${d.skills.map(s=>`<span class="skill-badge">💻 ${s}</span>`).join('')}</div><div style="display:flex; gap:10px; margin-top:15px; flex-wrap:wrap;"><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" class="btn btn-whatsapp" style="flex:1;"><i class="fab fa-whatsapp"></i> Chat</a><button id="adminLoginBtn" class="btn btn-primary" style="flex:1;"><i class="fas fa-user-shield"></i> Admin Login</button></div>`; document.getElementById("adminLoginBtn")?.addEventListener("click", () => { document.getElementById("developerLoginModal").style.display = "flex"; }); }
   function previewDevPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=> { document.getElementById("devPicPreview").src=e.target.result; document.getElementById("devPicPreview").style.display="block";}; r.readAsDataURL(input.files[0]); } }
-  
-  async function saveDeveloper(){ 
-      let file=document.getElementById("devPicUpload").files[0]; 
-      schoolData.developer.name=document.getElementById("devName").value; schoolData.developer.class=document.getElementById("devClass").value; schoolData.developer.role=document.getElementById("devRole").value; schoolData.developer.skills=document.getElementById("devSkills").value.split(",").map(s=>s.trim()); 
-      if(file){ let url = await uploadToStorage(file, 'developer'); if(url) schoolData.developer.img = url; }
-      await saveSettingsToSupabase(); renderDeveloper(); openAdminMaster('adminDeveloperModal'); alert("Developer profile updated successfully!"); 
-  }
+  async function saveDeveloper(){ let file=document.getElementById("devPicUpload").files[0]; schoolData.developer.name=document.getElementById("devName").value; schoolData.developer.class=document.getElementById("devClass").value; schoolData.developer.role=document.getElementById("devRole").value; schoolData.developer.skills=document.getElementById("devSkills").value.split(",").map(s=>s.trim()); if(file){ let url = await uploadToStorage(file, 'developer'); if(url) { await deleteFileFromStorage(schoolData.developer.img); schoolData.developer.img = url; } } await saveSettingsToSupabase(); renderDeveloper(); openAdminMaster('adminDeveloperModal'); alert("Developer profile updated successfully!"); }
 
   async function loginDeveloperSupabase() {
-      let email = document.getElementById("devAuthEmail").value;
-      let password = document.getElementById("devAuthPass").value;
-      let btn = document.getElementById("btnDevLogin");
-
-      if(!email || !password) return alert("ای میل اور پاسورڈ درج کریں۔");
-
-      btn.innerText = "Checking...";
+      let email = document.getElementById("devAuthEmail").value; let password = document.getElementById("devAuthPass").value; let btn = document.getElementById("btnDevLogin");
+      if(!email || !password) return alert("ای میل اور پاسورڈ درج کریں۔"); btn.innerText = "Checking...";
       const { data, error } = await _supabase.auth.signInWithPassword({ email: email, password: password });
       if(error) { alert("لاگ ان ناکام ہو گیا: " + error.message); btn.innerText = "Secure Login"; } 
       else { document.getElementById("developerLoginModal").style.display = "none"; document.getElementById("devAuthEmail").value = ""; document.getElementById("devAuthPass").value = ""; alert("خوش آمدید ڈیولپر!"); btn.innerText = "Secure Login"; }
@@ -623,135 +900,37 @@
 
   document.getElementById("logoutAdminBtn").addEventListener("click", async function() { await _supabase.auth.signOut(); alert("کامیابی سے لاگ آؤٹ ہو گیا ہے۔"); });
 
-  // --- ADMISSIONS (Updated for Supabase Database & Principal Auth) ---
   function previewAdmsnPic(input){ if(input.files[0]){ let r=new FileReader(); r.onload=e=>{ document.getElementById("admPicPreview").src=e.target.result; document.getElementById("admPicPreview").style.display="block"; document.getElementById("admPicText").innerText="Photo Selected"; }; r.readAsDataURL(input.files[0]); } }
+  async function submitAdmission(){ let name=document.getElementById("admName").value, father=document.getElementById("admFather").value, cls=document.getElementById("admClass").value, phone=document.getElementById("admPhone").value, dob=document.getElementById("admDob").value, address=document.getElementById("admAddress").value, file=document.getElementById("admPic").files[0]; if(!name||!father||!phone||!file) return alert("Please fill required fields and upload photo."); document.getElementById("btnSubmitForm").innerText = "Submitting..."; let url = await uploadToStorage(file, 'admissions'); if(url) { let newApp = { name: name, father_name: father, class_name: cls, phone: phone, dob: dob, address: address, img_url: url, status: 'pending' }; const { error } = await _supabase.from('admissions').insert([newApp]); if(error) { alert("Error submitting application: " + error.message); } else { alert("Application submitted successfully!"); document.getElementById("admName").value=""; document.getElementById("admFather").value=""; document.getElementById("admPhone").value=""; document.getElementById("admDob").value=""; document.getElementById("admAddress").value=""; document.getElementById("admPic").value=""; document.getElementById("admPicPreview").style.display="none"; document.getElementById("admPicText").innerText="Upload Student Photo"; } } document.getElementById("btnSubmitForm").innerText = langPack[currentLang].btnApply; }
   
-  async function submitAdmission(){ 
-      let name=document.getElementById("admName").value, father=document.getElementById("admFather").value, cls=document.getElementById("admClass").value, phone=document.getElementById("admPhone").value, dob=document.getElementById("admDob").value, address=document.getElementById("admAddress").value, file=document.getElementById("admPic").files[0]; 
-      
-      if(!name||!father||!phone||!file) return alert("Please fill required fields and upload photo."); 
-      document.getElementById("btnSubmitForm").innerText = "Submitting...";
-      
-      let url = await uploadToStorage(file, 'admissions');
-      if(url) {
-          let newApp = { 
-              name: name, 
-              father_name: father, 
-              class_name: cls, 
-              phone: phone, 
-              dob: dob, 
-              address: address, 
-              img_url: url, 
-              status: 'pending' 
-          }; 
-          
-          const { error } = await _supabase.from('admissions').insert([newApp]);
-          
-          if(error) {
-              alert("Error submitting application: " + error.message);
-          } else {
-              alert("Application submitted successfully!"); 
-              document.getElementById("admName").value=""; document.getElementById("admFather").value=""; document.getElementById("admPhone").value=""; document.getElementById("admDob").value=""; document.getElementById("admAddress").value=""; document.getElementById("admPic").value=""; document.getElementById("admPicPreview").style.display="none"; document.getElementById("admPicText").innerText="Upload Student Photo";
-          }
-      }
-      document.getElementById("btnSubmitForm").innerText = langPack[currentLang].btnApply;
-  }
-  
-  // SECURE PRINCIPAL LOGIN WITH SUPABASE
-  async function loginPrincipal(){ 
-      let email=document.getElementById("prinEmail").value;
-      let pass=document.getElementById("prinPass").value; 
-      let btn=document.querySelector("#principalLoginModal .btn-primary");
-
-      if(!email || !pass) return alert("Please enter email and password!");
-      
-      btn.innerText = "Checking...";
-      const { data, error } = await _supabase.auth.signInWithPassword({ email: email, password: pass });
-      
-      if(error){
-          alert("Invalid credentials: " + error.message);
-          btn.innerText = "Login";
-      } else {
-          document.getElementById("prinEmail").value = "";
-          document.getElementById("prinPass").value = "";
-          document.getElementById("principalLoginModal").style.display="none";
-          btn.innerText = "Login";
-          openPrincipalDashboard();
-      }
-  }
-  
+  async function loginPrincipal(){ let email=document.getElementById("prinEmail").value; let pass=document.getElementById("prinPass").value; let btn=document.querySelector("#principalLoginModal .btn-primary"); if(!email || !pass) return alert("Please enter email and password!"); btn.innerText = "Checking..."; const { data, error } = await _supabase.auth.signInWithPassword({ email: email, password: pass }); if(error){ alert("Invalid credentials: " + error.message); btn.innerText = "Login"; } else { document.getElementById("prinEmail").value = ""; document.getElementById("prinPass").value = ""; document.getElementById("principalLoginModal").style.display="none"; btn.innerText = "Login"; openPrincipalDashboard(); } }
   let currentAdmissions = [];
-
-  async function openPrincipalDashboard(){ 
-      document.getElementById("principalDashboardModal").style.display="flex"; 
-      let area=document.getElementById("admissionRequestsArea"); 
-      area.innerHTML="<p style='text-align:center;padding:2rem;'>Loading requests...</p>"; 
-
-      const { data, error } = await _supabase.from('admissions').select('*').eq('status', 'pending');
-      
-      if (error) { area.innerHTML = "<p style='color:red;'>Error loading data</p>"; return; }
-      
-      currentAdmissions = data; 
-
-      if(!data || data.length === 0){ 
-          area.innerHTML="<p style='text-align:center;padding:2rem;'>No pending requests.</p>"; 
-          return; 
-      } 
-      
-      area.innerHTML = data.map(app => `
-          <div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:1rem;margin-bottom:1rem;">
-              <div style="display:flex;gap:15px;align-items:center;">
-                  <img src="${app.img_url}" style="width:50px;height:50px;border-radius:50%; object-fit:cover;">
-                  <div><strong style="color:var(--accent);">${app.name}</strong><br>Class: ${app.class_name}</div>
-              </div>
-              <div style="display:flex;gap:10px;margin-top:10px;">
-                  <button onclick="viewApplication(${app.id})" class="btn btn-primary">View</button>
-                  <button onclick="acceptApplication(${app.id},'${app.phone}')" class="btn btn-success">Accept</button>
-                  <button onclick="rejectApplication(${app.id},'${app.phone}')" class="btn btn-danger">Reject</button>
-              </div>
-          </div>
-      `).join(''); 
-  }
-
-  function viewApplication(id){ 
-      let app = currentAdmissions.find(a => a.id === id); 
-      if(app){ 
-          document.getElementById("viewAppImg").src=app.img_url; 
-          document.getElementById("viewAppName").innerText=app.name; 
-          document.getElementById("viewAppClass").innerText=app.class_name; 
-          document.getElementById("viewAppFather").innerText=app.father_name; 
-          document.getElementById("viewAppPhone").innerText=app.phone; 
-          document.getElementById("viewAppDob").innerText=app.dob; 
-          document.getElementById("viewAppDate").innerText= new Date(app.created_at).toLocaleDateString(); 
-          document.getElementById("viewAppAddress").innerText=app.address; 
-          document.getElementById("principalDashboardModal").style.display="none"; 
-          document.getElementById("viewAppModal").style.display="flex"; 
-      } 
-  }
-
-  async function acceptApplication(id, phone){ 
-      await _supabase.from('admissions').update({ status: 'accepted' }).eq('id', id);
-      openPrincipalDashboard(); 
-      let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); 
-      window.open(`https://wa.me/${clean}?text=Congratulations!%20Your%20admission%20at%20Model%20School%20Pishin%20is%20accepted!`,'_blank'); 
-  }
-
-  async function rejectApplication(id, phone){ 
-      await _supabase.from('admissions').update({ status: 'rejected' }).eq('id', id);
-      openPrincipalDashboard(); 
-      let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); 
-      window.open(`https://wa.me/${clean}?text=Application%20rejected%20due%20to%20limited%20seats.`,'_blank'); 
-  }
+  async function openPrincipalDashboard(){ document.getElementById("principalDashboardModal").style.display="flex"; let area=document.getElementById("admissionRequestsArea"); area.innerHTML="<p style='text-align:center;padding:2rem;'>Loading requests...</p>"; const { data, error } = await _supabase.from('admissions').select('*').eq('status', 'pending'); if (error) { area.innerHTML = "<p style='color:red;'>Error loading data</p>"; return; } currentAdmissions = data; if(!data || data.length === 0){ area.innerHTML="<p style='text-align:center;padding:2rem;'>No pending requests.</p>"; return; } area.innerHTML = data.map(app => `<div style="background:rgba(255,255,255,0.05);padding:1rem;border-radius:1rem;margin-bottom:1rem;"><div style="display:flex;gap:15px;align-items:center;"><img src="${app.img_url}" style="width:50px;height:50px;border-radius:50%; object-fit:cover;"><div><strong style="color:var(--accent);">${app.name}</strong><br>Class: ${app.class_name}</div></div><div style="display:flex;gap:10px;margin-top:10px;"><button onclick="viewApplication(${app.id})" class="btn btn-primary">View</button><button onclick="acceptApplication(${app.id},'${app.phone}')" class="btn btn-success">Accept</button><button onclick="rejectApplication(${app.id},'${app.phone}')" class="btn btn-danger">Reject</button></div></div>`).join(''); }
+  function viewApplication(id){ let app = currentAdmissions.find(a => a.id === id); if(app){ document.getElementById("viewAppImg").src=app.img_url; document.getElementById("viewAppName").innerText=app.name; document.getElementById("viewAppClass").innerText=app.class_name; document.getElementById("viewAppFather").innerText=app.father_name; document.getElementById("viewAppPhone").innerText=app.phone; document.getElementById("viewAppDob").innerText=app.dob; document.getElementById("viewAppDate").innerText= new Date(app.created_at).toLocaleDateString(); document.getElementById("viewAppAddress").innerText=app.address; document.getElementById("principalDashboardModal").style.display="none"; document.getElementById("viewAppModal").style.display="flex"; } }
+  async function acceptApplication(id, phone){ await _supabase.from('admissions').update({ status: 'accepted' }).eq('id', id); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Congratulations!%20Your%20admission%20at%20Model%20School%20Pishin%20is%20accepted!`,'_blank'); }
+  async function rejectApplication(id, phone){ await _supabase.from('admissions').update({ status: 'rejected' }).eq('id', id); openPrincipalDashboard(); let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='92'+clean.slice(1); window.open(`https://wa.me/${clean}?text=Application%20rejected%20due%20to%20limited%20seats.`,'_blank'); }
 
   function closeModal(id){ document.getElementById(id).style.display="none"; }
   function openAdminMaster(curr){ document.getElementById(curr).style.display="none"; document.getElementById("adminModal").style.display="flex"; }
-  function openAdminSection(modalId){ document.getElementById("adminModal").style.display="none"; document.getElementById(modalId).style.display="flex"; if(modalId==='adminLogosModal') { if(schoolData.logos.headerLogo) { document.getElementById("headerLogoPreview").src = schoolData.logos.headerLogo; document.getElementById("headerLogoPreview").style.display = "block"; } else { document.getElementById("headerLogoPreview").style.display = "none"; } if(schoolData.logos.bgLogo) { document.getElementById("bgLogoPreview").src = schoolData.logos.bgLogo; document.getElementById("bgLogoPreview").style.display = "block"; } else { document.getElementById("bgLogoPreview").style.display = "none"; } } else if(modalId==='adminMetricsModal') { document.getElementById("editStudentsCount").value = schoolData.metrics.students; document.getElementById("editTeachersCount").value = schoolData.metrics.teachers; document.getElementById("editBooksCount").value = schoolData.metrics.books; document.getElementById("editComputersCount").value = schoolData.metrics.computers; } else if(modalId==='adminNewsVideoModal') document.getElementById("editNewsText").value=schoolData.newsAndVideo.newsItems.join(", "); else if(modalId==='adminAboutModal'){ document.getElementById("editAboutDesc").value=schoolData.about.desc; document.getElementById("editVision").value=schoolData.about.vision; document.getElementById("editMission").value=schoolData.about.mission; } else if(modalId==='adminPrincipalModal'){ let p=schoolData.about.principal; document.getElementById("editPrinName").value=p.name; document.getElementById("editPrinMsg").value=p.message; document.getElementById("editPrinWa").value=p.whatsapp; document.getElementById("prinPicPreview").src=p.img; document.getElementById("prinPicPreview").style.display="block"; } else if(modalId==='adminTeacherListModal') populateAdminTeachers(); else if(modalId==='adminStudentsListModal') populateAdminStudents(); else if(modalId==='adminGalleryListModal') populateAdminGallery(); else if(modalId==='adminDeveloperModal'){ let d=schoolData.developer; document.getElementById("devName").value=d.name; document.getElementById("devClass").value=d.class; document.getElementById("devRole").value=d.role; document.getElementById("devSkills").value=d.skills.join(", "); document.getElementById("devPicPreview").src=d.img; document.getElementById("devPicPreview").style.display="block"; } }
+  
+  function openAdminSection(modalId){ 
+      document.getElementById("adminModal").style.display="none"; document.getElementById(modalId).style.display="flex"; 
+      if(modalId==='adminLogosModal') { if(schoolData.logos.headerLogo) { document.getElementById("headerLogoPreview").src = schoolData.logos.headerLogo; document.getElementById("headerLogoPreview").style.display = "block"; } else { document.getElementById("headerLogoPreview").style.display = "none"; } if(schoolData.logos.bgLogo) { document.getElementById("bgLogoPreview").src = schoolData.logos.bgLogo; document.getElementById("bgLogoPreview").style.display = "block"; } else { document.getElementById("bgLogoPreview").style.display = "none"; } } 
+      else if(modalId==='adminMetricsModal') { document.getElementById("editStudentsCount").value = schoolData.metrics.students; document.getElementById("editTeachersCount").value = schoolData.metrics.teachers; document.getElementById("editBooksCount").value = schoolData.metrics.books; document.getElementById("editComputersCount").value = schoolData.metrics.computers; populateAdminSliderImages(); } 
+      else if(modalId==='adminNewsVideoModal') { populateAdminNews(); } 
+      else if(modalId==='adminAboutModal'){ document.getElementById("editAboutDesc").value=schoolData.about.desc; document.getElementById("editVision").value=schoolData.about.vision; document.getElementById("editMission").value=schoolData.about.mission; } 
+      else if(modalId==='adminPrincipalModal'){ let p=schoolData.about.principal; document.getElementById("editPrinName").value=p.name; document.getElementById("editPrinMsg").value=p.message; document.getElementById("editPrinWa").value=p.whatsapp; document.getElementById("prinPicPreview").src=p.img; document.getElementById("prinPicPreview").style.display="block"; } 
+      else if(modalId==='adminTeacherListModal') populateAdminTeachers(); 
+      else if(modalId==='adminStudentsListModal') populateAdminStudents(); 
+      else if(modalId==='adminGalleryListModal') populateAdminGallery(); 
+      else if(modalId==='adminManageCommentsModal') renderAdminComments();
+      else if(modalId==='adminDeveloperModal'){ let d=schoolData.developer; document.getElementById("devName").value=d.name; document.getElementById("devClass").value=d.class; document.getElementById("devRole").value=d.role; document.getElementById("devSkills").value=d.skills.join(", "); document.getElementById("devPicPreview").src=d.img; document.getElementById("devPicPreview").style.display="block"; } 
+  }
 
   document.getElementById("menuIcon").addEventListener("click",()=>document.getElementById("navLinks").classList.toggle("active"));
   document.getElementById("openAdminModal").addEventListener("click", function() { document.getElementById("adminModal").style.display = "flex"; });
   document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { document.getElementById('navLinks').classList.remove('active'); }); });
 
-  // INIT
   loadFromSupabase().then(() => setupRealtime());
 </script>
 </body>
