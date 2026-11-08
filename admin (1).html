@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0f172a">
+<title>Admin Panel | Model School Pishin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f4f6fb;--surface:#fff;--surface-2:#f8fafc;--border:#e4e8f1;--text:#0f172a;--muted:#64748b;
+  --primary:#4f46e5;--primary-h:#4338ca;--primary-soft:#eef2ff;--primary-text:#4338ca;
+  --green:#059669;--green-soft:#d1fae5;--amber:#b45309;--amber-soft:#fef3c7;--red:#dc2626;--red-soft:#fee2e2;--blue:#0369a1;--blue-soft:#e0f2fe;
+  --side:#0f172a;--side-text:#cbd5e1;--gold:#fbbf24;
+  --shadow:0 1px 2px rgba(15,23,42,.06),0 8px 24px -12px rgba(15,23,42,.12);--radius:14px;
+}
+body.dark{
+  --bg:#0a0f1e;--surface:#111a30;--surface-2:#0e1628;--border:#1f2b47;--text:#e8edf7;--muted:#93a1bd;
+  --primary:#818cf8;--primary-h:#6366f1;--primary-soft:rgba(129,140,248,.14);--primary-text:#a5b4fc;
+  --green:#34d399;--green-soft:rgba(52,211,153,.14);--amber:#fbbf24;--amber-soft:rgba(251,191,36,.14);--red:#f87171;--red-soft:rgba(248,113,113,.14);--blue:#38bdf8;--blue-soft:rgba(56,189,248,.14);
+  --side:#070b17;--shadow:0 8px 24px -12px rgba(0,0,0,.6);
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
+[hidden]{display:none!important}
+a{color:var(--primary-text)}
+button{font-family:inherit}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--primary) 45%,transparent);outline-offset:2px}
+img{max-width:100%}
+
+/* ---------- buttons / badges ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:40px;padding:.55rem 1.1rem;border-radius:10px;border:1px solid transparent;font-weight:600;font-size:.88rem;cursor:pointer;text-decoration:none;transition:.15s;white-space:nowrap}
+.btn.primary{background:var(--primary);color:#fff}.btn.primary:hover{background:var(--primary-h)}
+.btn.ghost{background:var(--surface);border-color:var(--border);color:var(--text)}.btn.ghost:hover{border-color:var(--primary);color:var(--primary-text)}
+.btn.danger{background:var(--red-soft);color:var(--red)}.btn.danger:hover{background:var(--red);color:#fff}
+.btn.ok{background:var(--green-soft);color:var(--green)}.btn.ok:hover{background:var(--green);color:#fff}
+.btn.sm{min-height:34px;padding:.3rem .75rem;font-size:.8rem;border-radius:8px}
+.btn.icon{width:36px;min-height:36px;padding:0;border-radius:9px}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.12rem .6rem;border-radius:999px;font-size:.72rem;font-weight:700;background:var(--surface-2);color:var(--muted)}
+.badge.green{background:var(--green-soft);color:var(--green)}.badge.amber{background:var(--amber-soft);color:var(--amber)}.badge.red{background:var(--red-soft);color:var(--red)}.badge.blue{background:var(--blue-soft);color:var(--blue)}.badge.primary{background:var(--primary-soft);color:var(--primary-text)}
+
+/* ---------- login ---------- */
+#loginView{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr}
+.login-art{background:linear-gradient(150deg,#0b1220 0%,#1e1b4b 55%,#3730a3 100%);color:#fff;padding:3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.login-art::before,.login-art::after{content:"";position:absolute;border-radius:50%;background:rgba(251,191,36,.08)}
+.login-art::before{width:420px;height:420px;right:-140px;top:-120px}.login-art::after{width:300px;height:300px;left:-100px;bottom:-90px;background:rgba(129,140,248,.14)}
+.login-art>*{position:relative;z-index:1}
+.art-brand{display:flex;align-items:center;gap:.8rem;font-weight:700}
+.art-brand img{width:46px;height:46px;border-radius:50%;background:#fff;padding:3px;border:2px solid var(--gold)}
+.login-art h1{font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;font-weight:800;max-width:460px}
+.login-art p{color:#c7d2fe;max-width:440px;margin-top:.8rem}
+.art-list{list-style:none;display:grid;gap:.6rem;color:#e0e7ff;font-size:.92rem}
+.art-list i{color:var(--gold);width:22px}
+.login-box{display:flex;align-items:center;justify-content:center;padding:2rem;background:var(--bg)}
+.login-card{width:100%;max-width:410px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow)}
+.login-card h2{font-size:1.5rem;font-weight:800}.login-card .sub{color:var(--muted);margin:.2rem 0 1.4rem}
+.pw-wrap{position:relative}.pw-wrap input{padding-right:2.8rem}
+.pw-eye{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);width:38px;height:38px;cursor:pointer;font-size:1rem}
+.login-err{background:var(--red-soft);color:var(--red);padding:.6rem .8rem;border-radius:10px;font-size:.85rem;margin-bottom:1rem}
+.login-ok{background:var(--green-soft);color:var(--green);padding:.6rem .8rem;border-radius:10px;font-size:.85rem;margin-bottom:1rem}
+.linkbtn{background:none;border:none;color:var(--primary-text);font-weight:600;cursor:pointer;font-size:.85rem;padding:.3rem 0}
+
+/* ---------- app shell ---------- */
+#appView{display:flex;min-height:100vh}
+.sidebar{width:262px;background:var(--side);color:var(--side-text);position:fixed;inset:0 auto 0 0;z-index:60;display:flex;flex-direction:column;transition:transform .25s}
+.side-head{display:flex;align-items:center;gap:.7rem;padding:1.1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.side-head img{width:40px;height:40px;border-radius:50%;background:#fff;padding:2px;border:2px solid var(--gold);object-fit:contain}
+.side-head b{display:block;color:#fff;font-size:.95rem;line-height:1.2}.side-head small{color:var(--gold);font-size:.68rem;letter-spacing:.8px;text-transform:uppercase;font-weight:600}
+.nav{flex:1;overflow-y:auto;padding:.8rem .7rem 1rem}
+.nav-label{font-size:.66rem;letter-spacing:1.1px;text-transform:uppercase;color:#64748b;font-weight:700;padding:.9rem .7rem .35rem}
+.nav a{display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;border-radius:10px;color:var(--side-text);text-decoration:none;font-weight:500;font-size:.88rem;position:relative}
+.nav a i{width:18px;text-align:center;opacity:.85}
+.nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav a.active{background:rgba(99,102,241,.2);color:#fff}
+.nav a.active::before{content:"";position:absolute;left:-.7rem;top:20%;bottom:20%;width:4px;border-radius:0 4px 4px 0;background:var(--gold)}
+.nav .count{margin-left:auto;background:var(--gold);color:#1b2433;font-size:.68rem;font-weight:800;padding:.05rem .5rem;border-radius:999px}
+.side-foot{padding:.9rem 1.1rem;border-top:1px solid rgba(255,255,255,.07);font-size:.78rem}
+.side-foot .me{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;min-width:0}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.side-foot .me span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e2e8f0}
+.main{margin-left:262px;flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.8rem;padding:.7rem 1.5rem}
+.topbar h1{font-size:1.15rem;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.menu-btn{display:none}
+#page{padding:1.5rem;max-width:1280px;width:100%;margin:0 auto}
+.overlay{position:fixed;inset:0;background:rgba(2,6,23,.55);z-index:55;display:none}
+.banner{background:var(--amber-soft);color:var(--amber);border:1px solid color-mix(in srgb,var(--amber) 30%,transparent);padding:.7rem 1rem;border-radius:12px;margin-bottom:1.1rem;font-size:.86rem;display:flex;gap:.7rem;align-items:flex-start}
+.banner a{font-weight:700}
+
+/* ---------- cards / layout ---------- */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.card-h{display:flex;align-items:center;gap:.7rem;padding:1rem 1.2rem;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.card-h h2,.card-h h3{font-size:1rem;font-weight:700;flex:1}
+.card-b{padding:1.2rem}
+.grid{display:grid;gap:1rem}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.page-h{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.page-h .t{flex:1;min-width:200px}.page-h h2{font-size:1.35rem;font-weight:800}.page-h p{color:var(--muted);font-size:.88rem}
+.stat{display:flex;align-items:center;gap:.9rem;padding:1.1rem;text-decoration:none;color:inherit}
+.stat .ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex:none}
+.stat b{display:block;font-size:1.55rem;line-height:1.1;font-weight:800}.stat span{color:var(--muted);font-size:.8rem;font-weight:500}
+.ic.indigo{background:var(--primary-soft);color:var(--primary-text)}.ic.green{background:var(--green-soft);color:var(--green)}.ic.amber{background:var(--amber-soft);color:var(--amber)}.ic.blue{background:var(--blue-soft);color:var(--blue)}.ic.red{background:var(--red-soft);color:var(--red)}
+a.stat:hover{border-color:var(--primary)}
+.chart{width:100%;height:auto;display:block}.chart .bar{fill:var(--primary)}.chart .bar2{fill:var(--gold)}.chart text{fill:var(--muted);font-size:10px;font-family:inherit}.chart line{stroke:var(--border)}
+.bar-row{display:flex;align-items:center;gap:.7rem;margin:.5rem 0;font-size:.85rem}.bar-row .lbl{width:92px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-row .trk{flex:1;height:9px;background:var(--surface-2);border-radius:9px;overflow:hidden}.bar-row .fill{height:100%;background:var(--primary);border-radius:9px}.bar-row b{width:46px;text-align:right}
+.empty{text-align:center;color:var(--muted);padding:2.2rem 1rem}.empty i{font-size:1.8rem;opacity:.5;margin-bottom:.5rem;display:block}
+.skel{height:84px;border-radius:var(--radius);background:linear-gradient(90deg,var(--surface-2),var(--surface),var(--surface-2));background-size:200% 100%;animation:sh 1.3s infinite linear}
+@keyframes sh{to{background-position:-200% 0}}
+
+/* ---------- forms ---------- */
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:.9rem 1rem}
+.field{display:flex;flex-direction:column;gap:.35rem;min-width:0}.field.wide{grid-column:1/-1}
+.field label{font-size:.8rem;font-weight:600;color:var(--text)}.req{color:var(--red)}.hint{font-size:.74rem;color:var(--muted)}
+input[type=text],input[type=tel],input[type=url],input[type=email],input[type=password],input[type=date],input[type=number],select,textarea{width:100%;padding:.62rem .8rem;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font:inherit;font-size:.9rem;outline:none;transition:.15s;min-height:42px}
+textarea{resize:vertical;min-height:84px}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 18%,transparent)}
+.switch{display:flex;align-items:center;gap:.7rem;cursor:pointer;font-weight:600;font-size:.88rem}
+.switch input{position:absolute;opacity:0}.switch span{width:42px;height:24px;border-radius:24px;background:var(--border);position:relative;transition:.2s;flex:none}
+.switch span::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.switch input:checked+span{background:var(--green)}.switch input:checked+span::after{transform:translateX(18px)}
+.switch input:focus-visible+span{outline:3px solid color-mix(in srgb,var(--primary) 45%,transparent)}
+.imgfield{display:flex;gap:.9rem;align-items:center}
+.imgprev{width:84px;height:84px;border-radius:14px;background:var(--surface-2);border:1px dashed var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--muted);flex:none}
+.imgprev img{width:100%;height:100%;object-fit:cover}.imgprev.wide{width:150px;height:84px}
+.imgbtns{display:flex;gap:.5rem;flex-wrap:wrap}
+.filebtn input{display:none}
+.savebar{display:flex;gap:.7rem;justify-content:flex-end;align-items:center;margin-top:1.1rem;flex-wrap:wrap}
+.savebar .note{margin-right:auto;color:var(--muted);font-size:.8rem}
+.sec-t{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:1.2rem 0 .6rem;grid-column:1/-1;display:flex;align-items:center;gap:.6rem}
+.sec-t::after{content:"";flex:1;height:1px;background:var(--border)}
+.sec-t:first-child{margin-top:0}
+
+/* ---------- toolbar / lists ---------- */
+.toolbar{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem}
+.search{position:relative;flex:1;min-width:200px;max-width:380px}.search i{position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}.search input{padding-left:2.3rem}
+.tabs{display:flex;gap:.35rem;background:var(--surface-2);border:1px solid var(--border);padding:.25rem;border-radius:11px;overflow-x:auto;max-width:100%}
+.tabs button{border:none;background:none;padding:.4rem .9rem;border-radius:8px;font-weight:600;font-size:.82rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--surface);color:var(--primary-text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.tabs .n{margin-left:.3rem;font-size:.72rem;opacity:.8}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:.9rem}
+.item{display:flex;gap:.9rem;padding:.9rem;align-items:flex-start}
+.item .th{width:62px;height:62px;border-radius:12px;object-fit:cover;object-position:top;background:var(--surface-2);flex:none;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.item .info{flex:1;min-width:0}.item .info b{display:block;font-size:.95rem;line-height:1.3;overflow-wrap:anywhere}.item .info span{display:block;color:var(--muted);font-size:.8rem;overflow-wrap:anywhere}
+.item .acts{display:flex;flex-direction:column;gap:.35rem}.item .acts.row{flex-direction:row}
+.sortbtns{display:flex;gap:.3rem;margin-top:.45rem}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:left;font-size:.72rem;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);font-weight:700;padding:.7rem 1rem;border-bottom:1px solid var(--border);background:var(--surface-2)}
+.tbl td{padding:.75rem 1rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}.tbl tbody tr:hover{background:var(--surface-2)}
+.tbl .who{display:flex;align-items:center;gap:.7rem;min-width:0}.tbl .who img,.tbl .who .ph{width:40px;height:40px;border-radius:50%;object-fit:cover;background:var(--surface-2);flex:none;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.tbl .who b{display:block;line-height:1.25}.tbl .who small{color:var(--muted)}
+.review{padding:1rem 1.1rem;display:flex;gap:.9rem}.review p{margin:.25rem 0 .6rem;overflow-wrap:anywhere}.review .meta{color:var(--muted);font-size:.78rem}
+
+/* ---------- modal / toast ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(2,6,23,.6);backdrop-filter:blur(3px);z-index:100;display:flex;align-items:center;justify-content:center;padding:1rem;animation:fade .15s}
+.modal{background:var(--surface);border-radius:18px;width:100%;max-width:600px;max-height:92vh;display:flex;flex-direction:column;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);border:1px solid var(--border);animation:pop .2s}
+.modal.sm{max-width:420px}.modal.lg{max-width:780px}
+.modal-h{display:flex;align-items:center;gap:.7rem;padding:1rem 1.2rem;border-bottom:1px solid var(--border)}.modal-h h3{flex:1;font-size:1.05rem}
+.modal-b{padding:1.2rem;overflow-y:auto;flex:1}.modal-f{display:flex;gap:.6rem;justify-content:flex-end;padding:.9rem 1.2rem;border-top:1px solid var(--border);flex-wrap:wrap}
+@keyframes fade{from{opacity:0}}@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:0}}
+.toasts{position:fixed;right:1rem;bottom:1rem;z-index:200;display:grid;gap:.5rem;max-width:calc(100vw - 2rem)}
+.toast{background:var(--text);color:var(--bg);padding:.7rem 1rem;border-radius:12px;font-size:.88rem;font-weight:500;box-shadow:0 12px 30px -10px rgba(0,0,0,.5);display:flex;gap:.6rem;align-items:center;animation:pop .2s}
+.toast.ok i{color:#34d399}.toast.err i{color:#f87171}.toast.warn i{color:#fbbf24}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:.45rem 1rem;font-size:.9rem}.kv dt{color:var(--muted)}.kv dd{overflow-wrap:anywhere;font-weight:500}
+.check{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid var(--border)}.check:last-child{border:none}
+.check i{margin-top:.2rem}.check .ok{color:var(--green)}.check .bad{color:var(--red)}.check small{display:block;color:var(--muted)}
+pre.sql{background:#0b1220;color:#d6e2ff;padding:1rem;border-radius:12px;font-size:.74rem;line-height:1.55;max-height:340px;overflow:auto;white-space:pre}
+.steps{padding-left:1.2rem;display:grid;gap:.35rem;margin:.6rem 0 1rem}
+
+@media(max-width:1180px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1023px){
+  #loginView{grid-template-columns:1fr}.login-art{display:none}
+  .sidebar{transform:translateX(-100%);width:280px}.sidebar.open{transform:none;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  .overlay.show{display:block}.main{margin-left:0}.menu-btn{display:inline-flex}
+  .topbar{padding:.6rem 1rem}#page{padding:1rem}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:700px){
+  .g2,.g3,.g4{grid-template-columns:1fr}.g4.keep2,.g4.stats{grid-template-columns:repeat(2,1fr)}
+  .fgrid{grid-template-columns:1fr}
+  .stat{padding:.85rem;gap:.7rem}.stat b{font-size:1.25rem}.stat .ic{width:40px;height:40px}
+  .items{grid-template-columns:1fr}
+  .modal-bg{padding:0;align-items:flex-end}.modal{max-width:100%!important;max-height:94vh;border-radius:20px 20px 0 0}
+  input,select,textarea{font-size:16px!important}
+  .topbar .hide-m{display:none}
+  .kv{grid-template-columns:1fr;gap:.1rem 0}.kv dt{margin-top:.5rem;font-size:.78rem}
+  .savebar .btn{flex:1}
+  .btn{min-height:44px}.btn.sm{min-height:38px}
+  /* table -> cards */
+  .tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{padding:.8rem 1rem;border-bottom:1px solid var(--border)}.tbl td{border:none;padding:.2rem 0;display:flex;gap:.6rem;justify-content:space-between;align-items:center}
+  .tbl td[data-l]::before{content:attr(data-l);color:var(--muted);font-size:.74rem;font-weight:600;text-transform:uppercase;flex:none}
+  .tbl td.first{display:block}.tbl td.first::before{display:none}
+  .imgprev{width:72px;height:72px}.imgprev.wide{width:120px}
+}
+
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.theme{border:2px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;background:var(--surface);transition:.15s;position:relative;text-align:left;padding:0;font:inherit;color:inherit}
+.theme:hover{transform:translateY(-3px);border-color:var(--primary)}
+.theme.sel{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 25%,transparent)}
+.theme .pv{height:92px;padding:.7rem;display:flex;flex-direction:column;justify-content:space-between}
+.theme .pv .bar{height:9px;width:60%;border-radius:6px;opacity:.9}.theme .pv .bar.s{width:40%;opacity:.5}
+.theme .pv .pill{align-self:flex-start;font-size:.68rem;font-weight:800;padding:.18rem .7rem;border-radius:999px}
+.theme .sw{display:flex;height:10px}.theme .sw i{flex:1}
+.theme .tx{padding:.7rem .9rem}.theme .tx b{display:block;font-size:.9rem}.theme .tx span{font-size:.76rem;color:var(--muted)}
+.theme .tick{position:absolute;top:.5rem;right:.5rem;width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:none;align-items:center;justify-content:center;font-size:.8rem}
+.theme.sel .tick{display:flex}
+.rank{width:34px;height:34px;border-radius:50%;background:var(--primary-soft);color:var(--primary-text);display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+@media print{
+  body *{visibility:hidden}.print-area,.print-area *{visibility:visible}
+  .print-area{position:absolute;left:0;top:0;width:100%;padding:1cm;color:#000;background:#fff}.no-print{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= LOGIN ======================= -->
+<div id="loginView" hidden>
+  <div class="login-art">
+    <div class="art-brand"><img class="logo-img" alt="logo"><div>MODEL SCHOOL PISHIN<br><small style="color:#fbbf24;font-weight:600;letter-spacing:.8px">ADMIN PANEL</small></div></div>
+    <div>
+      <h1>Run the whole school website from one place.</h1>
+      <p>Notices, teachers, toppers, gallery, admissions and reviews. Every change goes live on the website instantly.</p>
+    </div>
+    <ul class="art-list">
+      <li><i class="fas fa-shield-alt"></i> Private login, only approved admins can edit</li>
+      <li><i class="fas fa-chart-line"></i> Visitor statistics that only you can see</li>
+      <li><i class="fas fa-mobile-alt"></i> Works on phone, tablet and laptop</li>
+    </ul>
+  </div>
+  <div class="login-box">
+    <form class="login-card" id="loginForm" novalidate>
+      <h2>Welcome back</h2>
+      <p class="sub">Sign in with your admin email and password.</p>
+      <div id="loginMsg"></div>
+      <div class="field" style="margin-bottom:.9rem"><label for="lgEmail">Email</label><input type="email" id="lgEmail" autocomplete="username" placeholder="you@example.com" inputmode="email"></div>
+      <div class="field" style="margin-bottom:.4rem"><label for="lgPass">Password</label>
+        <div class="pw-wrap"><input type="password" id="lgPass" autocomplete="current-password" placeholder="••••••••"><button type="button" class="pw-eye" id="pwEye" aria-label="Show password"><i class="fas fa-eye"></i></button></div></div>
+      <div style="text-align:right;margin-bottom:1rem"><button type="button" class="linkbtn" id="forgotBtn">Forgot password?</button></div>
+      <button class="btn primary" style="width:100%;min-height:46px" id="lgBtn" type="submit">Sign in</button>
+      <p class="hint" style="margin-top:1rem;text-align:center"><a href="index.html">← Back to website</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ======================= APP ======================= -->
+<div id="appView" hidden>
+  <aside class="sidebar" id="sidebar" aria-label="Menu">
+    <div class="side-head"><img class="logo-img" alt="logo"><div><b>Model School Pishin</b><small>Admin panel</small></div></div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <div class="me"><div class="avatar" id="meAv">A</div><span id="meMail"></span></div>
+      <button class="btn ghost sm" style="width:100%" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sign out</button>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+  <div class="main">
+    <header class="topbar">
+      <button class="btn ghost icon menu-btn" id="menuBtn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+      <h1 id="pageTitle">Dashboard</h1>
+      <a class="btn ghost sm hide-m" href="index.html" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> View website</a>
+      <button class="btn ghost icon" id="themeBtn" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+    </header>
+    <main id="page"></main>
+  </div>
+</div>
+<div id="modalRoot"></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<script type="text/plain" id="sqlText">-- =====================================================================
+--  MODEL SCHOOL PISHIN : one-time database setup
+--  Safe to run again. Run it in:  Supabase > SQL Editor > New query > Run
+--
+--  BEFORE YOU RUN:  replace YOUR_ADMIN_EMAIL@example.com (step 1) with the
+--  exact email you use to log in to the admin panel.
+--  Also create that user in:  Authentication > Users > Add user
+--  and turn OFF "Allow new users to sign up" (Authentication > Sign In / Providers).
+--
+--  WARNING: step 4 removes every old policy on the site tables and replaces
+--  them with the safe ones below (public can read content, only admins can write).
+-- =====================================================================
+
+-- 1) WHO IS AN ADMIN ----------------------------------------------------
+create table if not exists public.admins (email text primary key);
+alter table public.admins enable row level security;
+insert into public.admins (email) values (lower('YOUR_ADMIN_EMAIL@example.com')) on conflict do nothing;
+-- more admins later:  insert into public.admins (email) values ('another@example.com');
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.admins
+                 where email = lower(coalesce(auth.jwt() ->> 'email', '')));
+$$;
+grant execute on function public.is_admin() to anon, authenticated;
+
+-- 2) NEW TABLES ---------------------------------------------------------
+create table if not exists public.notable_people (
+  id bigint generated always as identity primary key,
+  name text not null,
+  role text,
+  years text,
+  info text,
+  img_url text,
+  sort_order int default 100,
+  created_at timestamptz default now()
+);
+
+create table if not exists public.page_views (
+  id bigint generated always as identity primary key,
+  created_at timestamptz default now(),
+  visitor_id text,
+  device text,
+  lang text,
+  source text
+);
+create index if not exists page_views_created_idx on public.page_views (created_at);
+
+-- 3) NEW COLUMNS (qualification, experience, ordering, review approval) ---
+alter table public.teachers         add column if not exists qualification text;
+alter table public.teachers         add column if not exists experience text;
+alter table public.teachers         add column if not exists sort_order int default 100;
+alter table public.position_holders add column if not exists sort_order int default 100;
+alter table public.gallery          add column if not exists sort_order int default 100;
+alter table public.comments         add column if not exists approved boolean default false;
+-- optional: publish all reviews that already exist
+-- update public.comments set approved = true where approved is not true;
+
+-- 4) SECURITY RULES (RLS) -----------------------------------------------
+do $$
+declare t text; p record;
+begin
+  foreach t in array array['school_settings','teachers','position_holders','gallery',
+                           'notable_people','social_links','admissions','comments','page_views'] loop
+    execute format('alter table public.%I enable row level security', t);
+    for p in select policyname from pg_policies where schemaname = 'public' and tablename = t loop
+      execute format('drop policy %I on public.%I', p.policyname, t);
+    end loop;
+    execute format('create policy "admin all" on public.%I for all to authenticated
+                    using (public.is_admin()) with check (public.is_admin())', t);
+  end loop;
+
+  -- everybody may read the public website content
+  foreach t in array array['school_settings','teachers','position_holders','gallery',
+                           'notable_people','social_links'] loop
+    execute format('create policy "public read" on public.%I for select to anon, authenticated using (true)', t);
+  end loop;
+end $$;
+
+-- visitors may only SEND admission forms, reviews (hidden until approved) and page views
+create policy "visitors send admission" on public.admissions for insert to anon, authenticated with check (true);
+create policy "public read approved reviews" on public.comments for select to anon, authenticated using (approved = true);
+create policy "visitors send review" on public.comments for insert to anon, authenticated with check (coalesce(approved, false) = false);
+create policy "visitors add view" on public.page_views for insert to anon, authenticated with check (true);
+
+-- 5) IMAGE STORAGE RULES (bucket: school_assets, must be a PUBLIC bucket) ---
+do $$
+declare p record;
+begin
+  for p in select policyname from pg_policies
+           where schemaname = 'storage' and tablename = 'objects'
+             and (coalesce(qual, '') like '%school_assets%' or coalesce(with_check, '') like '%school_assets%') loop
+    execute format('drop policy %I on storage.objects', p.policyname);
+  end loop;
+end $$;
+
+create policy "assets public read" on storage.objects for select to anon, authenticated
+  using (bucket_id = 'school_assets');
+create policy "assets admin write" on storage.objects for all to authenticated
+  using (bucket_id = 'school_assets' and public.is_admin())
+  with check (bucket_id = 'school_assets' and public.is_admin());
+create policy "assets visitors upload admission photos" on storage.objects for insert to anon, authenticated
+  with check (bucket_id = 'school_assets' and (storage.foldername(name))[1] = 'admissions');
+
+-- 6) VIEWS REPORTS (visible to admins only) -----------------------------
+create or replace function public.views_summary()
+returns table(total bigint, today bigint, last7 bigint, last30 bigint, unique30 bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.is_admin() then raise exception 'not allowed'; end if;
+  return query
+  select count(*),
+         count(*) filter (where created_at::date = current_date),
+         count(*) filter (where created_at >= now() - interval '7 days'),
+         count(*) filter (where created_at >= now() - interval '30 days'),
+         count(distinct visitor_id) filter (where created_at >= now() - interval '30 days')
+  from public.page_views;
+end $$;
+
+create or replace function public.views_daily(days int default 30)
+returns table(day date, views bigint, visitors bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.is_admin() then raise exception 'not allowed'; end if;
+  return query
+  select d::date, count(v.id), count(distinct v.visitor_id)
+  from generate_series(current_date - (days - 1), current_date, interval '1 day') d
+  left join public.page_views v on v.created_at::date = d::date
+  group by d order by d;
+end $$;
+
+create or replace function public.views_breakdown(days int default 30)
+returns table(kind text, label text, views bigint)
+language plpgsql stable security definer set search_path = public as $$
+begin
+  if not public.is_admin() then raise exception 'not allowed'; end if;
+  return query
+  select 'device'::text, coalesce(device, 'unknown'), count(*) from public.page_views
+    where created_at >= now() - make_interval(days => days) group by 2
+  union all
+  select 'lang'::text, coalesce(lang, 'unknown'), count(*) from public.page_views
+    where created_at >= now() - make_interval(days => days) group by 2
+  union all
+  select 'source'::text, coalesce(source, 'direct'), count(*) from public.page_views
+    where created_at >= now() - make_interval(days => days) group by 2;
+end $$;
+
+revoke execute on function public.views_summary()   from public, anon;
+revoke execute on function public.views_daily(int)  from public, anon;
+revoke execute on function public.views_breakdown(int) from public, anon;
+grant  execute on function public.views_summary()   to authenticated;
+grant  execute on function public.views_daily(int)  to authenticated;
+grant  execute on function public.views_breakdown(int) to authenticated;
+
+-- DONE. Now open admin.html, log in, and check "Database setup" in the menu.
+</script>
+
+<script>
+/* =====================================================================
+   CONFIG
+   ===================================================================== */
+const SUPABASE_URL = 'https://vdedxfvgrpkrrhgxqzfo.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkZWR4ZnZncnBrcnJoZ3hxemZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjMyNjcsImV4cCI6MjA5MzEzOTI2N30.1Vqv0ybMTrEqN7zbsxLGJaHyoJYuh7hinFHWVrPJnWw';
+const BUCKET = 'school_assets';
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const cap = s => s.replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd24d"/><stop offset="1" stop-color="#e09f00"/></linearGradient></defs><path d="M32 3 7 11v17c0 15 10.5 28 25 33 14.5-5 25-18 25-33V11z" fill="#0a2f5a" stroke="url(#g)" stroke-width="3"/><path d="M32 8l1.8 3.7 4 .6-2.9 2.8.7 4L32 17.2l-3.6 1.9.7-4-2.9-2.8 4-.6z" fill="url(#g)"/><g transform="translate(0,5)"><path d="M32 20c-4-3-9-4-14-4v22c5 0 10 1 14 4 4-3 9-4 14-4V16c-5 0-10 1-14 4z" fill="#fff"/><path d="M32 20v22" stroke="#0a2f5a" stroke-width="2"/></g></svg>`;
+const LOGO_URI = 'data:image/svg+xml,' + encodeURIComponent(LOGO_SVG);
+const PERSON = `<i class="fas fa-user"></i>`;
+
+let sb = null;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } }); } catch (e) { console.error(e); }
+
+/* =====================================================================
+   UI HELPERS
+   ===================================================================== */
+function toast(msg, type = 'ok') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = `<i class="fas ${type === 'ok' ? 'fa-check-circle' : type === 'err' ? 'fa-times-circle' : 'fa-exclamation-triangle'}"></i><span>${esc(msg)}</span>`;
+  $('#toasts').appendChild(t);
+  setTimeout(() => { t.style.opacity = 0; t.style.transition = '.3s'; setTimeout(() => t.remove(), 300); }, type === 'err' ? 6000 : 3200);
+}
+function errMsg(e) { return (e && (e.message || e.error_description || e.msg)) || String(e || 'Something went wrong'); }
+
+function openModal({ title, body, footer = '', size = '', onOpen }) {
+  closeModal();
+  const bg = document.createElement('div'); bg.className = 'modal-bg'; bg.id = 'modalBg';
+  bg.innerHTML = `<div class="modal ${size}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><div class="modal-h"><h3>${esc(title)}</h3><button class="btn ghost icon sm" data-close aria-label="Close"><i class="fas fa-times"></i></button></div><div class="modal-b">${body}</div>${footer ? `<div class="modal-f">${footer}</div>` : ''}</div>`;
+  bg.addEventListener('mousedown', e => { if (e.target === bg) closeModal(); });
+  bg.querySelector('[data-close]').onclick = closeModal;
+  $('#modalRoot').appendChild(bg);
+  document.body.style.overflow = 'hidden';
+  if (onOpen) onOpen(bg);
+  return bg;
+}
+function closeModal() { const m = $('#modalBg'); if (m) m.remove(); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function confirmBox(message, { okText = 'Delete', danger = true, title = 'Are you sure?' } = {}) {
+  return new Promise(res => {
+    const m = openModal({ title, size: 'sm', body: `<p>${esc(message)}</p>`, footer: `<button class="btn ghost" data-no>Cancel</button><button class="btn ${danger ? 'danger' : 'primary'}" data-yes>${esc(okText)}</button>` });
+    m.querySelector('[data-no]').onclick = () => { closeModal(); res(false); };
+    m.querySelector('[data-close]').onclick = () => { closeModal(); res(false); };
+    m.querySelector('[data-yes]').onclick = () => { closeModal(); res(true); };
+  });
+}
+async function busy(btn, fn) {
+  const old = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Please wait'; }
+  try { return await fn(); } finally { if (btn) { btn.disabled = false; btn.innerHTML = old; } }
+}
+const fmtDate = (d, time = true) => { if (!d) return ''; const x = new Date(d); if (isNaN(x)) return String(d); return x.toLocaleString('en-GB', time ? { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' } : { day: 'numeric', month: 'short', year: 'numeric' }); };
+const num = n => (n === null || n === undefined) ? '—' : Number(n).toLocaleString('en-US');
+function waLink(p, text = '') { let d = String(p || '').replace(/\D/g, ''); if (/^0\d{10}$/.test(d)) d = '92' + d.slice(1); return d ? `https://wa.me/${d}${text ? '?text=' + encodeURIComponent(text) : ''}` : ''; }
+function download(name, content, type = 'text/plain') { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
+
+/* =====================================================================
+   IMAGES & FILES (Supabase Storage)
+   ===================================================================== */
+async function compressImage(file, maxW = 1200, q = 0.82) {
+  if (!file || !file.type.startsWith('image/') || file.type === 'image/svg+xml' || file.type === 'image/gif') return file;
+  return new Promise(resolve => {
+    const r = new FileReader(); r.onerror = () => resolve(file);
+    r.onload = ev => {
+      const img = new Image(); img.onerror = () => resolve(file);
+      img.onload = () => {
+        let w = img.width, h = img.height; if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+        const c = document.createElement('canvas'); c.width = w; c.height = h;
+        c.getContext('2d').drawImage(img, 0, 0, w, h);
+        c.toBlob(b => { if (!b) return resolve(file); resolve(new File([b], file.name.replace(/\.[^.]+$/, '') + '.webp', { type: 'image/webp' })); }, 'image/webp', q);
+      };
+      img.src = ev.target.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+async function uploadTo(folder, file) {
+  const ext = (file.name.split('.').pop() || 'bin').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const path = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2, 8)}.${ext}`;
+  const { error } = await sb.storage.from(BUCKET).upload(path, file, { contentType: file.type || undefined, cacheControl: '31536000' });
+  if (error) throw error;
+  return sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
+}
+const uploadImage = async (file, folder, maxW) => uploadTo(folder, await compressImage(file, maxW));
+function pathFromUrl(u) { const m = String(u || '').split(`/object/public/${BUCKET}/`)[1]; return m ? decodeURIComponent(m.split('?')[0]) : null; }
+async function removeFiles(urls) { const p = (urls || []).map(pathFromUrl).filter(Boolean); if (p.length) { try { await sb.storage.from(BUCKET).remove(p); } catch (_) { } } }
+
+/* =====================================================================
+   FORM BUILDER
+   field: {k,label,type,req,hint,opts,max,rows,wide,folder,maxW,wideImg}
+   ===================================================================== */
+function fieldHTML(f, val) {
+  const id = 'f_' + f.k, v = val ?? '';
+  const lab = `<label for="${id}">${esc(f.label || cap(f.k))}${f.req ? ' <span class="req">*</span>' : ''}</label>`;
+  const hint = f.hint ? `<div class="hint">${esc(f.hint)}</div>` : '';
+  const w = f.wide ? ' wide' : '';
+  switch (f.type) {
+    case 'section': return `<div class="sec-t">${esc(f.label)}</div>`;
+    case 'textarea': return `<div class="field${w}">${lab}<textarea id="${id}" rows="${f.rows || 3}" maxlength="${f.max || 3000}">${esc(v)}</textarea>${hint}</div>`;
+    case 'select': return `<div class="field${w}">${lab}<select id="${id}">${(f.opts || []).map(o => { const [ov, ol] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(ov)}" ${String(v) === String(ov) ? 'selected' : ''}>${esc(ol)}</option>`; }).join('')}</select>${hint}</div>`;
+    case 'toggle': return `<div class="field wide"><label class="switch"><input type="checkbox" id="${id}" ${v ? 'checked' : ''}><span></span>${esc(f.label)}</label>${hint}</div>`;
+    case 'image': return `<div class="field wide">${lab}<div class="imgfield" data-img="${f.k}"><div class="imgprev ${f.wideImg ? 'wide' : ''}">${v ? `<img src="${esc(v)}" alt="">` : '<i class="far fa-image"></i>'}</div><div><div class="imgbtns"><label class="btn ghost sm filebtn"><input type="file" accept="image/*"><i class="fas fa-upload"></i> Choose</label><button type="button" class="btn ghost sm" data-rm ${v ? '' : 'hidden'}><i class="fas fa-times"></i> Remove</button></div>${hint || '<div class="hint">JPG or PNG. It is resized automatically.</div>'}</div></div></div>`;
+    default: return `<div class="field${w}">${lab}<input type="${f.type || 'text'}" id="${id}" value="${esc(v)}" ${f.max ? `maxlength="${f.max}"` : ''} ${f.ph ? `placeholder="${esc(f.ph)}"` : ''} ${f.list ? `list="${f.list}"` : ''} ${f.type === 'tel' ? 'inputmode="tel"' : ''} autocomplete="off">${f.listOpts ? `<datalist id="${f.list}">${f.listOpts.map(o => `<option value="${esc(o)}">`).join('')}</datalist>` : ''}${hint}</div>`;
+  }
+}
+const formHTML = (fields, data) => `<div class="fgrid">${fields.map(f => fieldHTML(f, data ? data[f.k] : '')).join('')}</div>`;
+function wireImages(root) {
+  root._img = {};
+  $$('[data-img]', root).forEach(box => {
+    const k = box.dataset.img, prev = $('.imgprev', box), inp = $('input[type=file]', box), rm = $('[data-rm]', box);
+    const orig = $('img', prev) ? $('img', prev).getAttribute('src') : '';
+    root._img[k] = { file: null, removed: false, orig };
+    inp.onchange = () => { const f = inp.files[0]; if (!f) return; root._img[k].file = f; root._img[k].removed = false; prev.innerHTML = `<img src="${URL.createObjectURL(f)}" alt="">`; rm.hidden = false; };
+    rm.onclick = () => { root._img[k].file = null; root._img[k].removed = true; inp.value = ''; prev.innerHTML = '<i class="far fa-image"></i>'; rm.hidden = true; };
+  });
+}
+function readForm(fields, root) {
+  const out = {};
+  for (const f of fields) {
+    if (f.type === 'section' || f.type === 'image') continue;
+    const el = $('#f_' + f.k, root); if (!el) continue;
+    out[f.k] = f.type === 'toggle' ? el.checked : (f.type === 'number' ? (el.value === '' ? null : Number(el.value)) : el.value.trim());
+  }
+  return out;
+}
+function validate(fields, vals, root) {
+  for (const f of fields) {
+    if (f.req && f.type !== 'image' && !vals[f.k]) { const el = $('#f_' + f.k, root); if (el) el.focus(); return `${f.label || cap(f.k)} is required`; }
+    if (f.req && f.type === 'image') { const st = root._img && root._img[f.k]; if (st && !st.file && (st.removed || !st.orig)) return `${f.label || 'Photo'} is required`; }
+  }
+  return null;
+}
+/* uploads picked images, returns list of old files to delete after DB save */
+async function applyImages(fields, root, payload) {
+  const old = [];
+  for (const f of fields.filter(x => x.type === 'image')) {
+    const st = root._img && root._img[f.k]; if (!st) continue;
+    if (st.file) { payload[f.k] = await uploadImage(st.file, f.folder || 'misc', f.maxW || 1000); if (st.orig) old.push(st.orig); }
+    else if (st.removed) { payload[f.k] = ''; if (st.orig) old.push(st.orig); }
+  }
+  return old;
+}
+
+/* =====================================================================
+   DATABASE HELPERS
+   ===================================================================== */
+async function fetchAll(table, cols = '*') {
+  const out = []; const step = 1000;
+  for (let from = 0; from < 20000; from += step) {
+    const { data, error } = await sb.from(table).select(cols).range(from, from + step - 1);
+    if (error) throw error; out.push(...data); if (data.length < step) break;
+  }
+  return out;
+}
+const colFromErr = e => { const m = errMsg(e); const r = m.match(/Could not find the '([^']+)' column/) || m.match(/column "?([a-z_0-9]+)"? of relation/i) || m.match(/column ([a-z_0-9.]+) does not exist/i); return r ? r[1].split('.').pop() : null; };
+async function dbSave(table, id, payload) {
+  const p = { ...payload }, dropped = [];
+  for (let i = 0; i < 6; i++) {
+    const { error } = id ? await sb.from(table).update(p).eq('id', id) : await sb.from(table).insert([p]);
+    if (!error) return dropped;
+    const c = colFromErr(error);
+    if (c && c in p) { delete p[c]; dropped.push(c); continue; }
+    throw error;
+  }
+  throw new Error('Could not save');
+}
+let SET = null;
+async function getSettings(force) {
+  if (!SET || force) { const { data, error } = await sb.from('school_settings').select('data').eq('id', 1).maybeSingle(); if (error) throw error; SET = (data && data.data) || {}; }
+  return SET;
+}
+async function saveSettings(mut) {
+  const d = JSON.parse(JSON.stringify(await getSettings(true)));
+  mut(d);
+  const { error } = await sb.from('school_settings').upsert({ id: 1, data: d });
+  if (error) throw error; SET = d; return d;
+}
+const countOf = async (table, f) => { try { let q = sb.from(table).select('*', { count: 'exact', head: true }); if (f) q = f(q); const { count, error } = await q; return error ? null : count; } catch (_) { return null; } };
+
+/* =====================================================================
+   AUTH & SHELL
+   ===================================================================== */
+let ME = null, DB_READY = true;
+function setLogos(url) { $$('.logo-img').forEach(i => i.src = url || LOGO_URI); }
+function loginMsg(t, ok) { $('#loginMsg').innerHTML = t ? `<div class="${ok ? 'login-ok' : 'login-err'}">${esc(t)}</div>` : ''; }
+function showLogin() { ME = null; $('#appView').hidden = true; $('#loginView').hidden = false; document.title = 'Admin Login | Model School Pishin'; }
+async function enterApp(user) {
+  try {
+    const { data, error } = await sb.rpc('is_admin');
+    if (!error && data === false) { await sb.auth.signOut(); showLogin(); loginMsg('This account is not an administrator. Ask the website owner to add your email to the admins list.'); return; }
+    DB_READY = !error;
+  } catch (_) { DB_READY = false; }
+  ME = user; $('#loginView').hidden = true; $('#appView').hidden = false;
+  $('#meMail').textContent = user.email || ''; $('#meAv').textContent = (user.email || 'A').charAt(0).toUpperCase();
+  buildNav(); route(); refreshBadges();
+}
+async function boot() {
+  const th = (() => { try { return localStorage.getItem('adm_theme'); } catch (_) { return null; } })();
+  if (th === 'dark') document.body.classList.add('dark'); syncThemeIcon();
+  setLogos(LOGO_URI);
+  if (!sb) { showLogin(); loginMsg('Could not load the database library. Check your internet connection and refresh.'); return; }
+  sb.from('school_settings').select('data').eq('id', 1).maybeSingle().then(r => { const l = r.data && r.data.data && r.data.data.logos && r.data.data.logos.headerLogo; if (l) setLogos(l); });
+  sb.auth.onAuthStateChange((ev, s) => {
+    if (ev === 'SIGNED_OUT') showLogin();
+    if (ev === 'PASSWORD_RECOVERY') setTimeout(openNewPassword, 300);
+  });
+  const { data } = await sb.auth.getSession();
+  if (data && data.session) await enterApp(data.session.user); else showLogin();
+}
+$('#loginForm').addEventListener('submit', async e => {
+  e.preventDefault(); loginMsg('');
+  const email = $('#lgEmail').value.trim(), pass = $('#lgPass').value;
+  if (!email || !pass) return loginMsg('Please enter your email and password.');
+  if (!sb) return loginMsg('Database library did not load. Refresh the page.');
+  await busy($('#lgBtn'), async () => {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) return loginMsg(/invalid login/i.test(error.message) ? 'Wrong email or password.' : error.message);
+    $('#lgPass').value = ''; await enterApp(data.user);
+  });
+});
+$('#pwEye').onclick = () => { const i = $('#lgPass'); const show = i.type === 'password'; i.type = show ? 'text' : 'password'; $('#pwEye i').className = 'fas ' + (show ? 'fa-eye-slash' : 'fa-eye'); };
+$('#forgotBtn').onclick = async () => {
+  const email = $('#lgEmail').value.trim(); if (!email) return loginMsg('Type your email above first, then press "Forgot password?".');
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.href.split('#')[0] });
+  loginMsg(error ? error.message : 'If this email is registered, a reset link has been sent.', !error);
+};
+$('#logoutBtn').onclick = async () => { if (await confirmBox('Sign out of the admin panel?', { okText: 'Sign out', danger: false, title: 'Sign out' })) { await sb.auth.signOut(); } };
+function openNewPassword() {
+  const m = openModal({ title: 'Set a new password', size: 'sm', body: `<div class="fgrid" style="grid-template-columns:1fr"><div class="field"><label>New password</label><input type="password" id="np1" autocomplete="new-password"></div><div class="field"><label>Repeat password</label><input type="password" id="np2" autocomplete="new-password"></div></div>`, footer: `<button class="btn primary" id="npGo">Save password</button>` });
+  $('#npGo', m).onclick = async () => {
+    const a = $('#np1', m).value, b = $('#np2', m).value; if (a.length < 8) return toast('Use at least 8 characters', 'err'); if (a !== b) return toast('Passwords do not match', 'err');
+    const { error } = await sb.auth.updateUser({ password: a }); if (error) return toast(error.message, 'err'); closeModal(); toast('Password updated'); const { data } = await sb.auth.getSession(); if (data.session) enterApp(data.session.user);
+  };
+}
+function syncThemeIcon() { $('#themeBtn i').className = 'fas ' + (document.body.classList.contains('dark') ? 'fa-sun' : 'fa-moon'); }
+$('#themeBtn').onclick = () => { document.body.classList.toggle('dark'); try { localStorage.setItem('adm_theme', document.body.classList.contains('dark') ? 'dark' : 'light'); } catch (_) { } syncThemeIcon(); };
+$('#menuBtn').onclick = () => { $('#sidebar').classList.add('open'); $('#overlay').classList.add('show'); };
+$('#overlay').onclick = closeSide; function closeSide() { $('#sidebar').classList.remove('open'); $('#overlay').classList.remove('show'); }
+
+/* ---------- navigation ---------- */
+const NAV = [
+  ['Overview', [['dashboard', 'Dashboard', 'fa-gauge-high'], ['visitors', 'Visitors (private)', 'fa-chart-line']]],
+  ['Website content', [['notices', 'Notices', 'fa-bell'], ['about', 'About & Principal', 'fa-landmark'], ['teachers', 'Teachers', 'fa-chalkboard-user'], ['holders', 'Position holders', 'fa-trophy'], ['gallery', 'Gallery', 'fa-images'], ['top10', 'Top 10 Students', 'fa-ranking-star'], ['legacy', 'Our Pride & Legacy', 'fa-award'], ['chatbot', 'Chat assistant', 'fa-robot']]],
+  ['Requests', [['admissions', 'Admissions', 'fa-user-graduate'], ['reviews', 'Reviews', 'fa-star']]],
+  ['Site settings', [['site', 'General & Contact', 'fa-sliders'], ['theme', 'Theme & Colors', 'fa-palette'], ['branding', 'Logo & Hero slider', 'fa-image'], ['social', 'Social links', 'fa-share-nodes'], ['developer', 'Developer card', 'fa-code']]],
+  ['System', [['account', 'Account & Security', 'fa-key'], ['backup', 'Backup', 'fa-download'], ['setup', 'Database setup', 'fa-database']]]
+];
+const ROUTES = {}; NAV.forEach(g => g[1].forEach(i => ROUTES[i[0]] = { title: i[1], icon: i[2] }));
+function buildNav() {
+  $('#nav').innerHTML = NAV.map(g => `<div class="nav-label">${g[0]}</div>` + g[1].map(i => `<a href="#/${i[0]}" data-r="${i[0]}"><i class="fas ${i[2]}"></i><span>${i[1]}</span>${i[0] === 'admissions' || i[0] === 'reviews' ? `<span class="count" id="cnt_${i[0]}" hidden></span>` : ''}</a>`).join('')).join('');
+}
+async function refreshBadges() {
+  const [a, r] = await Promise.all([countOf('admissions', q => q.eq('status', 'pending')), countOf('comments', q => q.eq('approved', false))]);
+  [['admissions', a], ['reviews', r]].forEach(([k, n]) => { const el = $('#cnt_' + k); if (el) { el.textContent = n; el.hidden = !n; } });
+}
+let renderToken = 0;
+async function route() {
+  if (!ME) return;
+  const key = (location.hash.replace(/^#\/?/, '') || 'dashboard').split('?')[0]; const k = ROUTES[key] ? key : 'dashboard';
+  $$('#nav a').forEach(a => a.classList.toggle('active', a.dataset.r === k));
+  $('#pageTitle').textContent = ROUTES[k].title; document.title = ROUTES[k].title + ' | Admin';
+  closeSide(); window.scrollTo(0, 0);
+  const tok = ++renderToken, root = $('#page');
+  root.innerHTML = '<div class="grid g3"><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>';
+  try {
+    const html = await PAGES[k](tok);
+    if (tok !== renderToken) return;
+    if (typeof html === 'string') root.innerHTML = html;
+    if (AFTER[k]) AFTER[k](root);
+  } catch (e) {
+    if (tok !== renderToken) return;
+    console.error(e);
+    const missing = /relation .* does not exist|Could not find the table/i.test(errMsg(e));
+    root.innerHTML = `<div class="card"><div class="empty"><i class="fas fa-triangle-exclamation"></i><b>Could not load this page</b><p style="margin:.4rem 0 1rem">${esc(errMsg(e))}</p>${missing ? '<p style="margin-bottom:1rem">A database table is missing. Run the setup SQL once.</p><a class="btn primary" href="#/setup">Open Database setup</a>' : '<button class="btn primary" onclick="route()">Try again</button>'}</div></div>`;
+  }
+}
+window.addEventListener('hashchange', route);
+const banner = (html) => `<div class="banner"><i class="fas fa-circle-info" style="margin-top:.2rem"></i><div>${html}</div></div>`;
+const head = (t, p, actions = '') => `<div class="page-h"><div class="t"><h2>${esc(t)}</h2>${p ? `<p>${p}</p>` : ''}</div>${actions}</div>`;
+
+const PAGES = {}, AFTER = {};
+
+/* =====================================================================
+   VIEWS (private statistics)
+   ===================================================================== */
+async function viewsSummary() {
+  const r = await sb.rpc('views_summary');
+  if (!r.error && r.data && r.data.length) { const d = r.data[0]; return { total: +d.total, today: +d.today, last7: +d.last7, last30: +d.last30, unique30: +d.unique30, ok: true, rpc: true }; }
+  const c = since => countOf('page_views', q => since ? q.gte('created_at', since) : q);
+  const d0 = new Date(); d0.setHours(0, 0, 0, 0);
+  const [total, today, last7, last30] = await Promise.all([c(), c(d0.toISOString()), c(new Date(Date.now() - 7 * 864e5).toISOString()), c(new Date(Date.now() - 30 * 864e5).toISOString())]);
+  return { total, today, last7, last30, unique30: null, ok: total !== null, rpc: false };
+}
+async function recentViewRows(days) {
+  const since = new Date(Date.now() - days * 864e5).toISOString(); const out = [];
+  for (let from = 0; from < 10000; from += 1000) {
+    const { data, error } = await sb.from('page_views').select('created_at,visitor_id,device,lang,source').gte('created_at', since).order('created_at', { ascending: false }).range(from, from + 999);
+    if (error) throw error; out.push(...data); if (data.length < 1000) break;
+  }
+  return out;
+}
+const dayKey = d => { const x = new Date(d); return `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`; };
+async function viewsDaily(days) {
+  const r = await sb.rpc('views_daily', { days });
+  if (!r.error && r.data) return r.data.map(x => ({ key: x.day, views: +x.views, visitors: +x.visitors }));
+  const rows = await recentViewRows(days); const m = {};
+  for (let i = days - 1; i >= 0; i--) m[dayKey(Date.now() - i * 864e5)] = { key: dayKey(Date.now() - i * 864e5), views: 0, set: new Set() };
+  rows.forEach(v => { const k = dayKey(v.created_at); if (m[k]) { m[k].views++; m[k].set.add(v.visitor_id); } });
+  return Object.values(m).map(x => ({ key: x.key, views: x.views, visitors: x.set.size }));
+}
+async function viewsBreakdown(days) {
+  const r = await sb.rpc('views_breakdown', { days });
+  let rows = !r.error && r.data ? r.data.map(x => ({ kind: x.kind, label: x.label, views: +x.views })) : null;
+  if (!rows) { const raw = await recentViewRows(days); const m = {}; raw.forEach(v => { [['device', v.device || 'unknown'], ['lang', v.lang || 'unknown'], ['source', v.source || 'direct']].forEach(([k, l]) => { const key = k + '|' + l; m[key] = (m[key] || 0) + 1; }); }); rows = Object.entries(m).map(([k, v]) => { const [kind, label] = k.split('|'); return { kind, label, views: v }; }); }
+  return rows;
+}
+function barChart(rows, { labelEvery = 5 } = {}) {
+  const W = 680, H = 190, L = 30, B = 24, T = 10, max = Math.max(1, ...rows.map(r => r.views));
+  const bw = (W - L - 6) / rows.length, ph = H - B - T;
+  const grid = [0, .5, 1].map(f => { const y = T + ph - ph * f; return `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}"/><text x="${L - 5}" y="${y + 3}" text-anchor="end">${Math.round(max * f)}</text>`; }).join('');
+  const bars = rows.map((r, i) => { const h = Math.max(r.views ? 3 : 1, Math.round(r.views / max * ph)); const x = L + i * bw + bw * .16; return `<g><title>${esc(r.label || r.key)}: ${r.views} views${r.visitors != null ? ', ' + r.visitors + ' visitors' : ''}</title><rect class="bar" x="${x.toFixed(1)}" y="${T + ph - h}" width="${(bw * .68).toFixed(1)}" height="${h}" rx="3"/></g>`; }).join('');
+  const lbls = rows.map((r, i) => (i % labelEvery === 0 || i === rows.length - 1) ? `<text x="${(L + i * bw + bw / 2).toFixed(1)}" y="${H - 7}" text-anchor="middle">${esc(new Date(r.key).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }))}</text>` : '').join('');
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Views per day">${grid}${bars}${lbls}</svg>`;
+}
+const barList = (rows, total) => rows.length ? rows.sort((a, b) => b.views - a.views).slice(0, 7).map(r => `<div class="bar-row"><span class="lbl" title="${esc(r.label)}">${esc(r.label)}</span><div class="trk"><div class="fill" style="width:${total ? Math.round(r.views / total * 100) : 0}%"></div></div><b>${num(r.views)}</b></div>`).join('') : '<div class="hint">No data yet</div>';
+
+/* =====================================================================
+   DASHBOARD
+   ===================================================================== */
+PAGES.dashboard = async () => {
+  const [vs, tc, hc, gc, ap, rp, adms, revs] = await Promise.all([
+    viewsSummary().catch(() => ({ ok: false })),
+    countOf('teachers'), countOf('position_holders'), countOf('gallery'),
+    countOf('admissions', q => q.eq('status', 'pending')), countOf('comments', q => q.eq('approved', false)),
+    sb.from('admissions').select('id,name,class_name,created_at,status,img_url').order('created_at', { ascending: false }).limit(5),
+    sb.from('comments').select('*').order('created_at', { ascending: false }).limit(4)
+  ]);
+  let chart = '<div class="empty"><i class="fas fa-chart-simple"></i>No visitor data yet</div>';
+  try { const d = await viewsDaily(14); chart = barChart(d, { labelEvery: 2 }); } catch (_) { }
+  const stat = (href, ic, color, n, label) => `<a class="card stat" href="${href}"><div class="ic ${color}"><i class="fas ${ic}"></i></div><div><b>${num(n)}</b><span>${label}</span></div></a>`;
+  const hr = new Date().getHours();
+  return `
+  ${!DB_READY ? banner('The database setup is not finished. <a href="#/setup">Open Database setup</a> and run the SQL once. Until then some features will not work.') : ''}
+  ${head((hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening') + ' 👋', 'Here is what is happening on your website.')}
+  <div class="grid g4 stats" style="margin-bottom:1rem">
+    ${stat('#/visitors', 'fa-eye', 'indigo', vs.today, 'Views today (only you see this)')}
+    ${stat('#/visitors', 'fa-chart-line', 'blue', vs.total, 'Total views')}
+    ${stat('#/admissions', 'fa-user-graduate', 'amber', ap, 'Pending admissions')}
+    ${stat('#/reviews', 'fa-star', 'green', rp, 'Reviews to approve')}
+  </div>
+  <div class="grid g3 stats" style="margin-bottom:1rem;grid-template-columns:repeat(3,1fr)">
+    ${stat('#/teachers', 'fa-chalkboard-user', 'indigo', tc, 'Teachers')}
+    ${stat('#/holders', 'fa-trophy', 'amber', hc, 'Position holders')}
+    ${stat('#/gallery', 'fa-images', 'blue', gc, 'Gallery photos')}
+  </div>
+  <div class="grid" style="grid-template-columns:1.6fr 1fr;gap:1rem" id="dashGrid">
+    <div class="card"><div class="card-h"><h3>Views, last 14 days</h3><a class="btn ghost sm" href="#/visitors">Details</a></div><div class="card-b">${chart}</div></div>
+    <div class="card"><div class="card-h"><h3>Quick actions</h3></div><div class="card-b" style="display:grid;gap:.6rem">
+      <a class="btn ghost" href="#/notices"><i class="fas fa-plus"></i> Post a notice</a>
+      <a class="btn ghost" href="#/teachers"><i class="fas fa-plus"></i> Add a teacher</a>
+      <a class="btn ghost" href="#/gallery"><i class="fas fa-plus"></i> Upload photos</a>
+      <a class="btn ghost" href="index.html" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Open website</a></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:1rem">
+    <div class="card"><div class="card-h"><h3>Latest admission requests</h3><a class="btn ghost sm" href="#/admissions">All</a></div>
+      ${(adms.data || []).length ? (adms.data).map(a => `<div class="check" style="padding:.7rem 1.2rem"><div class="who" style="display:flex;gap:.7rem;align-items:center;flex:1;min-width:0"><div class="avatar" style="background:var(--primary-soft);color:var(--primary-text)">${esc((a.name || '?').charAt(0).toUpperCase())}</div><div style="min-width:0"><b>${esc(a.name)}</b><small>${esc(a.class_name || '')} · ${fmtDate(a.created_at, false)}</small></div></div><span class="badge ${a.status === 'approved' ? 'green' : a.status === 'rejected' ? 'red' : 'amber'}">${esc(a.status || 'pending')}</span></div>`).join('') : '<div class="empty"><i class="fas fa-inbox"></i>No requests yet</div>'}</div>
+    <div class="card"><div class="card-h"><h3>Latest reviews</h3><a class="btn ghost sm" href="#/reviews">All</a></div>
+      ${(revs.data || []).length ? (revs.data).map(r => `<div class="check" style="padding:.7rem 1.2rem"><div style="flex:1;min-width:0"><b>${esc(r.user_name)}</b><small style="overflow-wrap:anywhere">${esc((r.comment_text || '').slice(0, 90))}${(r.comment_text || '').length > 90 ? '…' : ''}</small></div>${r.approved === false || r.approved === null ? '<span class="badge amber">Pending</span>' : '<span class="badge green">Live</span>'}</div>`).join('') : '<div class="empty"><i class="far fa-comments"></i>No reviews yet</div>'}</div>
+  </div>
+  <style>@media(max-width:900px){#dashGrid{grid-template-columns:1fr!important}}@media(max-width:700px){.g3.stats{grid-template-columns:1fr 1fr 1fr!important}.g3.stats .stat{flex-direction:column;text-align:center}}</style>`;
+};
+
+/* =====================================================================
+   VISITORS
+   ===================================================================== */
+PAGES.visitors = async () => {
+  const [vs, daily, brk] = await Promise.all([viewsSummary(), viewsDaily(30).catch(() => []), viewsBreakdown(30).catch(() => [])]);
+  const by = k => brk.filter(x => x.kind === k); const tot = a => a.reduce((s, x) => s + x.views, 0);
+  const best = daily.slice().sort((a, b) => b.views - a.views)[0];
+  return `
+  ${head('Visitors', 'Private statistics. Only logged-in admins can see these numbers. The public website does not show views anymore.')}
+  ${!vs.ok ? banner('No visitor data could be loaded. Run the setup SQL (it creates the <b>page_views</b> table and the reports), then visit the website once.<br><a href="#/setup">Open Database setup</a>') : ''}
+  <div class="grid g4 stats" style="margin-bottom:1rem">
+    <div class="card stat"><div class="ic indigo"><i class="fas fa-eye"></i></div><div><b>${num(vs.today)}</b><span>Today</span></div></div>
+    <div class="card stat"><div class="ic blue"><i class="fas fa-calendar-week"></i></div><div><b>${num(vs.last7)}</b><span>Last 7 days</span></div></div>
+    <div class="card stat"><div class="ic green"><i class="fas fa-calendar-days"></i></div><div><b>${num(vs.last30)}</b><span>Last 30 days</span></div></div>
+    <div class="card stat"><div class="ic amber"><i class="fas fa-users"></i></div><div><b>${num(vs.unique30)}</b><span>Unique visitors (30 d)</span></div></div>
+  </div>
+  <div class="card" style="margin-bottom:1rem"><div class="card-h"><h3>Views per day, last 30 days</h3><span class="badge primary">Total ever: ${num(vs.total)}</span></div><div class="card-b">${daily.length ? barChart(daily, { labelEvery: 5 }) : '<div class="empty"><i class="fas fa-chart-simple"></i>No data yet</div>'}${best && best.views ? `<p class="hint" style="margin-top:.5rem">Best day: <b>${esc(new Date(best.key).toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }))}</b> with ${num(best.views)} views.</p>` : ''}</div></div>
+  <div class="grid g3">
+    <div class="card"><div class="card-h"><h3>Devices</h3></div><div class="card-b">${barList(by('device'), tot(by('device')))}</div></div>
+    <div class="card"><div class="card-h"><h3>Language</h3></div><div class="card-b">${barList(by('lang').map(x => ({ ...x, label: x.label === 'ur' ? 'Urdu' : x.label === 'en' ? 'English' : x.label })), tot(by('lang')))}</div></div>
+    <div class="card"><div class="card-h"><h3>Where visitors come from</h3></div><div class="card-b">${barList(by('source'), tot(by('source')))}</div></div>
+  </div>
+  <p class="hint" style="margin-top:1rem">A visit is counted once per browser session. Search-engine bots may be included. No personal details are stored, only a random id, device type, language and referring site.</p>`;
+};
+
+/* =====================================================================
+   GENERIC CRUD (teachers, holders, gallery, legacy)
+   ===================================================================== */
+const CRUD = {
+  teachers: {
+    table: 'teachers', title: 'Teachers', noun: 'teacher', icon: 'fa-chalkboard-user', folder: 'teachers', maxW: 800, order: 'asc',
+    intro: 'Photo, name, designation and subject show on the card. Everything else shows when a visitor opens the profile.',
+    fields: [
+      { k: 'img_url', type: 'image', label: 'Photo', folder: 'teachers', maxW: 800, hint: 'Square photo, face clearly visible, plain background. Use the same style for everyone.' },
+      { k: 'name', label: 'Full name', req: true, max: 80 }, { k: 'designation', label: 'Designation', ph: 'e.g. SST, Subject Specialist', max: 60 },
+      { k: 'subject', label: 'Subject', max: 60 }, { k: 'qualification', label: 'Qualification', opt: true, ph: 'e.g. M.Sc, B.Ed', max: 80 },
+      { k: 'experience', label: 'Experience', opt: true, ph: 'e.g. 12 years', max: 40 }, { k: 'class_incharge', label: 'Class incharge', ph: 'e.g. 10th A', max: 40 },
+      { k: 'whatsapp', label: 'WhatsApp (optional)', type: 'tel', ph: '923001234567', hint: 'Only with the teacher\'s written permission.', max: 20 },
+      { k: 'message', label: 'Short message (optional)', type: 'textarea', max: 200, wide: true, hint: 'Max 150 characters recommended.' }
+    ],
+    card: r => ({ img: r.img_url, t: r.name, s: [r.designation, r.subject].filter(Boolean).join(' · '), s2: r.class_incharge ? 'Incharge: ' + r.class_incharge : '' }),
+    search: ['name', 'subject', 'designation']
+  },
+  holders: {
+    table: 'position_holders', title: 'Position holders', noun: 'student', icon: 'fa-trophy', folder: 'holders', maxW: 700, order: 'asc',
+    intro: 'Add students who secured positions. Always keep the parents\' written permission before publishing a photo.',
+    fields: [
+      { k: 'img_url', type: 'image', label: 'Photo', folder: 'holders', maxW: 700 },
+      { k: 'name', label: 'Student name', req: true, max: 80 }, { k: 'class_name', label: 'Class', ph: 'e.g. 10th', max: 30 },
+      { k: 'marks', label: 'Marks / position', ph: 'e.g. 1st position, 1020/1100', max: 60 },
+      { k: 'father_name', label: 'Father name (optional)', max: 80, hint: 'Better to leave empty for privacy.' }, { k: 'roll_no', label: 'Roll no (optional)', max: 30 }
+    ],
+    card: r => ({ img: r.img_url, t: r.name, s: [r.class_name, r.marks].filter(Boolean).join(' · '), s2: r.father_name ? 'Father: ' + r.father_name : '' }),
+    search: ['name', 'class_name', 'marks']
+  },
+  gallery: {
+    table: 'gallery', title: 'Gallery', noun: 'photo', icon: 'fa-images', folder: 'gallery', maxW: 1600, order: 'desc', bulk: true,
+    intro: 'Photos shown in the website gallery. Use "Upload photos" to add many at once, then edit the captions.',
+    fields: [
+      { k: 'img_url', type: 'image', label: 'Photo', req: true, folder: 'gallery', maxW: 1600, wideImg: true },
+      { k: 'caption', label: 'Caption', max: 120, wide: true, ph: 'e.g. Annual Sports Day 2026' }
+    ],
+    card: r => ({ img: r.img_url, t: r.caption || 'No caption', s: '' }), search: ['caption']
+  },
+  legacy: {
+    table: 'notable_people', title: 'Our Pride & Legacy', noun: 'person', icon: 'fa-award', folder: 'legacy', maxW: 800, order: 'asc',
+    intro: 'Former principals, famous alumni and historical figures. They appear in the sliding "Our Pride &amp; Legacy" section (the current principal is added automatically). Only real, verified information, please.',
+    fields: [
+      { k: 'img_url', type: 'image', label: 'Photo', folder: 'legacy', maxW: 800 },
+      { k: 'name', label: 'Full name', req: true, max: 80 },
+      { k: 'role', label: 'Role', max: 60, list: 'roleList', listOpts: ['Former Principal', 'Notable Alumnus', 'Historical Figure', 'Former Teacher', 'Founder', 'Benefactor'] },
+      { k: 'years', label: 'Years', ph: 'e.g. 1975 - 1990, or Class of 1962', max: 40 },
+      { k: 'info', label: 'About this person', type: 'textarea', rows: 5, max: 700, wide: true, hint: 'A few lines about their work and contribution.' }
+    ],
+    card: r => ({ img: r.img_url, t: r.name, s: [r.role, r.years].filter(Boolean).join(' · '), s2: (r.info || '').slice(0, 70) }), search: ['name', 'role', 'info']
+  }
+};
+
+function sortRows(rows, C) {
+  const has = rows.some(r => r.sort_order !== undefined);
+  return rows.slice().sort((a, b) => {
+    if (has) { const d = (a.sort_order ?? 100) - (b.sort_order ?? 100); if (d) return d; }
+    const ai = a.id ?? 0, bi = b.id ?? 0; return C.order === 'desc' ? bi - ai : ai - bi;
+  });
+}
+const crudState = {};
+function crudPage(key) {
+  return async () => {
+    const C = CRUD[key];
+    const { data, error } = await sb.from(C.table).select('*');
+    if (error) throw error;
+    const st = crudState[key] = { rows: sortRows(data, C), q: '', has: data.length ? { sort: 'sort_order' in data[0] } : { sort: true }, miss: [] };
+    if (data.length) C.fields.filter(f => f.opt && !(f.k in data[0])).forEach(f => st.miss.push(f.k));
+    if (data.length && !('sort_order' in data[0])) st.miss.push('sort_order');
+    return `
+    ${head(C.title, C.intro, `${C.bulk ? `<label class="btn ghost filebtn"><input type="file" accept="image/*" multiple id="bulkIn"><i class="fas fa-cloud-arrow-up"></i> Upload photos</label>` : ''}<button class="btn primary" data-add><i class="fas fa-plus"></i> Add ${C.noun}</button>`)}
+    ${st.miss.length ? banner('Some database columns are missing (<b>' + esc(st.miss.join(', ')) + '</b>). Run the setup SQL once to enable them. <a href="#/setup">Database setup</a>') : ''}
+    <div class="toolbar"><div class="search"><i class="fas fa-search"></i><input type="text" id="crudQ" placeholder="Search..." aria-label="Search"></div><span class="badge primary" id="crudN"></span></div>
+    <div id="crudList"></div>`;
+  };
+}
+function crudList(key) {
+  const C = CRUD[key], st = crudState[key]; const q = st.q.toLowerCase();
+  const rows = st.rows.filter(r => !q || C.search.some(k => String(r[k] ?? '').toLowerCase().includes(q)));
+  $('#crudN').textContent = `${rows.length} ${rows.length === 1 ? C.noun : C.noun + 's'}`;
+  const canSort = st.has.sort && !q;
+  $('#crudList').innerHTML = rows.length ? `<div class="items">${rows.map(r => {
+    const c = C.card(r), i = st.rows.indexOf(r);
+    return `<div class="card item" data-id="${r.id}"><div class="th">${c.img ? `<img class="th" src="${esc(c.img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : `<i class="fas ${C.icon}"></i>`}</div>
+      <div class="info"><b>${esc(c.t)}</b>${c.s ? `<span>${esc(c.s)}</span>` : ''}${c.s2 ? `<span>${esc(c.s2)}</span>` : ''}
+      ${canSort ? `<div class="sortbtns"><button class="btn ghost sm icon" data-up aria-label="Move up" ${i === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button><button class="btn ghost sm icon" data-down aria-label="Move down" ${i === st.rows.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button></div>` : ''}</div>
+      <div class="acts"><button class="btn ghost sm icon" data-edit aria-label="Edit"><i class="fas fa-pen"></i></button><button class="btn danger sm icon" data-del aria-label="Delete"><i class="fas fa-trash"></i></button></div></div>`;
+  }).join('')}</div>` : `<div class="card"><div class="empty"><i class="fas ${C.icon}"></i>${q ? 'Nothing matches your search.' : `No ${C.noun}s yet. Press "Add ${C.noun}" to start.`}</div></div>`;
+}
+function crudAfter(key) {
+  return root => {
+    const C = CRUD[key], st = crudState[key]; crudList(key);
+    $('#crudQ', root).oninput = e => { st.q = e.target.value; crudList(key); };
+    $('[data-add]', root).onclick = () => crudForm(key, null);
+    const bulk = $('#bulkIn', root); if (bulk) bulk.onchange = () => crudBulk(key, [...bulk.files]);
+    $('#crudList', root).onclick = async e => {
+      const card = e.target.closest('.item'); if (!card) return; const row = st.rows.find(r => String(r.id) === card.dataset.id); if (!row) return;
+      if (e.target.closest('[data-edit]')) crudForm(key, row);
+      else if (e.target.closest('[data-del]')) { if (await confirmBox(`Delete "${C.card(row).t}"? This cannot be undone.`)) { try { const { error } = await sb.from(C.table).delete().eq('id', row.id); if (error) throw error; await removeFiles([row.img_url]); toast('Deleted'); route(); } catch (er) { toast(errMsg(er), 'err'); } } }
+      else if (e.target.closest('[data-up]')) crudMove(key, row, -1);
+      else if (e.target.closest('[data-down]')) crudMove(key, row, 1);
+    };
+  };
+}
+async function crudMove(key, row, dir) {
+  const C = CRUD[key], st = crudState[key]; const rows = st.rows, i = rows.indexOf(row), j = i + dir; if (j < 0 || j >= rows.length) return;
+  const ord = rows.slice(); [ord[i], ord[j]] = [ord[j], ord[i]];
+  try {
+    await Promise.all(ord.map((r, n) => (r.sort_order !== (n + 1) * 10) ? sb.from(C.table).update({ sort_order: (n + 1) * 10 }).eq('id', r.id).then(x => { if (x.error) throw x.error; }) : null));
+    route();
+  } catch (e) { toast(errMsg(e), 'err'); }
+}
+function crudForm(key, row) {
+  const C = CRUD[key], st = crudState[key];
+  const fields = C.fields.filter(f => !(f.opt && st.miss.includes(f.k)));
+  const m = openModal({ title: row ? `Edit ${C.noun}` : `Add ${C.noun}`, size: 'lg', body: formHTML(fields, row || {}), footer: `<button class="btn ghost" data-close2>Cancel</button><button class="btn primary" id="saveBtn"><i class="fas fa-check"></i> Save</button>`, onOpen: m => wireImages($('.modal-b', m)) });
+  $('[data-close2]', m).onclick = closeModal;
+  $('#saveBtn', m).onclick = e => busy(e.currentTarget, async () => {
+    const root = $('.modal-b', m), vals = readForm(fields, root), bad = validate(fields, vals, root); if (bad) return toast(bad, 'err');
+    try {
+      const old = await applyImages(fields, root, vals);
+      if (!row && st.has.sort && !st.miss.includes('sort_order')) vals.sort_order = (Math.max(0, ...st.rows.map(r => r.sort_order ?? 0)) || st.rows.length * 10) + 10;
+      if (!row && C.order === 'desc' && 'sort_order' in vals) vals.sort_order = Math.min(10, ...st.rows.map(r => r.sort_order ?? 100)) - 10;
+      const dropped = await dbSave(C.table, row && row.id, vals);
+      await removeFiles(old); closeModal();
+      dropped.length ? toast('Saved. Skipped (database not updated): ' + dropped.join(', '), 'warn') : toast('Saved'); route();
+    } catch (er) { toast(errMsg(er), 'err'); }
+  });
+}
+async function crudBulk(key, files) {
+  const C = CRUD[key], st = crudState[key]; if (!files.length) return;
+  toast(`Uploading ${files.length} photo(s)...`, 'warn'); let ok = 0; let next = (st.rows.length ? Math.min(...st.rows.map(r => r.sort_order ?? 100)) : 100) - 10 * files.length;
+  for (const f of files) {
+    try { const url = await uploadImage(f, C.folder, C.maxW); const p = { img_url: url, caption: '' }; if (st.has.sort && !st.miss.includes('sort_order')) p.sort_order = next += 10; await dbSave(C.table, null, p); ok++; }
+    catch (e) { toast(f.name + ': ' + errMsg(e), 'err'); }
+  }
+  toast(`${ok} photo(s) added. Tap the pencil to add captions.`); route();
+}
+['teachers', 'holders', 'gallery', 'legacy'].forEach(k => { PAGES[k] = crudPage(k); AFTER[k] = crudAfter(k); });
+
+/* =====================================================================
+   NOTICES (stored inside school_settings.data.notices)
+   ===================================================================== */
+let NOTICES = [];
+PAGES.notices = async () => {
+  const d = await getSettings(true); NOTICES = (d.notices || []).map(n => ({ ...n }));
+  return `${head('Notices', 'The first notice is shown first on the website. Keep 3 to 6 fresh notices and delete old ones.', `<button class="btn primary" data-add><i class="fas fa-plus"></i> New notice</button>`)}<div id="noticeList"></div>`;
+};
+async function saveNotices(msg = 'Saved') { try { await saveSettings(d => { d.notices = NOTICES; }); toast(msg); renderNotices(); } catch (e) { toast(errMsg(e), 'err'); } }
+function renderNotices() {
+  const el = $('#noticeList'); if (!el) return;
+  el.innerHTML = NOTICES.length ? NOTICES.map((n, i) => `<div class="card item" data-i="${i}" style="margin-bottom:.8rem"><div class="th" style="background:var(--amber-soft);color:var(--amber)"><i class="fas fa-bell"></i></div><div class="info"><b>${esc(n.title)}</b><span>${esc(n.desc)}</span><span><i class="far fa-clock"></i> ${esc(n.date || '')} ${n.link ? ' · <i class="fas fa-paperclip"></i> attachment' : ''}</span><div class="sortbtns"><button class="btn ghost sm icon" data-up aria-label="Move up" ${i === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button><button class="btn ghost sm icon" data-down aria-label="Move down" ${i === NOTICES.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button></div></div><div class="acts"><button class="btn ghost sm icon" data-edit aria-label="Edit"><i class="fas fa-pen"></i></button><button class="btn danger sm icon" data-del aria-label="Delete"><i class="fas fa-trash"></i></button></div></div>`).join('') : `<div class="card"><div class="empty"><i class="fas fa-bell-slash"></i>No notices yet.</div></div>`;
+}
+AFTER.notices = root => {
+  renderNotices();
+  $('[data-add]', root).onclick = () => noticeForm(-1);
+  $('#noticeList', root).onclick = async e => {
+    const c = e.target.closest('.item'); if (!c) return; const i = +c.dataset.i;
+    if (e.target.closest('[data-edit]')) noticeForm(i);
+    else if (e.target.closest('[data-del]')) { if (await confirmBox(`Delete notice "${NOTICES[i].title}"?`)) { const [gone] = NOTICES.splice(i, 1); await saveNotices('Deleted'); if (gone.link) removeFiles([gone.link]); } }
+    else if (e.target.closest('[data-up]') && i > 0) { [NOTICES[i - 1], NOTICES[i]] = [NOTICES[i], NOTICES[i - 1]]; saveNotices('Order saved'); }
+    else if (e.target.closest('[data-down]') && i < NOTICES.length - 1) { [NOTICES[i + 1], NOTICES[i]] = [NOTICES[i], NOTICES[i + 1]]; saveNotices('Order saved'); }
+  };
+};
+function noticeForm(i) {
+  const n = i >= 0 ? NOTICES[i] : { date: '' }; const iso = n.iso || new Date().toISOString().slice(0, 10);
+  const m = openModal({ title: i >= 0 ? 'Edit notice' : 'New notice', size: 'lg', body: `<div class="fgrid">
+    ${fieldHTML({ k: 'title', label: 'Title', req: true, max: 120, wide: true }, n.title)}
+    ${fieldHTML({ k: 'desc', label: 'Details', type: 'textarea', max: 500, wide: true, rows: 4, hint: 'One or two short lines work best.' }, n.desc)}
+    ${fieldHTML({ k: 'iso', label: 'Date', type: 'date' }, iso)}
+    <div class="field"><label>Attachment (PDF or image, optional)</label><label class="btn ghost filebtn"><input type="file" id="ntFile" accept=".pdf,image/*"><i class="fas fa-paperclip"></i> <span id="ntFileTxt">${n.link ? 'Replace file' : 'Choose file'}</span></label>${n.link ? `<div class="hint"><a href="${esc(n.link)}" target="_blank" rel="noopener">Current file</a> · <label><input type="checkbox" id="ntRm"> remove</label></div>` : '<div class="hint">Datesheet, circular, result list...</div>'}</div></div>`,
+    footer: `<button class="btn ghost" data-c>Cancel</button><button class="btn primary" id="ntSave"><i class="fas fa-check"></i> Save notice</button>` });
+  $('[data-c]', m).onclick = closeModal; $('#ntFile', m).onchange = e => { $('#ntFileTxt', m).textContent = e.target.files[0] ? e.target.files[0].name : 'Choose file'; };
+  $('#ntSave', m).onclick = e => busy(e.currentTarget, async () => {
+    const title = $('#f_title', m).value.trim(); if (!title) return toast('Title is required', 'err');
+    const isoV = $('#f_iso', m).value; const item = { ...n, title, desc: $('#f_desc', m).value.trim(), iso: isoV, date: isoV ? fmtDate(isoV + 'T12:00:00', false) : (n.date || '') };
+    try {
+      const f = $('#ntFile', m).files[0]; let oldLink = null;
+      if (f) { if (f.size > 10 * 1024 * 1024) return toast('File is too large (max 10 MB)', 'err'); item.link = f.type.startsWith('image/') ? await uploadImage(f, 'notices', 1600) : await uploadTo('notices', f); if (n.link) oldLink = n.link; }
+      else if ($('#ntRm', m) && $('#ntRm', m).checked) { oldLink = n.link; delete item.link; }
+      if (i >= 0) NOTICES[i] = item; else NOTICES.unshift(item);
+      closeModal(); await saveNotices('Notice saved'); if (oldLink) removeFiles([oldLink]);
+    } catch (er) { toast(errMsg(er), 'err'); }
+  });
+}
+
+/* =====================================================================
+   SETTINGS PAGES
+   ===================================================================== */
+async function settingsPage(pageFields, getVals, title, intro, extraTop = '') {
+  const d = await getSettings(true);
+  return `${head(title, intro)}${extraTop}<form class="card" id="setForm" novalidate><div class="card-b"><div class="fgrid">${pageFields.map(f => fieldHTML(f, getVals(d)[f.k])).join('')}</div>
+  <div class="savebar"><span class="note">Changes go live on the website immediately.</span><button class="btn primary" type="submit"><i class="fas fa-check"></i> Save changes</button></div></div></form>`;
+}
+function settingsAfter(fields, apply, okMsg = 'Saved. The website is updated.') {
+  return root => {
+    wireImages($('#setForm', root));
+    $('#setForm', root).onsubmit = e => {
+      e.preventDefault(); const form = e.currentTarget;
+      busy($('button[type=submit]', form), async () => {
+        const vals = readForm(fields, form), bad = validate(fields, vals, form); if (bad) return toast(bad, 'err');
+        try { const old = await applyImages(fields, form, vals); await saveSettings(d => apply(d, vals)); await removeFiles(old); toast(okMsg); route(); } catch (er) { toast(errMsg(er), 'err'); }
+      });
+    };
+  };
+}
+/* ----- General & contact ----- */
+const SITE_F = [
+  { k: 's1', type: 'section', label: 'Home page banner' },
+  { k: 'h_badge', label: 'Small badge text', ph: 'Established 1890', max: 50 }, { k: 'h_title', label: 'Main title (English)', ph: 'Govt. Model Higher Secondary School Pishin', max: 120 },
+  { k: 'h_sub', label: 'Sub-title (English)', type: 'textarea', rows: 2, max: 200, wide: true },
+  { k: 'h_title_ur', label: 'Main title (Urdu)', max: 120 }, { k: 'h_sub_ur', label: 'Sub-title (Urdu)', max: 200 },
+  { k: 's2', type: 'section', label: 'Numbers shown on the home page' },
+  { k: 'students', label: 'Students', type: 'number' }, { k: 'teachers', label: 'Teachers', type: 'number' }, { k: 'books', label: 'Library books', type: 'number' }, { k: 'computers', label: 'Computers', type: 'number' },
+  { k: 's3', type: 'section', label: 'Contact & location' },
+  { k: 'c_name', label: 'School name (contact section)', max: 120, wide: true, ph: 'Govt. Model Higher Secondary School' },
+  { k: 'c_address', label: 'Full address', type: 'textarea', rows: 2, max: 250, wide: true },
+  { k: 'c_phone', label: 'Phone', type: 'tel', max: 25 }, { k: 'c_whatsapp', label: 'WhatsApp number', type: 'tel', ph: '923001234567', max: 20, hint: 'With country code, no + sign. Used for the green WhatsApp button.' },
+  { k: 'c_email', label: 'Email', type: 'email', max: 80 }, { k: 'c_timing', label: 'School timing', ph: 'Mon-Sat, 8:00 AM - 2:00 PM', max: 80 },
+  { k: 'c_map', label: 'Map search text', max: 150, wide: true, ph: 'Govt Model High School Pishin', hint: 'What Google Maps should search for. Test it on Google Maps first so the pin lands on the right place.' },
+  { k: 's4', type: 'section', label: 'Online admission' },
+  { k: 'a_open', type: 'toggle', label: 'Admissions are open (show the form)' },
+  { k: 'a_info', label: 'Admission information (shown above the form)', type: 'textarea', rows: 4, max: 700, wide: true, hint: 'Who can apply, documents to bring, last date, fees (or "no fees")...' },
+  { k: 'a_closed', label: 'Message when admissions are closed', max: 250, wide: true, ph: 'Admissions are closed. Please check again soon.' }
+];
+PAGES.site = () => settingsPage(SITE_F, d => { const h = d.hero || {}, m = d.metrics || {}, c = d.contact || {}, a = d.admission || {}; return { h_badge: h.badge, h_title: h.title, h_sub: h.subtitle, h_title_ur: h.title_ur, h_sub_ur: h.subtitle_ur, students: m.students, teachers: m.teachers, books: m.books, computers: m.computers, c_name: c.name, c_address: c.address, c_phone: c.phone, c_whatsapp: c.whatsapp, c_email: c.email, c_timing: c.timing, c_map: c.map, a_open: a.open !== false, a_info: a.info, a_closed: a.closed_message }; }, 'General & contact', 'Home page text, numbers, contact details, map and admission settings. Leave a box empty to use the default text.');
+AFTER.site = settingsAfter(SITE_F, (d, v) => {
+  d.hero = { badge: v.h_badge, title: v.h_title, subtitle: v.h_sub, title_ur: v.h_title_ur, subtitle_ur: v.h_sub_ur };
+  d.metrics = { ...(d.metrics || {}), students: v.students ?? '', teachers: v.teachers ?? '', books: v.books ?? '', computers: v.computers ?? '' };
+  d.contact = { name: v.c_name, address: v.c_address, phone: v.c_phone, whatsapp: v.c_whatsapp, email: v.c_email, timing: v.c_timing, map: v.c_map };
+  d.admission = { open: v.a_open, info: v.a_info, closed_message: v.a_closed };
+});
+/* ----- About & principal ----- */
+const ABOUT_F = [
+  { k: 's1', type: 'section', label: 'About the school' },
+  { k: 'desc', label: 'School introduction', type: 'textarea', rows: 6, max: 2500, wide: true, hint: 'History, achievements and what makes the school special. Only facts you can prove.' },
+  { k: 'vision', label: 'Vision', type: 'textarea', rows: 3, max: 400 }, { k: 'mission', label: 'Mission', type: 'textarea', rows: 3, max: 400 },
+  { k: 's2', type: 'section', label: 'Principal' },
+  { k: 'p_img', type: 'image', label: 'Principal photo', folder: 'principal', maxW: 800 },
+  { k: 'p_name', label: 'Name', max: 80 }, { k: 'p_whatsapp', label: 'WhatsApp', type: 'tel', ph: '923001234567', max: 20 },
+  { k: 'p_message', label: 'Principal\'s message', type: 'textarea', rows: 5, max: 800, wide: true }
+];
+PAGES.about = () => settingsPage(ABOUT_F, d => { const a = d.about || {}, p = a.principal || {}; return { desc: a.desc, vision: a.vision, mission: a.mission, p_img: p.img, p_name: p.name, p_whatsapp: p.whatsapp, p_message: p.message }; }, 'About & Principal', 'This text appears in the "About Our School" section and in the principal card.');
+AFTER.about = settingsAfter(ABOUT_F, (d, v) => { const a = d.about = d.about || {}; a.desc = v.desc; a.vision = v.vision; a.mission = v.mission; a.principal = { ...(a.principal || {}), name: v.p_name, whatsapp: v.p_whatsapp, message: v.p_message, img: v.p_img !== undefined ? v.p_img : (a.principal || {}).img }; });
+/* ----- Developer ----- */
+const DEV_F = [
+  { k: 'hidden', type: 'toggle', label: 'Hide the developer section on the website' },
+  { k: 'img', type: 'image', label: 'Photo', folder: 'developer', maxW: 500 },
+  { k: 'name', label: 'Name', max: 80 }, { k: 'class', label: 'Class', max: 30 }, { k: 'role', label: 'Role', ph: 'Student & Web Developer', max: 80 },
+  { k: 'skills', label: 'Skills (comma separated)', wide: true, ph: 'Website Dev, App Dev', max: 200 }
+];
+PAGES.developer = () => settingsPage(DEV_F, d => { const v = d.developer || {}; return { ...v, skills: (v.skills || []).join(', '), hidden: !!v.hidden }; }, 'Developer card', 'Who built the website. Many schools prefer to hide this big section and keep only a small credit line in the footer.');
+AFTER.developer = settingsAfter(DEV_F, (d, v) => { const o = d.developer || {}; d.developer = { ...o, name: v.name, class: v.class, role: v.role, skills: (v.skills || '').split(',').map(s => s.trim()).filter(Boolean), hidden: v.hidden, img: v.img !== undefined ? v.img : o.img }; });
+
+/* ----- Social links (table social_links, id = 1) ----- */
+const SOC_F = [
+  { k: 'facebook', label: 'Facebook page', type: 'url', ph: 'https://facebook.com/...', wide: true }, { k: 'instagram', label: 'Instagram', type: 'url', ph: 'https://instagram.com/...', wide: true },
+  { k: 'tiktok', label: 'TikTok', type: 'url', wide: true }, { k: 'youtube', label: 'YouTube channel', type: 'url', wide: true },
+  { k: 'whatsapp_group', label: 'WhatsApp group invite link', type: 'url', wide: true }, { k: 'whatsapp_channel', label: 'WhatsApp channel link', type: 'url', wide: true }
+];
+PAGES.social = async () => {
+  const { data, error } = await sb.from('social_links').select('*').eq('id', 1).maybeSingle(); if (error) throw error;
+  return `${head('Social links', 'Icons appear in the website footer. Leave a box empty to hide that icon.')}<form class="card" id="setForm"><div class="card-b"><div class="fgrid">${SOC_F.map(f => fieldHTML(f, (data || {})[f.k])).join('')}</div><div class="savebar"><span class="note">Only real, working links please.</span><button class="btn primary" type="submit"><i class="fas fa-check"></i> Save</button></div></div></form>`;
+};
+AFTER.social = root => {
+  $('#setForm', root).onsubmit = e => { e.preventDefault(); const v = readForm(SOC_F, e.currentTarget); busy($('button[type=submit]', e.currentTarget), async () => { try { const { error } = await sb.from('social_links').upsert({ id: 1, ...v }); if (error) throw error; toast('Social links saved'); } catch (er) { toast(errMsg(er), 'err'); } }); };
+};
+/* ----- Logo & hero slider ----- */
+let SLIDES = [];
+PAGES.branding = async () => {
+  const d = await getSettings(true); const l = d.logos || {}; SLIDES = (l.sliderImages || []).slice();
+  const F = [{ k: 'headerLogo', type: 'image', label: 'School logo (navbar, footer, browser tab)', folder: 'logos', maxW: 512, hint: 'Square PNG with a transparent background looks best.' }, { k: 'bgLogo', type: 'image', label: 'Watermark behind the home banner (optional)', folder: 'logos', maxW: 900, hint: 'Shown very faintly. Leave empty if not needed.' }];
+  return `${head('Logo & Hero slider', 'The logo and the pictures that slide behind the home page title.')}
+  <form class="card" id="setForm" style="margin-bottom:1rem"><div class="card-h"><h3>Logos</h3></div><div class="card-b"><div class="fgrid">${F.map(f => fieldHTML(f, l[f.k])).join('')}</div><div class="savebar"><button class="btn primary" type="submit"><i class="fas fa-check"></i> Save logos</button></div></div></form>
+  <div class="card"><div class="card-h"><h3>Hero slider pictures <span class="badge primary" id="slN"></span></h3><label class="btn primary sm filebtn"><input type="file" accept="image/*" multiple id="slIn"><i class="fas fa-plus"></i> Add pictures</label></div><div class="card-b"><p class="hint" style="margin-bottom:.8rem">4 to 6 wide pictures (landscape) are ideal. The first picture is shown first.</p><div id="slGrid"></div></div></div>`;
+};
+function renderSlides() {
+  $('#slN').textContent = SLIDES.length; $('#slGrid').innerHTML = SLIDES.length ? `<div class="items" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr))">${SLIDES.map((u, i) => `<div class="card" data-i="${i}" style="overflow:hidden"><img src="${esc(u)}" alt="" style="width:100%;height:120px;object-fit:cover;display:block" loading="lazy"><div style="display:flex;gap:.4rem;padding:.6rem;align-items:center"><span class="badge">${i + 1}</span><button class="btn ghost sm icon" data-up ${i === 0 ? 'disabled' : ''} aria-label="Move left"><i class="fas fa-arrow-up"></i></button><button class="btn ghost sm icon" data-down ${i === SLIDES.length - 1 ? 'disabled' : ''} aria-label="Move right"><i class="fas fa-arrow-down"></i></button><button class="btn danger sm icon" data-del style="margin-left:auto" aria-label="Delete"><i class="fas fa-trash"></i></button></div></div>`).join('')}</div>` : '<div class="empty"><i class="far fa-images"></i>No slider pictures yet.</div>';
+}
+async function saveSlides(msg) { try { await saveSettings(d => { d.logos = d.logos || {}; d.logos.sliderImages = SLIDES; }); toast(msg || 'Saved'); renderSlides(); } catch (e) { toast(errMsg(e), 'err'); } }
+AFTER.branding = root => {
+  renderSlides();
+  const F = [{ k: 'headerLogo', type: 'image', folder: 'logos', maxW: 512 }, { k: 'bgLogo', type: 'image', folder: 'logos', maxW: 900 }];
+  wireImages($('#setForm', root));
+  $('#setForm', root).onsubmit = e => { e.preventDefault(); const form = e.currentTarget; busy($('button[type=submit]', form), async () => { try { const v = {}; const old = await applyImages(F, form, v); await saveSettings(d => { d.logos = { ...(d.logos || {}), ...v }; }); await removeFiles(old); toast('Logos saved'); route(); } catch (er) { toast(errMsg(er), 'err'); } }); };
+  $('#slIn', root).onchange = async e => { const files = [...e.target.files]; if (!files.length) return; toast(`Uploading ${files.length}...`, 'warn'); for (const f of files) { try { SLIDES.push(await uploadImage(f, 'slider', 1920)); } catch (er) { toast(errMsg(er), 'err'); } } await saveSlides('Pictures added'); };
+  $('#slGrid', root).onclick = async e => {
+    const c = e.target.closest('[data-i]'); if (!c) return; const i = +c.dataset.i;
+    if (e.target.closest('[data-del]')) { if (await confirmBox('Remove this picture from the slider?', { okText: 'Remove' })) { const [u] = SLIDES.splice(i, 1); await saveSlides('Removed'); removeFiles([u]); } }
+    else if (e.target.closest('[data-up]') && i > 0) { [SLIDES[i - 1], SLIDES[i]] = [SLIDES[i], SLIDES[i - 1]]; saveSlides('Order saved'); }
+    else if (e.target.closest('[data-down]') && i < SLIDES.length - 1) { [SLIDES[i + 1], SLIDES[i]] = [SLIDES[i], SLIDES[i + 1]]; saveSlides('Order saved'); }
+  };
+};
+
+/* =====================================================================
+   ADMISSIONS
+   ===================================================================== */
+let ADM = [], admTab = 'all', admQ = '';
+PAGES.admissions = async () => {
+  const { data, error } = await sb.from('admissions').select('*').order('created_at', { ascending: false }); if (error) throw error; ADM = data;
+  return `${head('Admissions', 'Online applications sent from the website. Only admins can see them.', `<button class="btn ghost" id="admCsv"><i class="fas fa-file-csv"></i> Export CSV</button>`)}
+  <div class="toolbar"><div class="tabs" id="admTabs"></div><div class="search"><i class="fas fa-search"></i><input type="text" id="admSearch" placeholder="Search name, phone, class..." aria-label="Search"></div></div><div class="card" id="admBox"></div>`;
+};
+const admBadge = s => `<span class="badge ${s === 'approved' ? 'green' : s === 'rejected' ? 'red' : 'amber'}">${esc(s || 'pending')}</span>`;
+function renderAdm() {
+  const st = a => a.status || 'pending'; const cnt = k => k === 'all' ? ADM.length : ADM.filter(a => st(a) === k).length;
+  $('#admTabs').innerHTML = [['all', 'All'], ['pending', 'Pending'], ['approved', 'Approved'], ['rejected', 'Rejected']].map(([k, l]) => `<button data-t="${k}" class="${admTab === k ? 'on' : ''}">${l}<span class="n">${cnt(k)}</span></button>`).join('');
+  const q = admQ.toLowerCase(); const rows = ADM.filter(a => (admTab === 'all' || st(a) === admTab) && (!q || [a.name, a.father_name, a.phone, a.class_name, a.address].some(x => String(x || '').toLowerCase().includes(q))));
+  $('#admBox').innerHTML = rows.length ? `<table class="tbl"><thead><tr><th>Student</th><th>Class</th><th>Phone</th><th>Received</th><th>Status</th><th></th></tr></thead><tbody>${rows.map(a => `<tr data-id="${a.id}"><td class="first"><div class="who">${a.img_url ? `<img src="${esc(a.img_url)}" alt="" loading="lazy">` : `<span class="ph">${PERSON}</span>`}<div><b>${esc(a.name)}</b><small>S/O ${esc(a.father_name || '-')}</small></div></div></td><td data-l="Class">${esc(a.class_name || '')}</td><td data-l="Phone">${esc(a.phone || '')}</td><td data-l="Received">${fmtDate(a.created_at, false)}</td><td data-l="Status">${admBadge(a.status)}</td><td style="text-align:right"><button class="btn ghost sm" data-open>Open</button></td></tr>`).join('')}</tbody></table>` : '<div class="empty"><i class="fas fa-inbox"></i>No applications here.</div>';
+}
+AFTER.admissions = root => {
+  admTab = 'all'; admQ = ''; renderAdm();
+  $('#admTabs', root).onclick = e => { const b = e.target.closest('[data-t]'); if (b) { admTab = b.dataset.t; renderAdm(); } };
+  $('#admSearch', root).oninput = e => { admQ = e.target.value; renderAdm(); };
+  $('#admBox', root).onclick = e => { const tr = e.target.closest('tr[data-id]'); if (tr && (e.target.closest('[data-open]') || !e.target.closest('a'))) openAdm(tr.dataset.id); };
+  $('#admCsv', root).onclick = () => {
+    const cols = ['name', 'father_name', 'class_name', 'phone', 'dob', 'address', 'status', 'created_at', 'img_url']; const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    download(`admissions-${new Date().toISOString().slice(0, 10)}.csv`, '﻿' + cols.join(',') + '\n' + ADM.map(a => cols.map(c => q(a[c])).join(',')).join('\n'), 'text/csv;charset=utf-8');
+  };
+};
+function openAdm(id) {
+  const a = ADM.find(x => String(x.id) === String(id)); if (!a) return;
+  const wa = waLink(a.phone, `Assalam o Alaikum. Regarding the admission application of ${a.name} at Model School Pishin.`);
+  const m = openModal({ title: 'Admission application', size: 'lg', body: `<div class="print-area"><div style="display:flex;gap:1rem;align-items:center;margin-bottom:1rem">${a.img_url ? `<a href="${esc(a.img_url)}" target="_blank" rel="noopener"><img src="${esc(a.img_url)}" alt="" style="width:96px;height:96px;border-radius:14px;object-fit:cover"></a>` : ''}<div><h3 style="font-size:1.2rem">${esc(a.name)}</h3><div>${admBadge(a.status)}</div></div></div>
+    <dl class="kv"><dt>Father's name</dt><dd>${esc(a.father_name || '-')}</dd><dt>Class</dt><dd>${esc(a.class_name || '-')}</dd><dt>WhatsApp / phone</dt><dd>${esc(a.phone || '-')}</dd><dt>Date of birth</dt><dd>${esc(a.dob || '-')}</dd><dt>Address</dt><dd>${esc(a.address || '-')}</dd><dt>Received</dt><dd>${fmtDate(a.created_at)}</dd></dl></div>`,
+    footer: `<button class="btn danger sm" data-del><i class="fas fa-trash"></i></button><button class="btn ghost sm" data-print><i class="fas fa-print"></i> Print</button>${wa ? `<a class="btn ghost sm" href="${wa}" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>` : ''}<button class="btn danger sm" data-s="rejected">Reject</button><button class="btn ok sm" data-s="approved">Approve</button>` });
+  const setS = async s => { const { error } = await sb.from('admissions').update({ status: s }).eq('id', a.id); if (error) return toast(errMsg(error), 'err'); a.status = s; toast('Marked ' + s); closeModal(); renderAdm(); refreshBadges(); };
+  $$('[data-s]', m).forEach(b => b.onclick = () => setS(b.dataset.s));
+  $('[data-print]', m).onclick = () => window.print();
+  $('[data-del]', m).onclick = async () => { if (await confirmBox(`Delete the application of ${a.name}?`)) { const { error } = await sb.from('admissions').delete().eq('id', a.id); if (error) return toast(errMsg(error), 'err'); await removeFiles([a.img_url]); ADM = ADM.filter(x => x !== a); toast('Deleted'); closeModal(); renderAdm(); refreshBadges(); } };
+}
+
+/* =====================================================================
+   REVIEWS
+   ===================================================================== */
+let REV = [], revTab = 'pending', revHas = true;
+PAGES.reviews = async () => {
+  const { data, error } = await sb.from('comments').select('*').order('created_at', { ascending: false }); if (error) throw error; REV = data; revHas = !data.length || 'approved' in data[0];
+  return `${head('Reviews', 'Reviews written by visitors. A review appears on the website only after you approve it.')}
+  ${!revHas ? banner('The <b>approved</b> column is missing, so every review is already public. Run the setup SQL to enable approval. <a href="#/setup">Database setup</a>') : ''}
+  <div class="toolbar"><div class="tabs" id="revTabs"></div></div><div id="revBox"></div>`;
+};
+const isLive = r => r.approved === true;
+function renderRev() {
+  const pend = REV.filter(r => !isLive(r)), live = REV.filter(isLive);
+  $('#revTabs').innerHTML = `<button data-t="pending" class="${revTab === 'pending' ? 'on' : ''}">To approve<span class="n">${revHas ? pend.length : 0}</span></button><button data-t="live" class="${revTab === 'live' ? 'on' : ''}">On website<span class="n">${revHas ? live.length : REV.length}</span></button>`;
+  const rows = !revHas ? (revTab === 'live' ? REV : []) : (revTab === 'live' ? live : pend);
+  $('#revBox').innerHTML = rows.length ? rows.map(r => `<div class="card review" data-id="${r.id}"><div class="avatar" style="background:var(--primary-soft);color:var(--primary-text)">${esc((r.user_name || '?').charAt(0).toUpperCase())}</div><div style="flex:1;min-width:0"><b>${esc(r.user_name)}</b> <span class="meta">· ${fmtDate(r.created_at)}</span><p>${esc(r.comment_text)}</p><div style="display:flex;gap:.5rem;flex-wrap:wrap">${revHas ? (isLive(r) ? '<button class="btn ghost sm" data-un>Hide from website</button>' : '<button class="btn ok sm" data-ok><i class="fas fa-check"></i> Approve</button>') : ''}<button class="btn danger sm" data-del><i class="fas fa-trash"></i> Delete</button></div></div></div>`).join('<div style="height:.7rem"></div>') : `<div class="card"><div class="empty"><i class="far fa-comments"></i>${revTab === 'pending' ? 'Nothing waiting for approval.' : 'No reviews on the website yet.'}</div></div>`;
+}
+AFTER.reviews = root => {
+  revTab = revHas && REV.some(r => !isLive(r)) ? 'pending' : (revHas ? 'live' : 'live'); renderRev();
+  $('#revTabs', root).onclick = e => { const b = e.target.closest('[data-t]'); if (b) { revTab = b.dataset.t; renderRev(); } };
+  $('#revBox', root).onclick = async e => {
+    const c = e.target.closest('.review'); if (!c) return; const r = REV.find(x => String(x.id) === c.dataset.id); if (!r) return;
+    const setA = async v => { const { error } = await sb.from('comments').update({ approved: v }).eq('id', r.id); if (error) return toast(errMsg(error), 'err'); r.approved = v; toast(v ? 'Review is now on the website' : 'Review hidden'); renderRev(); refreshBadges(); };
+    if (e.target.closest('[data-ok]')) setA(true); else if (e.target.closest('[data-un]')) setA(false);
+    else if (e.target.closest('[data-del]') && await confirmBox('Delete this review permanently?')) { const { error } = await sb.from('comments').delete().eq('id', r.id); if (error) return toast(errMsg(error), 'err'); REV = REV.filter(x => x !== r); toast('Deleted'); renderRev(); refreshBadges(); }
+  };
+};
+
+/* =====================================================================
+   ACCOUNT / BACKUP / SETUP
+   ===================================================================== */
+PAGES.account = async () => `${head('Account & Security', 'Your login and password.')}
+  <div class="grid g2"><div class="card"><div class="card-h"><h3>Signed in as</h3></div><div class="card-b"><div style="display:flex;gap:.8rem;align-items:center;margin-bottom:1rem"><div class="avatar" style="width:46px;height:46px">${esc((ME.email || 'A').charAt(0).toUpperCase())}</div><div><b>${esc(ME.email)}</b><div class="hint">Administrator</div></div></div>
+    <div style="display:grid;gap:.6rem"><button class="btn ghost" id="outBtn"><i class="fas fa-sign-out-alt"></i> Sign out</button><button class="btn ghost" id="outAll"><i class="fas fa-power-off"></i> Sign out from all devices</button></div></div></div>
+  <form class="card" id="pwForm"><div class="card-h"><h3>Change password</h3></div><div class="card-b"><div class="fgrid" style="grid-template-columns:1fr">
+    <div class="field"><label for="pw1">New password</label><input type="password" id="pw1" autocomplete="new-password" placeholder="At least 8 characters"></div>
+    <div class="field"><label for="pw2">Repeat new password</label><input type="password" id="pw2" autocomplete="new-password"></div></div>
+    <div class="savebar"><button class="btn primary" type="submit"><i class="fas fa-key"></i> Update password</button></div>
+    <p class="hint" style="margin-top:.8rem">Tip: use a long password that you do not use anywhere else, and never share it. Adding a second admin (see Database setup) is safer than sharing one login.</p></div></form></div>`;
+AFTER.account = root => {
+  $('#outBtn', root).onclick = () => sb.auth.signOut();
+  $('#outAll', root).onclick = async () => { if (await confirmBox('Sign out from every device?', { okText: 'Sign out all', danger: false })) sb.auth.signOut({ scope: 'global' }); };
+  $('#pwForm', root).onsubmit = e => { e.preventDefault(); const a = $('#pw1').value, b = $('#pw2').value; if (a.length < 8) return toast('Use at least 8 characters', 'err'); if (a !== b) return toast('Passwords do not match', 'err'); busy($('button[type=submit]', e.currentTarget), async () => { const { error } = await sb.auth.updateUser({ password: a }); if (error) return toast(error.message, 'err'); $('#pw1').value = $('#pw2').value = ''; toast('Password updated'); }); };
+};
+PAGES.backup = async () => `${head('Backup', 'Download a copy of everything on the website. Keep it somewhere safe (Google Drive or your computer).')}
+  <div class="card"><div class="card-b"><p style="margin-bottom:1rem">The file contains settings, notices, teachers, position holders, gallery list, legacy people, reviews and admission requests. Photos are linked, not copied.</p><button class="btn primary" id="bkBtn"><i class="fas fa-download"></i> Download backup (.json)</button></div></div>`;
+AFTER.backup = root => {
+  $('#bkBtn', root).onclick = e => busy(e.currentTarget, async () => {
+    const out = { exported_at: new Date().toISOString(), tables: {} }; const tabs = ['school_settings', 'teachers', 'position_holders', 'gallery', 'notable_people', 'social_links', 'admissions', 'comments'];
+    for (const t of tabs) { try { out.tables[t] = await fetchAll(t); } catch (er) { out.tables[t] = { error: errMsg(er) }; } }
+    download(`school-backup-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(out, null, 2), 'application/json'); toast('Backup downloaded');
+  });
+};
+PAGES.setup = async () => {
+  const sql = $('#sqlText').textContent;
+  return `${head('Database setup', 'One-time setup that makes the admin panel work and keeps your data safe.')}
+  <div class="card" style="margin-bottom:1rem"><div class="card-h"><h3>Health check</h3><button class="btn ghost sm" id="chkBtn"><i class="fas fa-rotate"></i> Run again</button></div><div class="card-b" id="chkBox"><div class="skel"></div></div></div>
+  <div class="card"><div class="card-h"><h3>Setup SQL</h3><button class="btn primary sm" id="cpBtn"><i class="fas fa-copy"></i> Copy SQL</button><button class="btn ghost sm" id="dlBtn"><i class="fas fa-download"></i> Download</button></div><div class="card-b">
+    <ol class="steps"><li>Open your <b>Supabase</b> project, then <b>SQL Editor → New query</b>.</li><li>Paste the SQL below. <b>Replace <code>YOUR_ADMIN_EMAIL@example.com</code></b> with the email you use to log in here.</li><li>Press <b>Run</b>. It is safe to run again.</li><li>In <b>Authentication → Sign In / Providers</b>, turn <b>off</b> "Allow new users to sign up", so nobody else can create an account.</li><li>Come back here and press <b>Run again</b> on the health check.</li></ol>
+    <pre class="sql" id="sqlPre">${esc(sql)}</pre></div></div>`;
+};
+AFTER.setup = root => {
+  const sql = $('#sqlText').textContent;
+  $('#cpBtn', root).onclick = async () => { try { await navigator.clipboard.writeText(sql); toast('SQL copied'); } catch (_) { const r = document.createRange(); r.selectNodeContents($('#sqlPre')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast('Press Ctrl+C to copy', 'warn'); } };
+  $('#dlBtn', root).onclick = () => download('supabase_setup.sql', sql);
+  const T = (name, fn, fix) => ({ name, fn, fix });
+  const col = (t, c) => () => sb.from(t).select(c).limit(1);
+  const checks = [
+    T('Admin account is approved (is_admin)', async () => { const r = await sb.rpc('is_admin'); if (r.error) return r; return r.data ? {} : { error: { message: 'Your email is not in the admins table' } }; }, 'Run the setup SQL with your email'),
+    T('Table: school_settings', () => sb.from('school_settings').select('id').limit(1)), T('Table: teachers', () => sb.from('teachers').select('id').limit(1)),
+    T('Table: position_holders', () => sb.from('position_holders').select('id').limit(1)), T('Table: gallery', () => sb.from('gallery').select('id').limit(1)),
+    T('Table: admissions', () => sb.from('admissions').select('id').limit(1)), T('Table: comments (reviews)', () => sb.from('comments').select('id').limit(1)),
+    T('Table: social_links', () => sb.from('social_links').select('id').limit(1)),
+    T('Table: notable_people (Legacy)', () => sb.from('notable_people').select('id').limit(1), 'Run the setup SQL'),
+    T('Table: page_views (visitor statistics)', () => sb.from('page_views').select('id').limit(1), 'Run the setup SQL'),
+    T('Column: teachers.qualification / experience / sort_order', col('teachers', 'qualification,experience,sort_order'), 'Run the setup SQL'),
+    T('Column: position_holders.sort_order', col('position_holders', 'sort_order'), 'Run the setup SQL'), T('Column: gallery.sort_order', col('gallery', 'sort_order'), 'Run the setup SQL'),
+    T('Column: comments.approved (review approval)', col('comments', 'approved'), 'Run the setup SQL'),
+    T('Visitor reports (views_summary)', () => sb.rpc('views_summary'), 'Run the setup SQL'),
+    T('Image storage bucket: school_assets', () => sb.storage.from(BUCKET).list('', { limit: 1 }), 'Create a PUBLIC bucket named school_assets in Storage')
+  ];
+  const run = async () => {
+    $('#chkBox', root).innerHTML = '<div class="skel"></div>';
+    const res = await Promise.all(checks.map(async c => { try { const r = await c.fn(); return { c, err: r && r.error ? errMsg(r.error) : null }; } catch (e) { return { c, err: errMsg(e) }; } }));
+    const bad = res.filter(r => r.err).length; DB_READY = !res.find(r => r.c.name.startsWith('Admin account') && r.err);
+    $('#chkBox', root).innerHTML = `<p style="margin-bottom:.6rem">${bad ? `<span class="badge red">${bad} to fix</span>` : '<span class="badge green">Everything is ready</span>'}</p>` + res.map(r => `<div class="check"><i class="fas ${r.err ? 'fa-circle-xmark bad' : 'fa-circle-check ok'}"></i><div><b>${esc(r.c.name)}</b>${r.err ? `<small>${esc(r.err)}${r.c.fix ? ' → ' + esc(r.c.fix) : ''}</small>` : ''}</div></div>`).join('');
+  };
+  $('#chkBtn', root).onclick = run; run();
+};
+
+/* =====================================================================
+   THEME & COLORS
+   ===================================================================== */
+const THEMES = {
+  navy_gold:    { name: 'Royal Navy & Gold',   desc: 'Classic school look',        navy: '#0a2f5a', deep: '#071e38', mid: '#0f3b6e', accent: '#ffb703', on: '#1b2433', lt: '#9a5b00' },
+  emerald_gold: { name: 'Emerald & Gold',      desc: 'Green, calm and traditional', navy: '#0b3d2e', deep: '#062a1f', mid: '#12553f', accent: '#f2c14e', on: '#1b2a14', lt: '#8a6200' },
+  maroon_gold:  { name: 'Maroon & Gold',       desc: 'College, university style',  navy: '#5a1226', deep: '#3b0b19', mid: '#7a1c38', accent: '#f0b429', on: '#2a1208', lt: '#8a5a00' },
+  purple_amber: { name: 'Purple & Amber',      desc: 'Creative and modern',        navy: '#2e1a5c', deep: '#1c1038', mid: '#43268a', accent: '#ffc247', on: '#241608', lt: '#8a5300' },
+  teal_coral:   { name: 'Teal & Coral',        desc: 'Fresh and friendly',         navy: '#0b4f5c', deep: '#06333c', mid: '#0f6a7a', accent: '#ff7a59', on: '#2a1008', lt: '#b4310d' },
+  slate_sky:    { name: 'Slate & Sky Blue',    desc: 'Clean, professional',        navy: '#1f2a3c', deep: '#141c29', mid: '#2c3b54', accent: '#38bdf8', on: '#06202e', lt: '#0369a1' },
+  brown_cream:  { name: 'Library Brown & Cream', desc: 'Warm, book-like',          navy: '#3e2a1e', deep: '#28190f', mid: '#5a3d2b', accent: '#e8c07d', on: '#2a1a0c', lt: '#7a5410' },
+  indigo_lime:  { name: 'Indigo & Lime',       desc: 'Bright and energetic',       navy: '#1e2a78', deep: '#121a52', mid: '#2b3a9c', accent: '#a3e635', on: '#1a2505', lt: '#4d7c0f' },
+  midnight_gold:{ name: 'Midnight & Gold',     desc: 'Premium and elegant',        navy: '#111418', deep: '#0a0c0f', mid: '#1c2128', accent: '#d4af37', on: '#14110a', lt: '#7a6008' },
+  sky_orange:   { name: 'Sky Blue & Orange',   desc: 'Cheerful, for kids',         navy: '#0b5394', deep: '#073a68', mid: '#1068b8', accent: '#ff8c42', on: '#2a1304', lt: '#b45309' }
+};
+
+let THEME_SEL = 'navy_gold';
+PAGES.theme = async () => {
+  const d = await getSettings(true); THEME_SEL = THEMES[d.theme] ? d.theme : 'navy_gold';
+  return `${head('Theme & Colors', 'Choose one of 10 school-style colour themes. The whole website changes after you press Save. Use Preview to see it first.', `<button class="btn primary" id="thSave"><i class="fas fa-check"></i> Save theme</button>`)}
+  <div class="themes" id="thGrid">${Object.entries(THEMES).map(([k, t]) => `<div class="theme ${k === THEME_SEL ? 'sel' : ''}" data-k="${k}" role="button" tabindex="0" aria-label="${esc(t.name)}">
+    <div class="pv" style="background:linear-gradient(160deg,${t.deep},${t.navy} 60%,${t.mid})"><span class="pill" style="background:${t.accent};color:${t.on}">Apply Now</span><div><div class="bar" style="background:#fff"></div><div class="bar s" style="background:#fff;margin-top:5px"></div></div></div>
+    <div class="sw"><i style="background:${t.deep}"></i><i style="background:${t.navy}"></i><i style="background:${t.mid}"></i><i style="background:${t.accent}"></i></div>
+    <div class="tx"><b>${esc(t.name)}</b><span>${esc(t.desc)}</span><div style="margin-top:.5rem"><a class="btn ghost sm" href="index.html?preview_theme=${k}" target="_blank" rel="noopener" data-prev>Preview</a></div></div><span class="tick"><i class="fas fa-check"></i></span></div>`).join('')}</div>
+  <p class="hint" style="margin-top:1rem">Visitors can still switch between dark and light mode. Both modes use the colours of the theme you choose.</p>`;
+};
+AFTER.theme = root => {
+  const pick = k => { THEME_SEL = k; $$('.theme', root).forEach(x => x.classList.toggle('sel', x.dataset.k === k)); };
+  $('#thGrid', root).onclick = e => { if (e.target.closest('[data-prev]')) return; const c = e.target.closest('.theme'); if (c) pick(c.dataset.k); };
+  $('#thGrid', root).onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { const c = e.target.closest('.theme'); if (c) { e.preventDefault(); pick(c.dataset.k); } } };
+  $('#thSave', root).onclick = e => busy(e.currentTarget, async () => { try { await saveSettings(d => { d.theme = THEME_SEL; }); toast('Theme saved: ' + THEMES[THEME_SEL].name); } catch (er) { toast(errMsg(er), 'err'); } });
+};
+
+/* =====================================================================
+   LISTS STORED INSIDE school_settings (Top 10, chatbot FAQs)
+   ===================================================================== */
+const getPath = (o, p) => p.reduce((c, k) => c && c[k], o);
+function setPath(o, p, v) { let c = o; p.slice(0, -1).forEach(k => c = c[k] = c[k] || {}); c[p[p.length - 1]] = v; }
+const SL = {};
+function settingsListPage(key, cfg) {
+  PAGES[key] = async () => {
+    const d = await getSettings(true); const st = SL[key] = { items: (getPath(d, cfg.path) || []).map(x => ({ ...x })) };
+    return `${head(cfg.title, cfg.intro, `<button class="btn primary" data-add><i class="fas fa-plus"></i> Add ${cfg.noun}</button>`)}
+    ${cfg.extra ? `<form class="card" id="xForm" style="margin-bottom:1rem"><div class="card-b"><div class="fgrid">${cfg.extra.fields.map(f => fieldHTML(f, cfg.extra.get(d)[f.k])).join('')}</div><div class="savebar"><button class="btn primary" type="submit"><i class="fas fa-check"></i> Save settings</button></div></div></form>` : ''}
+    <div id="slList"></div>`;
+  };
+  const draw = () => {
+    const st = SL[key], el = $('#slList'); if (!el) return;
+    el.innerHTML = st.items.length ? `<div class="items">${st.items.map((r, i) => { const c = cfg.card(r, i); return `<div class="card item" data-i="${i}">${cfg.rank ? `<div class="rank">${i + 1}</div>` : ''}<div class="th">${c.img ? `<img class="th" src="${esc(c.img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">` : `<i class="fas ${cfg.icon}"></i>`}</div><div class="info"><b>${esc(c.t)}</b>${c.s ? `<span>${esc(c.s)}</span>` : ''}<div class="sortbtns"><button class="btn ghost sm icon" data-up aria-label="Move up" ${i === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button><button class="btn ghost sm icon" data-down aria-label="Move down" ${i === st.items.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button></div></div><div class="acts"><button class="btn ghost sm icon" data-edit aria-label="Edit"><i class="fas fa-pen"></i></button><button class="btn danger sm icon" data-del aria-label="Delete"><i class="fas fa-trash"></i></button></div></div>`; }).join('')}</div>` : `<div class="card"><div class="empty"><i class="fas ${cfg.icon}"></i>${esc(cfg.empty)}</div></div>`;
+  };
+  const persist = async msg => { try { await saveSettings(d => { setPath(d, cfg.path, SL[key].items); }); toast(msg || 'Saved'); draw(); } catch (e) { toast(errMsg(e), 'err'); } };
+  const form = i => {
+    const st = SL[key], row = i >= 0 ? st.items[i] : null;
+    if (!row && cfg.max && st.items.length >= cfg.max) return toast(`Maximum ${cfg.max} ${cfg.noun}s allowed. Delete one first.`, 'warn');
+    const m = openModal({ title: row ? `Edit ${cfg.noun}` : `Add ${cfg.noun}`, size: 'lg', body: formHTML(cfg.fields, row || {}), footer: `<button class="btn ghost" data-c>Cancel</button><button class="btn primary" id="slSave"><i class="fas fa-check"></i> Save</button>`, onOpen: m => wireImages($('.modal-b', m)) });
+    $('[data-c]', m).onclick = closeModal;
+    $('#slSave', m).onclick = e => busy(e.currentTarget, async () => {
+      const root = $('.modal-b', m), vals = readForm(cfg.fields, root), bad = validate(cfg.fields, vals, root); if (bad) return toast(bad, 'err');
+      try { const old = await applyImages(cfg.fields, root, vals); if (i >= 0) st.items[i] = { ...row, ...vals }; else st.items.push(vals); closeModal(); await persist('Saved'); await removeFiles(old); } catch (er) { toast(errMsg(er), 'err'); }
+    });
+  };
+  AFTER[key] = root => {
+    draw(); $('[data-add]', root).onclick = () => form(-1);
+    if (cfg.extra) { const f = $('#xForm', root); f.onsubmit = e => { e.preventDefault(); busy($('button[type=submit]', f), async () => { try { const v = readForm(cfg.extra.fields, f); await saveSettings(d => cfg.extra.apply(d, v)); toast('Saved. The website is updated.'); } catch (er) { toast(errMsg(er), 'err'); } }); }; }
+    $('#slList', root).onclick = async e => {
+      const c = e.target.closest('.item'); if (!c) return; const st = SL[key], i = +c.dataset.i;
+      if (e.target.closest('[data-edit]')) form(i);
+      else if (e.target.closest('[data-del]')) { if (await confirmBox(`Delete "${cfg.card(st.items[i], i).t}"?`)) { const [g] = st.items.splice(i, 1); await persist('Deleted'); if (g.img) removeFiles([g.img]); } }
+      else if (e.target.closest('[data-up]') && i > 0) { [st.items[i - 1], st.items[i]] = [st.items[i], st.items[i - 1]]; persist('Order saved'); }
+      else if (e.target.closest('[data-down]') && i < st.items.length - 1) { [st.items[i + 1], st.items[i]] = [st.items[i], st.items[i + 1]]; persist('Order saved'); }
+    };
+  };
+}
+settingsListPage('top10', {
+  path: ['top10', 'items'], title: 'Top 10 Students', noun: 'student', icon: 'fa-ranking-star', rank: true, max: 10,
+  empty: 'No students yet. Press "Add student". The section stays hidden on the website until you add at least one.',
+  intro: 'A separate section on the website for your 10 best students. Rank 1 is the first card, so use the arrows to change the order. Take the parents\' permission before publishing photos.',
+  fields: [
+    { k: 'img', type: 'image', label: 'Photo', folder: 'top10', maxW: 700, hint: 'Square photo with the face clearly visible.' },
+    { k: 'name', label: 'Student name', req: true, max: 80 }, { k: 'class', label: 'Class / exam', ph: 'e.g. 10th (Matric 2026)', max: 60 },
+    { k: 'marks', label: 'Marks / grade', ph: 'e.g. 1020 / 1100 (A+)', max: 60 }, { k: 'note', label: 'Short note (optional)', max: 120, hint: 'Shown in the profile popup, e.g. father name or an achievement.' }
+  ],
+  card: r => ({ img: r.img, t: r.name, s: [r.class, r.marks].filter(Boolean).join(' · ') }),
+  extra: {
+    fields: [
+      { k: 'show', type: 'toggle', label: 'Show this section on the website' },
+      { k: 'title', label: 'Heading (English)', ph: 'Top 10 Students', max: 80 }, { k: 'title_ur', label: 'Heading (Urdu)', ph: 'ٹاپ 10 طلباء', max: 80 },
+      { k: 'sub', label: 'Sub-heading (English)', ph: 'Matric Annual Exam 2026', max: 140 }, { k: 'sub_ur', label: 'Sub-heading (Urdu)', max: 140 }
+    ],
+    get: d => { const t = d.top10 || {}; return { ...t, show: t.show !== false }; },
+    apply: (d, v) => { d.top10 = { ...(d.top10 || {}), ...v }; }
+  }
+});
+settingsListPage('chatbot', {
+  path: ['chatbot', 'faqs'], title: 'Chat assistant', noun: 'answer', icon: 'fa-robot', max: 60,
+  empty: 'No custom answers yet. The assistant already answers from the website data (admission, timing, teachers, notices...). Add answers here for anything else, such as fees.',
+  intro: 'The assistant answers from the information already on your website. It is an automatic assistant, not a human. Add your own questions and answers below (fees, uniform, transport...). When it cannot answer, it sends the visitor to WhatsApp.',
+  fields: [
+    { k: 'q', label: 'Question', req: true, max: 160, wide: true, ph: 'e.g. What is the monthly fee?' },
+    { k: 'k', label: 'Keywords (comma separated)', req: true, max: 200, wide: true, hint: 'Words a visitor might type. English, Urdu or Roman Urdu. Example: fee, fees, monthly fee, فیس, fees kitni' },
+    { k: 'a', label: 'Answer (English)', type: 'textarea', rows: 4, req: true, max: 700, wide: true },
+    { k: 'a_ur', label: 'Answer (Urdu, optional)', type: 'textarea', rows: 4, max: 700, wide: true }
+  ],
+  card: r => ({ t: r.q, s: (r.a || '').slice(0, 90) }),
+  extra: {
+    fields: [
+      { k: 'enabled', type: 'toggle', label: 'Show the chat assistant on the website' },
+      { k: 'whatsapp', label: 'WhatsApp number for unanswered questions', type: 'tel', ph: '923178022878', max: 20, hint: 'Country code, no + sign. Leave empty to use the developer number 923178022878.' },
+      { k: 'welcome', label: 'Welcome message (English)', type: 'textarea', rows: 2, max: 300, wide: true }, { k: 'welcome_ur', label: 'Welcome message (Urdu)', type: 'textarea', rows: 2, max: 300, wide: true }
+    ],
+    get: d => { const c = d.chatbot || {}; return { ...c, enabled: c.enabled !== false }; },
+    apply: (d, v) => { d.chatbot = { ...(d.chatbot || {}), ...v }; }
+  }
+});
+
+boot();
+</script>
+</body>
+</html>
