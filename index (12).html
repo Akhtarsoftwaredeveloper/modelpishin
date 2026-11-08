@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Official website of Govt. Model Higher Secondary School Pishin: notices, teachers, position holders, online admission and gallery.">
+  <meta name="theme-color" content="#071e38">
+  <meta property="og:title" content="Model School Pishin | Official Website">
+  <meta property="og:type" content="website">
+  <title>Model School Pishin | Official Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:#0a2f5a; --navy-deep:#071e38; --navy-mid:#0f3b6e;
+      --accent:#ffb703; --accent-hover:color-mix(in srgb,var(--accent) 82%,#fff); --accent-text:#ffb703; --on-accent:#1b2433;
+      --bg:#0a2f5a; --surface:#0f3b6e; --surface-2:#0b2a4f;
+      --text:#f1f5f9; --text-muted:#b8c6d9; --border:rgba(255,255,255,.12);
+      --radius:16px; --shadow:0 12px 30px -14px rgba(0,0,0,.5);
+    }
+    body.light-mode{
+      --bg:#f3f6fa; --surface:#ffffff; --surface-2:#e9eff6;
+      --text:#16233a; --text-muted:#566780; --border:#d6dfeb;
+      --accent-text:#9a5b00; --shadow:0 12px 30px -16px rgba(10,47,90,.28);
+    }
+    html{scroll-behavior:smooth;scroll-padding-top:84px;width:100%;overflow-x:hidden}
+    body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background-color .3s,color .3s}
+    img{max-width:100%}
+    a{color:inherit}
+    :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+    /* ---------- Header / Navbar ---------- */
+    header{position:sticky;top:0;z-index:200;background:color-mix(in srgb,var(--navy-deep) 97%,transparent);backdrop-filter:blur(10px);border-bottom:3px solid var(--accent);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+    .navbar{max-width:1320px;margin:0 auto;padding:.6rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+    .brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;color:#fff;min-width:0}
+    .header-logo{width:50px;height:50px;border-radius:50%;object-fit:contain;background:#fff;padding:3px;border:2px solid var(--accent);flex-shrink:0}
+    .brand-text{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+    .brand-text h2{font-size:1.05rem;font-weight:700;letter-spacing:.3px;color:#fff;white-space:nowrap}
+    .brand-text small{font-size:.68rem;font-weight:500;color:var(--accent);letter-spacing:.8px;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:.15rem;list-style:none}
+    .nav-links a{display:block;text-decoration:none;color:#e6edf6;font-size:.84rem;font-weight:500;padding:.5rem .8rem;border-radius:999px;transition:background .2s,color .2s}
+    .nav-links a:hover{background:rgba(255,255,255,.1);color:#fff}
+    .nav-links a.active{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+    .nav-links a.nav-cta{background:var(--accent);color:var(--on-accent);font-weight:600;margin-left:.4rem}
+    .nav-links a.nav-cta:hover{background:var(--accent-hover)}
+    .lang-btn{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;font:600 .8rem 'Poppins',sans-serif;padding:.4rem .85rem;border-radius:999px;cursor:pointer;margin-left:.3rem;transition:.2s}
+    .lang-btn:hover{border-color:var(--accent);color:var(--accent)}
+    .menu-icon{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:.3rem .5rem}
+
+        /* ---------- Buttons ---------- */
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.75rem 1.6rem;border-radius:999px;border:none;font:600 .95rem 'Poppins',sans-serif;cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--accent);color:var(--on-accent);box-shadow:0 6px 16px color-mix(in srgb,var(--accent) 30%,transparent)}
+    .btn-primary:hover{background:var(--accent-hover);box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 45%,transparent)}
+    .btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+    .btn-outline:hover{background:#fff;color:var(--navy)}
+    .btn-whatsapp{background:#25D366;color:#fff}
+    .btn-whatsapp:hover{background:#1ebe5d}
+    .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+    /* ---------- Hero (always dark for readability) ---------- */
+    .hero{position:relative;overflow:hidden;min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4.5rem 1.2rem;background:linear-gradient(160deg,var(--navy-deep) 0%,var(--navy) 60%,var(--navy-mid) 100%);color:#fff;border-bottom:4px solid var(--accent)}
+    #heroBgOverlay{position:absolute;inset:0;background-size:contain;background-position:center;background-repeat:no-repeat;opacity:.08;display:none;z-index:0}
+    .hero-slider-container{position:absolute;inset:0;z-index:0;display:none;overflow:hidden}
+    .hero-slider-wrapper{display:flex;height:100%;transition:transform 1.2s ease-in-out}
+    .hero-slide{min-width:100%;height:100%;flex-shrink:0}
+    .hero-slide img{width:100%;height:100%;object-fit:cover}
+    .hero-tint{position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--navy-deep) 72%,transparent),color-mix(in srgb,var(--navy-deep) 85%,transparent));z-index:1}
+    .hero-content{position:relative;z-index:2;width:100%;max-width:1000px}
+    .hero-badge{display:inline-block;background:color-mix(in srgb,var(--accent) 15%,transparent);border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);color:var(--accent);font-size:.78rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;margin-bottom:1.2rem}
+    .hero h1{font-size:clamp(1.6rem,4.2vw,2.8rem);font-weight:800;line-height:1.25;margin-bottom:1rem;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+    .hero-sub{font-size:1.02rem;color:#d7e2ef;max-width:640px;margin:0 auto 1.8rem}
+    .hero-actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-bottom:2.5rem}
+    .metrics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;max-width:880px;margin:0 auto}
+    .metric-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:1.2rem .6rem;backdrop-filter:blur(8px);transition:transform .25s,border-color .25s}
+    .metric-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+    .metric-icon{font-size:1.7rem;color:var(--accent);margin-bottom:.4rem}
+    .metric-number{font-size:1.7rem;font-weight:800;color:#fff;line-height:1.2}
+    .metric-label{font-size:.72rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#cfd9e6}
+
+    /* ---------- Sections ---------- */
+    .container{max-width:1200px;margin:0 auto;padding:4rem 1.25rem}
+    .alt{background:var(--surface-2)}
+    .section-title{text-align:center;font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text);margin-bottom:2.8rem}
+    .section-title::after{content:"";display:block;width:64px;height:4px;border-radius:4px;background:var(--accent);margin:.75rem auto 0}
+
+    .notice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.3rem}
+    .notice-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:var(--radius);padding:1.4rem;box-shadow:var(--shadow);transition:transform .25s}
+    .notice-card:hover{transform:translateY(-4px)}
+    .notice-badge{display:inline-block;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:.2rem .7rem;border-radius:999px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text);margin-bottom:.7rem}
+    .notice-card h4{font-size:1.05rem;color:var(--text);margin-bottom:.4rem}
+    .notice-card p{font-size:.88rem;color:var(--text-muted);margin-bottom:.9rem}
+    .notice-date{font-size:.75rem;color:var(--text-muted);display:flex;align-items:center;gap:6px}
+    .empty-msg{text-align:center;color:var(--text-muted);grid-column:1/-1}
+
+    .sec-sub{text-align:center;color:var(--text-muted);max-width:640px;margin:-1.8rem auto 2.4rem;font-size:.95rem}
+
+    /* ---------- Legacy slider (principals & notable people) ---------- */
+    .lg-viewport{--gap:1.2rem;--per:1;--idx:0;overflow:hidden;direction:ltr;padding:.4rem .3rem 1rem;margin:0 -.3rem}
+    .lg-track{display:flex;gap:var(--gap);transform:translateX(calc(var(--idx) * -1 * (100% + var(--gap)) / var(--per)));transition:transform .8s cubic-bezier(.4,0,.2,1)}
+    .lg-card{flex:0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));display:flex;gap:1.1rem;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:1.1rem;box-shadow:var(--shadow);cursor:pointer;min-height:240px;transition:border-color .25s}
+    .lg-card:hover,.lg-card:focus-visible{border-color:var(--accent)}
+    .lg-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:.4rem;text-align:left}
+    .lg-role{align-self:flex-start;font-size:.7rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:.15rem .75rem;border-radius:999px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text)}
+    .lg-text h3{font-size:1.2rem;line-height:1.3;color:var(--text)}
+    .lg-years{font-size:.8rem;color:var(--accent-text);font-weight:600}
+    .lg-text p{font-size:.88rem;color:var(--text-muted);line-height:1.65;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+    .lg-more{margin-top:auto;font-size:.8rem;font-weight:600;color:var(--accent-text)}
+    .lg-photo{width:36%;max-width:170px;min-width:96px;flex:none;border-radius:14px;overflow:hidden;border:3px solid var(--accent);background:var(--surface-2)}
+    .lg-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+    .lg-controls{direction:ltr;display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:.4rem}
+    .lg-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.9rem;transition:.2s}
+    .lg-btn:hover{border-color:var(--accent);color:var(--accent-text)}
+    .lg-dots{display:flex;gap:.5rem}
+    .lg-dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;padding:0;cursor:pointer;transition:.25s}
+    .lg-dot.on{background:var(--accent);width:26px;border-radius:9px}
+    body.urdu-mode .lg-text{direction:rtl;text-align:right}
+    body.urdu-mode .lg-role{align-self:flex-start}
+
+    /* ---------- Reviews ---------- */
+    .rv-wrap{display:grid;grid-template-columns:1.6fr 1fr;gap:1.6rem;align-items:start}
+    .rv-list{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+    .rv-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.8rem}
+    .rv-card .q{position:absolute;top:.7rem;right:1rem;color:var(--accent-text);opacity:.25;font-size:1.5rem}
+    .rv-card p{color:var(--text);font-size:.92rem;line-height:1.7;overflow-wrap:anywhere}
+    .rv-by{display:flex;align-items:center;gap:.7rem;margin-top:auto}
+    .rv-av{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+    .rv-by strong{font-size:.88rem;display:block;line-height:1.25;color:var(--text)}
+    .rv-by small{color:var(--text-muted);font-size:.72rem}
+    .rv-empty{grid-column:1/-1;text-align:center;color:var(--text-muted);padding:2rem 1rem;border:1px dashed var(--border);border-radius:16px}
+    .rv-more{grid-column:1/-1;text-align:center}
+    .btn-ghost{background:transparent;color:var(--text);border:2px solid var(--border)}
+    .btn-ghost:hover{border-color:var(--accent)}
+    .rv-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow);position:sticky;top:96px;display:flex;flex-direction:column;gap:.8rem}
+    .rv-form h3{color:var(--text);font-size:1.1rem}
+    .rv-form textarea{resize:vertical;min-height:110px}
+    .rv-count{font-size:.74rem;color:var(--text-muted);text-align:right;margin-top:-.4rem}
+    .rv-msg{font-size:.82rem;min-height:1.2em;color:var(--accent-text)}
+    .rv-note{font-size:.74rem;color:var(--text-muted)}
+    body.urdu-mode .rv-count{text-align:left}
+    body.urdu-mode .rv-card .q{right:auto;left:1rem}
+    @media(max-width:900px){.rv-wrap{grid-template-columns:1fr}.rv-form{position:static}}
+    @media(max-width:560px){.rv-list{grid-template-columns:1fr}}
+
+    .about-text{max-width:860px;margin:0 auto;text-align:center;color:var(--text-muted);font-size:1.02rem;line-height:1.9}
+    .vision-mission-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.3rem;margin-top:2.2rem;max-width:860px;margin-left:auto;margin-right:auto}
+    .vm-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;text-align:center;box-shadow:var(--shadow)}
+    .vm-box i{font-size:1.8rem;color:var(--accent-text)}
+    .vm-box h3{margin:.6rem 0 .3rem;color:var(--text)}
+    .vm-box p{color:var(--text-muted);font-size:.92rem}
+    #principalBox{max-width:360px;margin:2.5rem auto 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.6rem;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:transform .25s,border-color .25s}
+    #principalBox:hover{transform:translateY(-4px);border-color:var(--accent)}
+    #principalBox img{width:104px;height:104px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);margin-bottom:.6rem}
+    #principalBox h3{color:var(--text);font-size:1.2rem}
+    .role-chip{display:inline-block;margin:.35rem 0;padding:.2rem .9rem;border-radius:999px;font-size:.74rem;font-weight:600;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text);letter-spacing:.5px}
+    .hint{font-size:.8rem;color:var(--text-muted)}
+
+    /* Teachers */
+    .teacher-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:1.2rem}
+    .teacher-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;box-shadow:var(--shadow);transition:transform .3s,border-color .3s;display:flex;flex-direction:column}
+    .teacher-card:hover,.teacher-card:focus-visible{transform:translateY(-5px);border-color:var(--accent)}
+    .tc-photo{position:relative;aspect-ratio:1/1;background:var(--surface-2);overflow:hidden}
+    .tc-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s;display:block}
+    .teacher-card:hover .tc-photo img{transform:scale(1.05)}
+    .tc-photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:35%;background:linear-gradient(transparent,color-mix(in srgb,var(--navy-deep) 50%,transparent))}
+    .tc-body{padding:.85rem .8rem .9rem;text-align:center;flex:1;min-width:0}
+    .tc-body h3{font-size:.95rem;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:.35rem;overflow-wrap:anywhere}
+    .tc-desig{display:inline-block;max-width:100%;font-size:.7rem;font-weight:600;padding:.12rem .7rem;border-radius:999px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text);margin-bottom:.4rem}
+    .tc-body p{font-size:.8rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .tc-body p i{color:var(--accent-text);margin-right:5px}
+    body.urdu-mode .tc-body p i{margin-right:0;margin-left:5px}
+    .tc-go{display:none}
+    .tc-cta{padding:.6rem;text-align:center;font-size:.78rem;font-weight:600;color:var(--on-accent);background:var(--accent);transform:translateY(100%);transition:transform .3s;position:absolute;left:0;right:0;bottom:0}
+    .teacher-card:hover .tc-cta,.teacher-card:focus-visible .tc-cta{transform:translateY(0)}
+    @media(hover:none){.tc-cta{position:static;transform:none;background:transparent;color:var(--accent-text);padding:0 0 .7rem}}
+    @media(max-width:900px){.teacher-grid{grid-template-columns:repeat(3,1fr);gap:1rem}}
+    @media(max-width:620px){
+      .teacher-grid{grid-template-columns:1fr;gap:.7rem}
+      .teacher-card{flex-direction:row;align-items:center;gap:.9rem;padding:.65rem .85rem .65rem .65rem;border-radius:14px;box-shadow:none}
+      .teacher-card:hover,.teacher-card:focus-visible{transform:none}
+      .tc-photo{width:68px;height:68px;aspect-ratio:auto;flex:none;border-radius:12px}
+      .tc-photo::after{display:none}
+      .tc-body{padding:0;text-align:left}
+      body.urdu-mode .tc-body{text-align:right}
+      .tc-body h3{font-size:.95rem;margin-bottom:.25rem}
+      .tc-cta{display:none}
+      .tc-go{display:block;color:var(--accent-text);font-size:.8rem;flex:none}
+      body.urdu-mode .tc-go{transform:scaleX(-1)}
+    }
+
+    /* Position holders */
+    .compact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:1.2rem}
+    .person-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;padding:1.3rem .8rem;cursor:pointer;box-shadow:var(--shadow);transition:transform .3s,border-color .3s}
+    .person-card:hover,.person-card:focus-visible{transform:translateY(-5px);border-color:var(--accent)}
+    .person-card img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);margin-bottom:.6rem}
+    .person-card h3{font-size:.92rem;color:var(--text);line-height:1.3}
+    .person-card p{font-size:.78rem;color:var(--text-muted)}
+    .marks-label{display:inline-block;margin-top:.5rem;padding:.15rem .75rem;border-radius:999px;font-size:.74rem;font-weight:700;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text)}
+
+    /* Admission */
+    .admission-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.2rem;max-width:660px;margin:0 auto;box-shadow:var(--shadow)}
+    .admission-card h3{text-align:center;color:var(--text);margin-bottom:1.6rem}
+    .form-group{margin-bottom:1.1rem;text-align:left}
+    .form-group label{display:block;margin-bottom:.4rem;font-size:.88rem;font-weight:500;color:var(--text)}
+    input[type=text],input[type=tel],input[type=date],select,textarea{width:100%;padding:.85rem 1rem;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:400 .92rem 'Poppins',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s}
+    body:not(.light-mode) input[type=text],body:not(.light-mode) input[type=tel],body:not(.light-mode) input[type=date],body:not(.light-mode) select,body:not(.light-mode) textarea{background:rgba(0,0,0,.25)}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+    select option{background:var(--surface);color:var(--text)}
+    .custom-file-upload{display:block;border:2px dashed var(--border);border-radius:12px;padding:1.4rem;text-align:center;cursor:pointer;color:var(--text-muted);transition:.2s}
+    .custom-file-upload:hover{border-color:var(--accent);color:var(--text)}
+    input[type=file]{display:none}
+    #admPicPreview{width:84px;height:84px;border-radius:12px;object-fit:cover;display:none;margin:.7rem auto 0;border:2px solid var(--accent)}
+
+    /* Gallery */
+    .gallery-grid-captions{column-count:3;column-gap:1.3rem}
+    .gallery-card{break-inside:avoid;margin-bottom:1.3rem;border-radius:14px;overflow:hidden;position:relative;cursor:pointer;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+    .gallery-card img{width:100%;display:block;transition:transform .5s}
+    .gallery-card:hover img{transform:scale(1.05)}
+    .gallery-card::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8),transparent 55%);opacity:0;transition:opacity .3s;z-index:1;pointer-events:none}
+    .gallery-card:hover::before{opacity:1}
+    .gallery-caption{position:absolute;left:0;right:0;bottom:0;padding:.9rem 1rem;color:#fff;font-size:.88rem;font-weight:500;z-index:2;transform:translateY(100%);transition:transform .3s}
+    .gallery-card:hover .gallery-caption{transform:translateY(0)}
+    @media(hover:none){.gallery-card::before{opacity:1}.gallery-caption{transform:none}}
+    .img-loading-shimmer{background:linear-gradient(90deg,var(--surface-2),var(--surface),var(--surface-2));background-size:200% 100%;animation:shimmer 1.5s infinite linear;min-height:140px}
+    @keyframes shimmer{to{background-position:-200% 0}}
+
+    /* Location / Developer */
+    .location-wrapper{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+    .location-wrapper iframe{display:block;width:100%;height:360px;border:0}
+    .location-text{padding:1.6rem;text-align:center}
+    .location-text h3{color:var(--text);margin-bottom:.4rem}
+    .location-text p{color:var(--text-muted);font-size:.92rem;margin-bottom:1rem}
+    .developer-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.2rem;text-align:center;max-width:480px;margin:0 auto;box-shadow:var(--shadow)}
+    .dev-img{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid var(--accent);margin-bottom:.8rem}
+    .developer-card h3{color:var(--text);font-size:1.3rem}
+    .developer-card p{color:var(--text-muted);font-size:.9rem;margin-bottom:.6rem}
+    .skill-badge{display:inline-block;margin:.25rem;padding:.3rem .9rem;border-radius:999px;font-size:.78rem;font-weight:500;color:var(--accent-text);border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 08%,transparent)}
+
+    /* ---------- Modals ---------- */
+    .modal{display:none;position:fixed;inset:0;background:rgba(3,12,24,.82);align-items:center;justify-content:center;z-index:2100;padding:1rem;backdrop-filter:blur(6px)}
+    .modal-content{position:relative;background:var(--surface);color:var(--text);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;border-radius:20px;padding:2rem;box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid var(--border);animation:popIn .35s ease}
+    @keyframes popIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+    .close-modal{position:absolute;top:12px;right:14px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,.25);color:#fff;font-size:1.3rem;cursor:pointer;z-index:5;transition:.2s}
+    .close-modal:hover{background:#dc3545}
+    .modal h3{color:var(--accent-text)}
+    .profile-modal-view{padding:0;text-align:center;overflow-x:hidden}
+    .pm-banner{height:110px;background:linear-gradient(135deg,var(--navy-deep),var(--navy-mid));border-bottom:3px solid var(--accent)}
+    .pm-body{padding:0 1.8rem 1.8rem}
+    .pm-avatar{width:130px;height:130px;border-radius:50%;object-fit:cover;object-position:top center;border:4px solid var(--surface);outline:3px solid var(--accent);margin-top:-65px;background:var(--surface-2)}
+    .pm-name{font-size:1.35rem;color:var(--text);margin-top:.7rem}
+    .pm-role{display:inline-block;margin-top:.3rem;padding:.2rem 1rem;border-radius:999px;font-size:.78rem;font-weight:600;letter-spacing:.5px;background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent-text)}
+    .pm-info{margin:1.2rem 0;text-align:left;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+    .pm-row{display:flex;gap:.8rem;align-items:center;padding:.7rem 1rem;font-size:.9rem;border-bottom:1px solid var(--border)}
+    .pm-row:last-child{border-bottom:none}
+    .pm-row i{width:20px;text-align:center;color:var(--accent-text)}
+    .pm-row span.k{color:var(--text-muted);min-width:110px}
+    .pm-row span.v{font-weight:600;color:var(--text)}
+    .pm-quote{margin:1rem 0;padding:1rem 1.1rem;border-left:4px solid var(--accent);background:var(--surface-2);border-radius:0 12px 12px 0;text-align:left;font-style:italic;color:var(--text-muted);font-size:.92rem}
+
+    /* ---------- Footer ---------- */
+    footer{background:var(--navy-deep);color:#fff;border-top:4px solid var(--accent);padding:3rem 1.25rem 1.6rem;text-align:center}
+    .footer-logo{width:64px;height:64px;border-radius:50%;background:#fff;padding:4px;border:2px solid var(--accent);margin-bottom:.7rem}
+    footer h3{color:#fff;font-size:1.1rem;margin-bottom:.2rem}
+    .footer-tag{color:var(--accent);font-size:.8rem;letter-spacing:.8px;text-transform:uppercase;margin-bottom:1.4rem}
+    .footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.4rem;list-style:none;margin-bottom:1.6rem}
+    .footer-links a{color:#cfd9e6;font-size:.85rem;text-decoration:none}
+    .footer-links a:hover{color:var(--accent)}
+    .social-links-container{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.6rem}
+    .social-icon-btn{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;text-decoration:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);transition:transform .25s,background .25s}
+    .social-icon-btn:hover{transform:translateY(-4px)}
+    .icon-fb:hover{background:#1877F2}.icon-insta:hover{background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)}.icon-tiktok:hover{background:#000}.icon-yt:hover{background:#f00}.icon-wa:hover{background:#25D366}
+    #footerTxt{font-size:.8rem;color:#9fb0c6;border-top:1px solid rgba(255,255,255,.1);padding-top:1.2rem}
+
+
+    /* ---------- Top 10 ---------- */
+    .alt + .alt{border-top:1px solid var(--border)}
+    .t10-sub{text-align:center;color:var(--text-muted);max-width:620px;margin:-1.2rem auto 2rem}
+    .t10-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(176px,1fr));gap:1.2rem}
+    .t10-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);text-align:center;padding:1.6rem .8rem 1.1rem;cursor:pointer;box-shadow:var(--shadow);transition:transform .3s,border-color .3s}
+    .t10-card:hover,.t10-card:focus-visible{transform:translateY(-5px);border-color:var(--accent)}
+    .t10-rank{position:absolute;top:.6rem;left:.6rem;min-width:34px;height:34px;padding:0 .4rem;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;background:var(--surface-2);color:var(--text);border:2px solid var(--border)}
+    body.urdu-mode .t10-rank{left:auto;right:.6rem}
+    .t10-card.r1 .t10-rank{background:linear-gradient(135deg,#ffe27a,#f5b301);color:#3a2800;border-color:#fff3b0}
+    .t10-card.r2 .t10-rank{background:linear-gradient(135deg,#f1f5f9,#aab4c2);color:#1f2937;border-color:#fff}
+    .t10-card.r3 .t10-rank{background:linear-gradient(135deg,#f3c79b,#c47a3a);color:#2f1a08;border-color:#ffe3c8}
+    .t10-card.r1{border-color:#f5b301}
+    .t10-card img{width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:top;border:3px solid var(--accent);margin-bottom:.7rem;background:var(--surface-2)}
+    .t10-card.r1 img{width:116px;height:116px}
+    .t10-card h3{font-size:.95rem;line-height:1.3;color:var(--text)}
+    .t10-card p{font-size:.78rem;color:var(--text-muted)}
+    @media(max-width:600px){.t10-grid{grid-template-columns:repeat(2,1fr);gap:.8rem}.t10-card img,.t10-card.r1 img{width:84px;height:84px}}
+
+    /* ---------- Chat assistant ---------- */
+    .cb-fab{position:fixed;right:20px;bottom:20px;z-index:1001;height:56px;min-width:56px;padding:0 1.1rem 0 1rem;border-radius:999px;border:2px solid #fff;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;gap:.55rem;font:700 .9rem 'Poppins',sans-serif;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .25s}
+    .cb-fab:hover{transform:translateY(-3px)}.cb-fab i{font-size:1.35rem}
+    .cb-fab.open{display:none}
+    .cb-panel{position:fixed;right:20px;bottom:20px;z-index:1002;width:380px;max-width:calc(100vw - 24px);height:min(600px,calc(100vh - 40px));background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:20px;box-shadow:0 24px 60px -12px rgba(0,0,0,.6);display:none;flex-direction:column;overflow:hidden}
+    .cb-panel.open{display:flex;animation:cbpop .22s ease}
+    @keyframes cbpop{from{opacity:0;transform:translateY(14px) scale(.98)}}
+    .cb-head{display:flex;align-items:center;gap:.7rem;padding:.85rem 1rem;background:linear-gradient(135deg,var(--navy-deep),var(--navy-mid));color:#fff;border-bottom:3px solid var(--accent)}
+    .cb-av{width:40px;height:40px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex:none}
+    .cb-head b{display:block;font-size:.95rem;line-height:1.2}.cb-head small{font-size:.72rem;color:#cfe0f3;display:flex;align-items:center;gap:.35rem}
+    .cb-head small::before{content:"";width:7px;height:7px;border-radius:50%;background:#34d399}
+    .cb-x{margin-left:auto;background:rgba(255,255,255,.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem}
+    body.urdu-mode .cb-x{margin-left:0;margin-right:auto}
+    .cb-body{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:.65rem;background:var(--bg);scroll-behavior:smooth}
+    .cb-msg{max-width:86%;padding:.6rem .85rem;border-radius:16px;font-size:.88rem;line-height:1.55;overflow-wrap:anywhere;white-space:pre-line}
+    .cb-msg.bot{align-self:flex-start;background:var(--surface);border:1px solid var(--border);border-bottom-left-radius:4px}
+    .cb-msg.me{align-self:flex-end;background:var(--accent);color:var(--on-accent);border-bottom-right-radius:4px;font-weight:500}
+    .cb-acts{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.55rem}
+    .cb-acts a,.cb-acts button{display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .8rem;border-radius:999px;font:600 .78rem 'Poppins',sans-serif;text-decoration:none;cursor:pointer;border:1px solid var(--accent);background:transparent;color:var(--accent-text)}
+    .cb-acts a.wa{background:#25D366;border-color:#25D366;color:#fff}
+    .cb-typing{display:flex;gap:4px;padding:.8rem}.cb-typing i{width:7px;height:7px;border-radius:50%;background:var(--text-muted);animation:cbdot 1s infinite}.cb-typing i:nth-child(2){animation-delay:.15s}.cb-typing i:nth-child(3){animation-delay:.3s}
+    @keyframes cbdot{50%{transform:translateY(-4px);opacity:.4}}
+    .cb-chips{display:flex;gap:.4rem;overflow-x:auto;padding:.55rem .8rem;border-top:1px solid var(--border);background:var(--surface);scrollbar-width:none}
+    .cb-chips::-webkit-scrollbar{display:none}
+    .cb-chips button{flex:none;padding:.35rem .8rem;border-radius:999px;border:1px solid var(--border);background:var(--surface-2);color:var(--text);font:500 .78rem 'Poppins',sans-serif;cursor:pointer}
+    .cb-chips button:hover{border-color:var(--accent);color:var(--accent-text)}
+    .cb-form{display:flex;gap:.5rem;padding:.7rem .8rem;border-top:1px solid var(--border);background:var(--surface)}
+    .cb-form input{flex:1;min-width:0;padding:.65rem .9rem;border-radius:999px;border:1px solid var(--border);background:var(--bg);color:var(--text);font:inherit;font-size:.9rem;outline:none}
+    .cb-form input:focus{border-color:var(--accent)}
+    .cb-form button{width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:var(--on-accent);cursor:pointer;font-size:1rem;flex:none}
+    .cb-note{font-size:.68rem;color:var(--text-muted);text-align:center;padding:.3rem .8rem .6rem;background:var(--surface)}
+    @media(max-width:600px){
+      .cb-panel{right:0;left:0;bottom:0;width:100%;max-width:100%;height:88dvh;border-radius:20px 20px 0 0}
+      .cb-fab{right:14px;bottom:14px;height:52px;padding:0 .95rem}.cb-fab span{display:none}
+      .cb-form input{font-size:16px}
+    }
+    body.urdu-mode .cb-msg{direction:rtl;text-align:right}
+
+    /* ---------- Floating buttons ---------- */
+    .floating-action-menu{position:fixed;bottom:20px;left:20px;z-index:1000;display:flex;flex-direction:column;gap:10px}
+    .fab-btn{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;border:2px solid #fff;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.4);text-decoration:none;transition:transform .25s}
+    .fab-btn:hover{transform:translateY(-4px)}
+    .fab-whatsapp{background:#25D366}
+    .fab-theme{background:var(--navy-deep);color:var(--accent)}
+    body.light-mode .fab-theme{background:var(--accent);color:var(--on-accent)}
+
+    /* ---------- Urdu mode ---------- */
+    body.urdu-mode{direction:rtl}
+    body.urdu-mode,body.urdu-mode *:not([class*="fa-"]){font-family:'Jameel Noori Nastaleeq','Noto Nastaliq Urdu',sans-serif!important}
+    body.urdu-mode .brand-text h2{font-size:1.2rem}
+    body.urdu-mode .form-group,body.urdu-mode .pm-info,body.urdu-mode .pm-quote{text-align:right}
+    body.urdu-mode .pm-quote{border-left:none;border-right:4px solid var(--accent);border-radius:12px 0 0 12px}
+    body.urdu-mode input[type=tel]{direction:ltr;text-align:right}
+    body.urdu-mode .nav-links a.nav-cta,body.urdu-mode .lang-btn{margin-left:0;margin-right:.4rem}
+    body.urdu-mode .floating-action-menu{left:auto;right:20px}
+    body.urdu-mode .close-modal{right:auto;left:14px}
+    body.urdu-mode .notice-card{border-left:1px solid var(--border);border-right:5px solid var(--accent)}
+
+    /* ---------- Responsive ---------- */
+    @media(max-width:1080px){
+      .menu-icon{display:block}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:.2rem;background:var(--navy-deep);padding:.8rem 1.2rem 1.2rem;border-bottom:3px solid var(--accent);box-shadow:0 14px 24px rgba(0,0,0,.4)}
+      .nav-links.active{display:flex}
+      .nav-links a{padding:.7rem 1rem;border-radius:10px}
+      .nav-links a.nav-cta{margin:.4rem 0 0;text-align:center}
+      .lang-btn{margin:.4rem 0 0;padding:.6rem}
+    }
+    @media(max-width:768px){
+      .container{padding:3rem 1rem}
+      .gallery-grid-captions{column-count:2}
+      .hero{min-height:auto;padding:3.5rem 1rem}
+      .metrics-grid{grid-template-columns:repeat(2,1fr)}
+      .compact-grid{grid-template-columns:repeat(2,1fr)}
+      .brand-text h2{font-size:.9rem;white-space:normal}
+      .brand-text small{font-size:.6rem}
+      .header-logo{width:42px;height:42px}
+      .admission-card{padding:1.4rem}
+      .location-wrapper iframe{height:280px}
+    }
+    @media(max-width:480px){.gallery-grid-captions{column-count:1}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+
+<div class="floating-action-menu">
+  <button class="fab-btn fab-theme" id="themeToggleBtn" title="Light / Dark Mode" aria-label="Toggle theme" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+  <a id="fabWa" href="https://wa.me/923178022878?text=Hello%20Model%20School" target="_blank" rel="noopener" class="fab-btn fab-whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<header>
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="#home" class="brand">
+      <img id="publicHeaderLogo" class="header-logo" alt="School logo">
+      <span class="brand-text">
+        <h2 id="headTitle" data-i18n="brand">MODEL SCHOOL PISHIN</h2>
+        <small data-i18n="brand_sub">Since 1890 · Pishin, Balochistan</small>
+      </span>
+    </a>
+    <button class="menu-icon" id="menuIcon" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-i18n="nav_home">Home</a></li>
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#notice-board" data-i18n="nav_notices">Notices</a></li>
+      <li><a href="#teachers" data-i18n="nav_teachers">Teachers</a></li>
+      <li id="navTop10" style="display:none"><a href="#top10" data-i18n="nav_top10">Top 10</a></li>
+      <li><a href="#position-holders" data-i18n="nav_holders">Toppers</a></li>
+      <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+      <li><a href="#contact" data-i18n="nav_location">Contact</a></li>
+      <li><a href="#developer" data-i18n="nav_dev">Developer</a></li>
+      <li><a href="#admission" class="nav-cta" data-i18n="nav_apply">Apply Now</a></li>
+      <li><button class="lang-btn" id="langBtn" onclick="toggleLanguage()">اردو</button></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="hero">
+    <div class="hero-slider-container" id="heroSliderContainer">
+      <div class="hero-slider-wrapper" id="heroSliderWrapper"></div>
+      <div class="hero-tint"></div>
+    </div>
+    <div id="heroBgOverlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge" data-i18n="hero_badge">Established 1890</span>
+      <h1 id="mainHeroTitle" data-i18n="hero_title">Govt. Model Higher Secondary School Pishin</h1>
+      <p class="hero-sub" data-i18n="hero_sub">Quality education, strong character and a bright future for every student.</p>
+      <div class="hero-actions">
+        <a href="#admission" class="btn btn-primary"><i class="fas fa-pen-to-square"></i> <span data-i18n="btn_apply">Apply for Admission</span></a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-location-dot"></i> <span data-i18n="btn_find">Find Us</span></a>
+      </div>
+      <div class="metrics-grid" id="publicMetricsGrid"></div>
+    </div>
+  </section>
+
+  <section id="notice-board">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_notices" data-aos="fade-up">Notice Board</h2>
+      <div class="notice-grid" id="dynamicNoticeGrid"></div>
+    </div>
+  </section>
+
+  <section id="top10" class="alt" style="display:none">
+    <div class="container">
+      <h2 class="section-title" id="t10Title" data-aos="fade-up">Top 10 Students</h2>
+      <p class="t10-sub" id="t10Sub"></p>
+      <div class="t10-grid" id="t10Grid"></div>
+    </div>
+  </section>
+
+  <section id="legacy" class="alt" style="display:none">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_legacy" data-aos="fade-up">Our Pride &amp; Legacy</h2>
+      <p class="sec-sub" data-i18n="legacy_sub">Principals and distinguished personalities who shaped this school.</p>
+      <div class="lg-viewport" id="legacyViewport" aria-roledescription="carousel">
+        <div class="lg-track" id="legacyTrack"></div>
+      </div>
+      <div class="lg-controls" id="legacyControls">
+        <button class="lg-btn" id="lgPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <div class="lg-dots" id="legacyDots"></div>
+        <button class="lg-btn" id="lgNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_about" data-aos="fade-up">About Our School</h2>
+      <p id="aboutText" class="about-text"></p>
+      <div class="vision-mission-grid" id="visionMissionBox"></div>
+      <div id="principalBox" role="button" tabindex="0"></div>
+    </div>
+  </section>
+
+  <section id="teachers" class="alt">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_teachers" data-aos="fade-up">Our Honorable Teachers</h2>
+      <div class="teacher-grid" id="teachersGrid"></div>
+    </div>
+  </section>
+
+  <section id="position-holders">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_holders" data-aos="fade-up">Position Holders</h2>
+      <div class="compact-grid" id="studentsGrid"></div>
+    </div>
+  </section>
+
+  <section id="admission" class="alt">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_admission" data-aos="fade-up">Apply For Admission</h2>
+      <div class="admission-card" id="admCard" data-aos="fade-up">
+        <h3 data-i18n="adm_title">Online Admission Form</h3>
+        <p id="admInfo" style="display:none;white-space:pre-line;color:var(--text-muted,#9fb0c6);margin:-.6rem 0 1.2rem;text-align:center"></p>
+        <div class="form-group"><label for="admName" data-i18n="f_name">Student Full Name *</label><input type="text" id="admName" placeholder="Enter full name" autocomplete="off"></div>
+        <div class="form-group"><label for="admFather" data-i18n="f_father">Father's Name *</label><input type="text" id="admFather" placeholder="Father's name" autocomplete="off"></div>
+        <div class="form-group"><label for="admClass" data-i18n="f_class">Select Class</label>
+          <select id="admClass"><option>Kachi</option><option>Paki</option><option>2nd</option><option>3rd</option><option>4th</option><option>5th</option><option>6th</option><option>7th</option><option>8th</option><option>9th</option><option>10th</option><option>1st Year</option><option>2nd Year</option></select></div>
+        <div class="form-group"><label for="admPhone" data-i18n="f_phone">WhatsApp Number *</label><input type="tel" id="admPhone" placeholder="03xxxxxxxxx" dir="ltr"></div>
+        <div class="form-group"><label for="admDob" data-i18n="f_dob">Date of Birth</label><input type="date" id="admDob"></div>
+        <div class="form-group"><label for="admAddress" data-i18n="f_address">Complete Address</label><textarea id="admAddress" rows="2"></textarea></div>
+        <div class="form-group">
+          <label class="custom-file-upload"><input type="file" id="admPic" accept="image/*" onchange="previewAdmsnPic(this)"><i class="fas fa-cloud-arrow-up fa-2x"></i><br><span id="admPicText">Upload Student Photo</span></label>
+          <img id="admPicPreview" alt="Preview">
+        </div>
+        <button onclick="submitAdmission()" class="btn btn-primary" style="width:100%;padding:1rem" id="btnSubmitForm">Submit Application</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_gallery" data-aos="fade-up">School Gallery</h2>
+      <div class="gallery-grid-captions" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_reviews" data-aos="fade-up">What People Say</h2>
+      <p class="sec-sub" data-i18n="reviews_sub">Honest words from parents, students and alumni.</p>
+      <div class="rv-wrap">
+        <div class="rv-list" id="reviewsList"></div>
+        <form class="rv-form" id="reviewForm" novalidate>
+          <h3 data-i18n="rv_write">Share Your Experience</h3>
+          <input type="text" id="rvName" maxlength="40" autocomplete="name" data-i18n-ph="rv_name" placeholder="Your name" aria-label="Your name">
+          <textarea id="rvText" rows="4" maxlength="300" data-i18n-ph="rv_text" placeholder="Write your review" aria-label="Your review"></textarea>
+          <div class="rv-count"><span id="rvCount">0</span>/300</div>
+          <input type="text" id="rvWeb" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;top:0;width:1px;height:1px;opacity:0;pointer-events:none;clip-path:inset(50%)">
+          <button class="btn btn-primary" type="submit" id="rvBtn" data-i18n="rv_post">Submit Review</button>
+          <div class="rv-msg" id="rvMsg" role="status"></div>
+          <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Govt+Model+High+School+Pishin"><i class="fab fa-google"></i> <span data-i18n="rv_google">Reviews on Google Maps</span></a>
+          <p class="rv-note" data-i18n="rv_note">Only genuine reviews are shown. Please keep it respectful.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="alt">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_location" data-aos="fade-up">Our Location</h2>
+      <div class="location-wrapper" data-aos="fade-up">
+        <iframe id="mapFrame" title="School location map" src="https://maps.google.com/maps?q=Govt%20Model%20High%20School%20Pishin&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+        <div class="location-text">
+          <h3><i class="fas fa-location-dot" style="color:var(--accent-text)"></i> <span id="ctName">Govt. Model Higher Secondary School</span></h3>
+          <p id="ctAddr">Main Bazar, Near Balochistan University Pishin Campus, Balochistan, Pakistan.</p><div id="ctExtra" style="display:grid;gap:.4rem;margin:.2rem 0 1rem"></div>
+          <a href="https://maps.google.com/?q=Govt+Model+High+School+Pishin" target="_blank" rel="noopener" class="btn btn-primary" id="btnDir"><i class="fas fa-location-arrow"></i> Get Directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="developer">
+    <div class="container">
+      <h2 class="section-title" data-i18n="sec_dev" data-aos="fade-up">Meet The Developer</h2>
+      <div id="developerCard" class="developer-card" data-aos="fade-up"></div>
+    </div>
+  </section>
+</main>
+
+<button class="cb-fab" id="cbFab" aria-label="Ask the school assistant" aria-expanded="false" style="display:none"><i class="fas fa-comments"></i><span id="cbFabTxt">Ask us</span></button>
+<section class="cb-panel" id="cbPanel" role="dialog" aria-label="School assistant">
+  <div class="cb-head"><div class="cb-av"><i class="fas fa-robot"></i></div><div><b id="cbTitle">School Assistant</b><small id="cbSub">Online</small></div><button class="cb-x" id="cbClose" aria-label="Close chat"><i class="fas fa-times"></i></button></div>
+  <div class="cb-body" id="cbBody" aria-live="polite"></div>
+  <div class="cb-chips" id="cbChips"></div>
+  <form class="cb-form" id="cbForm" autocomplete="off"><input type="text" id="cbInput" maxlength="200" aria-label="Your question"><button type="submit" aria-label="Send"><i class="fas fa-paper-plane"></i></button></form>
+  <div class="cb-note" id="cbNote"></div>
+</section>
+
+<footer>
+  <img id="footerLogo" class="footer-logo" alt="School logo">
+  <h3 data-i18n="brand">MODEL SCHOOL PISHIN</h3>
+  <div class="footer-tag" data-i18n="brand_sub">Since 1890 · Pishin, Balochistan</div>
+  <ul class="footer-links">
+    <li><a href="#home" data-i18n="nav_home">Home</a></li>
+    <li><a href="#about" data-i18n="nav_about">About</a></li>
+    <li><a href="#teachers" data-i18n="nav_teachers">Teachers</a></li>
+    <li><a href="#admission" data-i18n="nav_apply">Apply Now</a></li>
+    <li><a href="#gallery" data-i18n="nav_gallery">Gallery</a></li>
+    <li><a href="#contact" data-i18n="nav_location">Contact</a></li>
+  </ul>
+  <div class="social-links-container">
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-fb" id="linkFb" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-insta" id="linkInsta" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-tiktok" id="linkTiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-yt" id="linkYt" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-wa" id="linkWaGroup" title="WhatsApp Group" aria-label="WhatsApp Group"><i class="fas fa-users"></i></a>
+    <a href="#" target="_blank" rel="noopener" class="social-icon-btn icon-wa" id="linkWaChannel" title="WhatsApp Channel" aria-label="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+  </div>
+  <p id="footerTxt">© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website</p>
+</footer>
+
+<!-- Modals -->
+<div id="publicLegacyModal" class="modal"><div class="modal-content profile-modal-view">
+  <span class="close-modal" onclick="closeModal('publicLegacyModal')">×</span>
+  <div class="pm-banner"></div>
+  <div class="pm-body">
+    <img id="lgmImg" class="pm-avatar" alt="">
+    <h2 id="lgmName" class="pm-name"></h2>
+    <span id="lgmRole" class="pm-role"></span>
+    <div class="pm-info" id="lgmYearsBox"><div class="pm-row"><i class="far fa-calendar"></i><span class="k" data-i18n="leg_years">Years</span><span class="v" id="lgmYears"></span></div></div>
+    <div class="pm-quote" id="lgmInfo" style="font-style:normal"></div>
+  </div>
+</div></div>
+
+<div id="publicPrincipalModal" class="modal"><div class="modal-content profile-modal-view">
+  <span class="close-modal" onclick="closeModal('publicPrincipalModal')">×</span>
+  <div class="pm-banner"></div>
+  <div class="pm-body">
+    <img id="pubPrinImg" class="pm-avatar" alt="Principal">
+    <h2 id="pubPrinName" class="pm-name"></h2>
+    <span class="pm-role" data-i18n="principal">PRINCIPAL</span>
+    <div class="pm-quote" id="pubPrinMsg"></div>
+    <a id="pubPrinWa" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width:100%"><i class="fab fa-whatsapp"></i> <span data-i18n="chat">Chat on WhatsApp</span></a>
+  </div>
+</div></div>
+
+<div id="publicTeacherModal" class="modal"><div class="modal-content profile-modal-view">
+  <span class="close-modal" onclick="closeModal('publicTeacherModal')">×</span>
+  <div class="pm-banner"></div>
+  <div class="pm-body">
+    <img id="pubTeachImg" class="pm-avatar" alt="Teacher">
+    <h2 id="pubTeachName" class="pm-name"></h2>
+    <span id="pubTeachDesig" class="pm-role"></span>
+    <div class="pm-info">
+      <div class="pm-row" id="rowSubject"><i class="fas fa-book-open"></i><span class="k" data-i18n="subject">Subject</span><span class="v" id="pubTeachSub"></span></div>
+      <div class="pm-row" id="rowQual"><i class="fas fa-graduation-cap"></i><span class="k">Qualification</span><span class="v" id="pubTeachQual"></span></div>
+      <div class="pm-row" id="rowExp"><i class="fas fa-briefcase"></i><span class="k">Experience</span><span class="v" id="pubTeachExp"></span></div>
+      <div class="pm-row" id="rowClass"><i class="fas fa-chalkboard"></i><span class="k" data-i18n="incharge">Class Incharge</span><span class="v" id="pubTeachClass"></span></div>
+    </div>
+    <div class="pm-quote" id="pubTeachMsg" style="display:none"></div>
+    <a id="pubTeachWa" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp" style="width:100%"><i class="fab fa-whatsapp"></i> <span data-i18n="chat">Chat on WhatsApp</span></a>
+  </div>
+</div></div>
+
+<div id="publicStudentModal" class="modal"><div class="modal-content profile-modal-view">
+  <span class="close-modal" onclick="closeModal('publicStudentModal')">×</span>
+  <div class="pm-banner"></div>
+  <div class="pm-body">
+    <img id="pubStuImg" class="pm-avatar" alt="Student">
+    <h2 id="pubStuName" class="pm-name"></h2>
+    <span class="pm-role"><i class="fas fa-trophy"></i> <span data-i18n="holder">Position Holder</span></span>
+    <div class="pm-info">
+      <div class="pm-row"><i class="fas fa-user"></i><span class="k" data-i18n="father">Father</span><span class="v" id="pubStuFather"></span></div>
+      <div class="pm-row"><i class="fas fa-school"></i><span class="k" data-i18n="class">Class</span><span class="v" id="pubStuClass"></span></div>
+      <div class="pm-row"><i class="fas fa-hashtag"></i><span class="k" data-i18n="roll">Roll No</span><span class="v" id="pubStuRoll"></span></div>
+      <div class="pm-row"><i class="fas fa-award"></i><span class="k" data-i18n="marks">Marks</span><span class="v" id="pubStuMarks" style="color:var(--accent-text)"></span></div>
+    </div>
+  </div>
+</div></div>
+
+<div id="publicGalleryModal" class="modal"><div class="modal-content" style="max-width:720px;text-align:center;padding:1.4rem">
+  <span class="close-modal" onclick="closeModal('publicGalleryModal')">×</span>
+  <img id="fullGalleryImg" alt="" style="width:100%;border-radius:12px;max-height:65vh;object-fit:contain;background:#000">
+  <h3 id="fullGalleryCaption" style="margin:1.1rem 0"></h3>
+  <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+    <a id="btnDownloadImg" href="#" download target="_blank" rel="noopener" class="btn btn-primary"><i class="fas fa-download"></i> <span data-i18n="download">Download</span></a>
+    <a id="btnShareImg" href="#" target="_blank" rel="noopener" class="btn btn-whatsapp"><i class="fab fa-whatsapp"></i> <span data-i18n="share">Share</span></a>
+  </div>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+/* ---------- Helpers ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = id => document.getElementById(id);
+
+if (window.AOS) { AOS.init({ duration: 700, once: true, offset: 80 }); }
+else { document.querySelectorAll('[data-aos]').forEach(e => { e.style.opacity = 1; e.style.transform = 'none'; }); }
+
+/* ---------- Default school logo (used until a logo is uploaded) ---------- */
+const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd24d"/><stop offset="1" stop-color="#e09f00"/></linearGradient></defs><path d="M32 3 7 11v17c0 15 10.500 28 25 33 14.500-5 25-18 25-33V11z" fill="#0a2f5a" stroke="url(#g)" stroke-width="3"/><path d="M32 8l1.800 3.700 4 .6-2.900 2.800.7 4L32 17.200l-3.600 1.900.7-4-2.900-2.800 4-.6z" fill="url(#g)"/><g transform="translate(0,5)"><path d="M32 20c-4-3-9-4-14-4v22c5 0 10 1 14 4 4-3 9-4 14-4V16c-5 0-10 1-14 4z" fill="#fff"/><path d="M32 20v22" stroke="#0a2f5a" stroke-width="2"/></g></svg>`;
+const LOGO_URI = 'data:image/svg+xml,' + encodeURIComponent(LOGO_SVG);
+const AVATAR_URI = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1d4f8a"/><circle cx="50" cy="38" r="18" fill="#c9d6e6"/><path d="M14 100c0-22 16-34 36-34s36 12 36 34z" fill="#c9d6e6"/></svg>`);
+(function setFavicon(){ const l = document.createElement('link'); l.rel = 'icon'; l.href = LOGO_URI; document.head.appendChild(l); })();
+
+/* ---------- Image optimiser (admission photo) ---------- */
+async function optimizeAndCompressImage(file, maxWidth = 1200, quality = 0.8) {
+  if (!file || !file.type.startsWith('image/')) return file;
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onerror = () => resolve(file);
+    reader.onload = ev => {
+      const img = new Image();
+      img.onerror = () => resolve(file);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        canvas.toBlob(blob => {
+          if (!blob) return resolve(file);
+          resolve(new File([blob], file.name.replace(/\.[^/.]+$/, '.webp'), { type: 'image/webp', lastModified: Date.now() }));
+        }, 'image/webp', quality);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------- Supabase ---------- */
+const _supabase = (window.supabase && window.supabase.createClient) ? supabase.createClient(
+  'https://vdedxfvgrpkrrhgxqzfo.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkZWR4ZnZncnBrcnJoZ3hxemZvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc1NjMyNjcsImV4cCI6MjA5MzEzOTI2N30.1Vqv0ybMTrEqN7zbsxLGJaHyoJYuh7hinFHWVrPJnWw'
+) : null;
+
+/* ---------- Language packs ---------- */
+const langPack = {
+  en: {
+    brand: 'MODEL SCHOOL PISHIN', brand_sub: 'Since 1890 · Pishin, Balochistan',
+    nav_home: 'Home', nav_about: 'About', nav_notices: 'Notices', nav_teachers: 'Teachers', nav_holders: 'Toppers', nav_gallery: 'Gallery', nav_location: 'Contact', nav_dev: 'Developer', nav_apply: 'Apply Now',
+    hero_badge: 'Established 1890', nav_top10: 'Top 10', sec_top10: 'Top 10 Students', hero_title: 'Govt. Model Higher Secondary School Pishin',
+    hero_sub: 'Quality education, strong character and a bright future for every student.',
+    btn_apply: 'Apply for Admission', btn_find: 'Find Us', share: 'Share',
+    sec_notices: 'Notice Board', sec_about: 'About Our School', sec_teachers: 'Our Honorable Teachers', sec_holders: 'Position Holders', sec_admission: 'Apply For Admission', sec_gallery: 'School Gallery', sec_location: 'Our Location', sec_dev: 'Meet The Developer',
+    m_students: 'Students', m_teachers: 'Teachers', m_books: 'Library Books', m_computers: 'Computers',
+    adm_title: 'Online Admission Form', f_name: 'Student Full Name *', f_father: "Father's Name *", f_class: 'Select Class', f_phone: 'WhatsApp Number *', f_dob: 'Date of Birth', f_address: 'Complete Address',
+    submit: 'Submit Application', upload: 'Upload Student Photo', directions: 'Get Directions',
+    vision: 'Vision', mission: 'Mission', principal: 'PRINCIPAL', view_profile: 'View Profile', click_details: 'Click for details',
+    subject: 'Subject', incharge: 'Class Incharge', chat: 'Chat on WhatsApp', holder: 'Position Holder', father: 'Father', class: 'Class', roll: 'Roll No', marks: 'Marks',
+    download: 'Download',
+    notice: 'Notice', updated: 'Updated', lang_btn: 'اردو', teacher: 'Teacher',
+    sec_legacy: 'Our Pride & Legacy', legacy_sub: 'Principals and distinguished personalities who shaped this school since 1890.',
+    principal_current: 'Current Principal', leg_read: 'Read more', leg_years: 'Years',
+    sec_reviews: 'What People Say', reviews_sub: 'Honest words from parents, students and alumni.',
+    rv_write: 'Share Your Experience', rv_name: 'Your name', rv_text: 'Write your review (at least 10 characters)', rv_post: 'Submit Review',
+    rv_google: 'Reviews on Google Maps', rv_note: 'Only genuine reviews are shown. Please keep it respectful.',
+    rv_empty: 'No reviews yet. Be the first to share your experience.', rv_more: 'Show more reviews',
+    rv_thanks: 'Thank you! Your review has been posted.', rv_pending: 'Thank you! Your review will appear after approval.',
+    rv_wait: 'Please wait a minute before posting again.', rv_short: 'Please write at least 10 characters.', rv_noname: 'Please enter your name.', rv_fail: 'Could not post your review. Please try again.',
+    footer: '© Govt Model Higher Secondary School Pishin | Since 1890 | Official Website'
+  },
+  ur: {
+    brand: 'ماڈل سکول پشین', brand_sub: '1890 سے · پشین، بلوچستان',
+    nav_home: 'ہوم', nav_about: 'ہمارے بارے میں', nav_notices: 'نوٹسز', nav_teachers: 'اساتذہ', nav_holders: 'پوزیشن ہولڈرز', nav_gallery: 'گیلری', nav_location: 'رابطہ', nav_dev: 'ڈویلپر', nav_apply: 'داخلہ لیں',
+    hero_badge: 'قیام 1890', nav_top10: 'ٹاپ 10', sec_top10: 'ٹاپ 10 طلباء', hero_title: 'گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین',
+    hero_sub: 'معیاری تعلیم، مضبوط کردار اور ہر طالب علم کے لیے روشن مستقبل۔',
+    btn_apply: 'داخلے کے لیے اپلائی کریں', btn_find: 'ہمیں تلاش کریں', share: 'شیئر',
+    sec_notices: 'نوٹس بورڈ', sec_about: 'ہمارے سکول کے بارے میں', sec_teachers: 'ہمارے قابل احترام اساتذہ', sec_holders: 'پوزیشن ہولڈرز', sec_admission: 'داخلے کے لیے اپلائی کریں', sec_gallery: 'سکول کی گیلری', sec_location: 'ہمارا مقام', sec_dev: 'ڈویلپر سے ملیں',
+    m_students: 'طلباء', m_teachers: 'اساتذہ', m_books: 'لائبریری کی کتابیں', m_computers: 'کمپیوٹرز',
+    adm_title: 'آن لائن داخلہ فارم', f_name: 'طالب علم کا پورا نام *', f_father: 'والد کا نام *', f_class: 'کلاس منتخب کریں', f_phone: 'واٹس ایپ نمبر *', f_dob: 'تاریخ پیدائش', f_address: 'مکمل پتہ',
+    submit: 'درخواست جمع کروائیں', upload: 'تصویر اپ لوڈ کریں', directions: 'راستہ حاصل کریں',
+    vision: 'وژن', mission: 'مشن', principal: 'پرنسپل', view_profile: 'پروفائل دیکھیں', click_details: 'تفصیل کے لیے کلک کریں',
+    subject: 'مضمون', incharge: 'کلاس انچارج', chat: 'واٹس ایپ پر رابطہ', holder: 'پوزیشن ہولڈر', father: 'والد', class: 'کلاس', roll: 'رول نمبر', marks: 'نمبر',
+    download: 'ڈاؤن لوڈ',
+    notice: 'نوٹس', updated: 'اپ ڈیٹ', lang_btn: 'EN', teacher: 'استاد',
+    sec_legacy: 'ہمارا فخر اور ورثہ', legacy_sub: 'وہ پرنسپل اور نامور شخصیات جنہوں نے اس اسکول کو سنوارا۔',
+    principal_current: 'موجودہ پرنسپل', leg_read: 'مزید پڑھیں', leg_years: 'سال',
+    sec_reviews: 'لوگ کیا کہتے ہیں', reviews_sub: 'والدین، طلبہ اور پرانے طلبہ کی سچی رائے۔',
+    rv_write: 'اپنی رائے لکھیں', rv_name: 'آپ کا نام', rv_text: 'اپنی رائے لکھیں (کم از کم 10 حروف)', rv_post: 'رائے جمع کروائیں',
+    rv_google: 'گوگل میپس پر ریویوز', rv_note: 'صرف اصلی آراء دکھائی جاتی ہیں۔ براہ کرم مہذب انداز رکھیں۔',
+    rv_empty: 'ابھی کوئی رائے نہیں۔ سب سے پہلے اپنی رائے دیں۔', rv_more: 'مزید آراء دکھائیں',
+    rv_thanks: 'شکریہ! آپ کی رائے شائع ہو گئی۔', rv_pending: 'شکریہ! آپ کی رائے منظوری کے بعد نظر آئے گی۔',
+    rv_wait: 'براہ کرم دوبارہ لکھنے سے پہلے ایک منٹ انتظار کریں۔', rv_short: 'براہ کرم کم از کم 10 حروف لکھیں۔', rv_noname: 'براہ کرم اپنا نام لکھیں۔', rv_fail: 'رائے جمع نہیں ہو سکی۔ دوبارہ کوشش کریں۔',
+    footer: '© گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین | 1890 سے | آفیشل ویب سائٹ'
+  }
+};
+let currentLang = localStorage.getItem('lang') || 'en';
+const tr = k => (langPack[currentLang] && langPack[currentLang][k]) || langPack.en[k] || '';
+let dataLoaded = false;
+
+function toggleLanguage() { currentLang = currentLang === 'en' ? 'ur' : 'en'; localStorage.setItem('lang', currentLang); applyTranslations(); }
+function applyTranslations() {
+  document.body.classList.toggle('urdu-mode', currentLang === 'ur');
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = tr(el.dataset.i18n); if (v) el.textContent = v; });
+  $('langBtn').textContent = tr('lang_btn');
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const v = tr(el.dataset.i18nPh); if (v) el.placeholder = v; });
+  $('btnSubmitForm').textContent = tr('submit');
+  if (!$('admPic').files.length) $('admPicText').textContent = tr('upload');
+  $('btnDir').innerHTML = `<i class="fas fa-location-arrow"></i> ${esc(tr('directions'))}`;
+  $('footerTxt').textContent = tr('footer');
+  if (dataLoaded) renderAll();
+}
+function applyTranslations_text() {
+  ['hero_badge', 'hero_title', 'hero_sub'].forEach(k => { const el = document.querySelector('[data-i18n="' + k + '"]'); if (el) { const v = tr(k); if (v) el.textContent = v; } });
+}
+function toggleTheme() {
+  document.body.classList.toggle('light-mode');
+  const light = document.body.classList.contains('light-mode');
+  document.querySelector('#themeToggleBtn i').className = light ? 'fas fa-sun' : 'fas fa-moon';
+  localStorage.setItem('theme', light ? 'light' : 'dark');
+}
+
+/* ---------- Data ---------- */
+const defaultData = {
+  logos: { headerLogo: '', bgLogo: '', sliderImages: [] },
+  metrics: { students: '1250', teachers: '45', books: '3200', computers: '50' },
+  newsAndVideo: { videoData: '', newsItems: ['New session started', 'Annual sports gala'] },
+  notices: [
+    { title: 'Mid-Term Examination Schedule', desc: 'Datesheet for classes 6th to 12th has been officially released.', date: 'Today' },
+    { title: 'Public Holiday Notification', desc: 'School will remain closed on November 9th in observance of Iqbal Day.', date: 'Yesterday' },
+    { title: 'New Session Admissions Open', desc: 'Online applications for the new academic session are now being accepted.', date: '2 Days Ago' }
+  ],
+  about: { desc: 'Model School Pishin has been a beacon of quality education since 1890.', vision: 'Knowledge, Ethics & Character', mission: 'Empower students through quality education.', principal: { name: 'Kalim Ullah', message: 'We shape future leaders with care.', img: 'https://randomuser.me/api/portraits/men/50.jpg', whatsapp: '923178022878' } },
+  developer: { name: 'Akhtar Mohammad', class: '10th', role: 'Student & Web Developer', skills: ['Website Dev', 'App Dev'], img: 'https://randomuser.me/api/portraits/men/15.jpg' }
+};
+let schoolData = { ...JSON.parse(JSON.stringify(defaultData)), teachers: [], positionHolders: [], gallery: [] };
+let publicComments = [];
+
+async function uploadToStorage(file, folder) {
+  if (!file) return null;
+  const ext = file.name.split('.').pop();
+  const fileName = `${folder}/${Date.now()}_${Math.random().toString(36).substring(7)}.${ext}`;
+  const { error } = await _supabase.storage.from('school_assets').upload(fileName, file);
+  if (error) { console.error('Upload error:', error); alert('Image upload failed. Please try again.'); return null; }
+  return _supabase.storage.from('school_assets').getPublicUrl(fileName).data.publicUrl;
+}
+
+function sortOrd(a, desc) {
+  const has = a.some(r => r.sort_order !== undefined && r.sort_order !== null);
+  return a.slice().sort((x, y) => { if (has) { const d = (x.sort_order ?? 100) - (y.sort_order ?? 100); if (d) return d; } return desc ? (y.id || 0) - (x.id || 0) : (x.id || 0) - (y.id || 0); });
+}
+function waDigits(p) { let d = String(p || '').replace(/\D/g, ''); if (/^0\d{10}$/.test(d)) d = '92' + d.slice(1); return d; }
+/* Admin-controlled settings: hero text, contact, map, admission, developer visibility */
+function applyAdminSettings() {
+  applyTheme((schoolData.cfg && schoolData.cfg.theme) || '');
+  const c = schoolData.cfg || { hero: {}, contact: {}, admission: {} }, h = c.hero || {}, ct = c.contact || {}, a = c.admission || {};
+  if (h.badge) { langPack.en.hero_badge = h.badge; langPack.ur.hero_badge = h.badge; }
+  if (h.title) langPack.en.hero_title = h.title;
+  if (h.title_ur) langPack.ur.hero_title = h.title_ur; else if (h.title) langPack.ur.hero_title = h.title;
+  if (h.subtitle) langPack.en.hero_sub = h.subtitle;
+  if (h.subtitle_ur) langPack.ur.hero_sub = h.subtitle_ur; else if (h.subtitle) langPack.ur.hero_sub = h.subtitle;
+  if (ct.name) $('ctName').textContent = ct.name;
+  if (ct.address) $('ctAddr').textContent = ct.address;
+  const q = ct.map || ''; if (q) { $('mapFrame').src = 'https://maps.google.com/maps?q=' + encodeURIComponent(q) + '&t=&z=15&ie=UTF8&iwloc=&output=embed'; $('btnDir').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q); }
+  const rows = [];
+  if (ct.phone) rows.push(`<a href="tel:${esc(ct.phone.replace(/[^+\d]/g, ''))}" style="color:inherit;text-decoration:none"><i class="fas fa-phone" style="color:var(--accent-text);width:20px"></i> <span dir="ltr">${esc(ct.phone)}</span></a>`);
+  if (ct.email) rows.push(`<a href="mailto:${esc(ct.email)}" style="color:inherit;text-decoration:none"><i class="fas fa-envelope" style="color:var(--accent-text);width:20px"></i> ${esc(ct.email)}</a>`);
+  if (ct.timing) rows.push(`<span><i class="far fa-clock" style="color:var(--accent-text);width:20px"></i> ${esc(ct.timing)}</span>`);
+  $('ctExtra').innerHTML = rows.join('');
+  const wa = waDigits(ct.whatsapp); if (wa) $('fabWa').href = 'https://wa.me/' + wa + '?text=Hello%20Model%20School';
+  const open = a.open !== false, info = $('admInfo');
+  info.textContent = open ? (a.info || '') : (a.closed_message || 'Admissions are closed. Please check again soon.');
+  info.style.display = (open ? a.info : true) ? 'block' : 'none';
+  document.querySelectorAll('#admCard .form-group, #btnSubmitForm').forEach(el => el.style.display = open ? '' : 'none');
+  const dev = !!(schoolData.developer && schoolData.developer.hidden);
+  $('developer').style.display = dev ? 'none' : '';
+  document.querySelectorAll('a[href="#developer"]').forEach(x => { const li = x.closest('li'); (li || x).style.display = dev ? 'none' : ''; });
+}
+async function loadFromSupabase() {
+  try {
+    const { data: sData } = await _supabase.from('school_settings').select('data').eq('id', 1).single();
+    if (sData && sData.data) {
+      const d = sData.data; window.settingsLoaded = true;
+      schoolData.logos = d.logos || defaultData.logos;
+      if (!schoolData.logos.sliderImages) schoolData.logos.sliderImages = [];
+      schoolData.metrics = d.metrics || defaultData.metrics;
+      schoolData.newsAndVideo = d.newsAndVideo || defaultData.newsAndVideo;
+      schoolData.notices = d.notices || defaultData.notices;
+      schoolData.about = d.about || defaultData.about;
+      schoolData.developer = d.developer || defaultData.developer;
+      schoolData.cfg = { hero: d.hero || {}, contact: d.contact || {}, admission: d.admission || {}, theme: d.theme || '', top10: d.top10 || {}, chatbot: d.chatbot || {} };
+    }
+    const [t, p, g] = await Promise.all([
+      _supabase.from('teachers').select('*'),
+      _supabase.from('position_holders').select('*'),
+      _supabase.from('gallery').select('*')
+    ]);
+    if (t.data) schoolData.teachers = sortOrd(t.data);
+    if (p.data) schoolData.positionHolders = sortOrd(p.data);
+    if (g.data) schoolData.gallery = sortOrd(g.data, true);
+    fetchReviews(); fetchSocialLinks(); fetchLegacy();
+  } catch (e) { console.error('Load error:', e); }
+  dataLoaded = true;
+  renderAll();
+}
+
+function setupRealtime() {
+  try {
+    _supabase.channel('public-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'teachers' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'position_holders' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'gallery' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'school_settings' }, () => loadFromSupabase())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'comments' }, () => fetchReviews())
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'social_links' }, () => fetchSocialLinks())
+      .subscribe();
+  } catch (e) { console.error(e); }
+}
+
+/* ---------- Footer social links ---------- */
+async function fetchSocialLinks() {
+  if (!_supabase) return;
+  const { data } = await _supabase.from('social_links').select('*').eq('id', 1).single();
+  if (!data) return;
+  const map = { linkFb: 'facebook', linkInsta: 'instagram', linkTiktok: 'tiktok', linkYt: 'youtube', linkWaGroup: 'whatsapp_group', linkWaChannel: 'whatsapp_channel' };
+  Object.entries(map).forEach(([id, key]) => { const el = $(id); if (data[key]) { el.href = data[key]; el.style.display = 'flex'; } else el.style.display = 'none'; });
+}
+
+/* ---------- Legacy: principals & notable people ----------
+   Data comes from the Supabase table "notable_people"
+   (name, role, years, info, img_url, sort_order).
+   You can also paste people directly below, no database needed:
+   { name:'Full Name', role:'Former Principal', years:'1975 - 1990', info:'Short biography.', img:'https://.../photo.jpg' } */
+const LEGACY_FALLBACK = [];
+let legacyList = [], lgIdx = 0, lgTimer = null;
+
+async function fetchLegacy() {
+  if (!_supabase) return;
+  try {
+    const { data, error } = await _supabase.from('notable_people').select('*');
+    if (error || !data) return;
+    schoolData.legacy = data.slice().sort((a, b) => (a.sort_order ?? 100) - (b.sort_order ?? 100));
+    renderLegacy();
+  } catch (e) { /* table not created yet: section simply stays hidden */ }
+}
+function getLegacyPeople() {
+  const list = [];
+  const p = schoolData.about && schoolData.about.principal;
+  if (window.settingsLoaded && p && p.name) list.push({ name: p.name, role: tr('principal_current'), years: '', info: p.message || '', img: p.img || '' });
+  (schoolData.legacy || []).concat(LEGACY_FALLBACK).forEach(x => {
+    if (x && x.name) list.push({ name: x.name, role: x.role || '', years: x.years || '', info: x.info || '', img: x.img_url || x.img || '' });
+  });
+  return list;
+}
+const lgPer = () => (window.innerWidth >= 1000 ? 2 : 1);
+const lgMax = () => Math.max(0, legacyList.length - lgPer());
+function renderLegacy() {
+  legacyList = getLegacyPeople();
+  const sec = $('legacy');
+  if (!legacyList.length) { sec.style.display = 'none'; clearInterval(lgTimer); return; }
+  sec.style.display = '';
+  $('legacyTrack').innerHTML = legacyList.map((p, i) => `
+    <article class="lg-card" tabindex="0" role="button" aria-label="${esc(p.name)}" onclick="openLegacy(${i})" onkeydown="if(event.key==='Enter')openLegacy(${i})">
+      <div class="lg-text">
+        ${p.role ? `<span class="lg-role">${esc(p.role)}</span>` : ''}
+        <h3>${esc(p.name)}</h3>
+        ${p.years ? `<div class="lg-years">${esc(p.years)}</div>` : ''}
+        ${p.info ? `<p>${esc(p.info)}</p>` : ''}
+        <span class="lg-more">${esc(tr('leg_read'))} <i class="fas fa-arrow-right"></i></span>
+      </div>
+      <div class="lg-photo"><img loading="lazy" src="${esc(p.img || AVATAR_URI)}" alt="${esc(p.name)}" onerror="this.src='${AVATAR_URI}'"></div>
+    </article>`).join('');
+  lgLayout();
+}
+function lgLayout() {
+  if (!legacyList.length) return;
+  const v = $('legacyViewport');
+  v.style.setProperty('--per', lgPer());
+  const max = lgMax();
+  $('legacyControls').style.display = max > 0 ? 'flex' : 'none';
+  $('legacyDots').innerHTML = Array.from({ length: max + 1 }, (_, i) => `<button class="lg-dot" aria-label="Slide ${i + 1}" onclick="lgGo(${i},true)"></button>`).join('');
+  lgGo(Math.min(lgIdx, max), false);
+  lgStart();
+}
+function lgGo(i, manual) {
+  const max = lgMax();
+  lgIdx = i > max ? 0 : (i < 0 ? max : i);
+  $('legacyViewport').style.setProperty('--idx', lgIdx);
+  document.querySelectorAll('.lg-dot').forEach((d, k) => d.classList.toggle('on', k === lgIdx));
+  if (manual) lgStart();
+}
+function lgStart() {
+  clearInterval(lgTimer);
+  if (lgMax() > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) lgTimer = setInterval(() => lgGo(lgIdx + 1), 5500);
+}
+function openLegacy(i) {
+  const p = legacyList[i]; if (!p) return;
+  $('lgmImg').src = p.img || AVATAR_URI; $('lgmImg').alt = p.name;
+  $('lgmName').innerText = p.name; $('lgmRole').innerText = p.role; $('lgmRole').style.display = p.role ? 'inline-block' : 'none';
+  $('lgmYears').innerText = p.years; $('lgmYearsBox').style.display = p.years ? 'block' : 'none';
+  $('lgmInfo').innerText = p.info; $('lgmInfo').style.display = p.info ? 'block' : 'none';
+  $('publicLegacyModal').style.display = 'flex';
+}
+(function lgWire() {
+  $('lgPrev').addEventListener('click', () => lgGo(lgIdx - 1, true));
+  $('lgNext').addEventListener('click', () => lgGo(lgIdx + 1, true));
+  const vp = $('legacyViewport'); let x0 = null;
+  vp.addEventListener('mouseenter', () => clearInterval(lgTimer));
+  vp.addEventListener('mouseleave', lgStart);
+  vp.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  vp.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 45) lgGo(lgIdx + (dx < 0 ? 1 : -1), true); }, { passive: true });
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(lgLayout, 150); });
+})();
+
+/* ---------- Reviews (real, from the database) ----------
+   Reviews are stored in the existing "comments" table. Nothing is pre-filled or invented.
+   To approve reviews before they appear: add a boolean column "approved" (default false) to
+   "comments", then set REVIEWS_REQUIRE_APPROVAL = true. */
+const REVIEWS_REQUIRE_APPROVAL = true;
+let reviewsData = [], reviewsShown = 6;
+
+async function fetchReviews() {
+  if (!_supabase) return;
+  let q = _supabase.from('comments').select('*').order('created_at', { ascending: false }).limit(60);
+  if (REVIEWS_REQUIRE_APPROVAL) q = q.eq('approved', true);
+  let { data, error } = await q;
+  if (error && /approved/.test(error.message || '')) { ({ data, error } = await _supabase.from('comments').select('*').order('created_at', { ascending: false }).limit(60)); }
+  if (!error && data) { reviewsData = data; renderReviews(); }
+}
+function renderReviews() {
+  const box = $('reviewsList');
+  if (!reviewsData.length) { box.innerHTML = `<div class="rv-empty"><i class="far fa-comments fa-2x"></i><p style="margin-top:.5rem">${esc(tr('rv_empty'))}</p></div>`; return; }
+  const shown = reviewsData.slice(0, reviewsShown);
+  box.innerHTML = shown.map(r => {
+    const nm = (r.user_name || '').trim() || '—';
+    const d = r.created_at ? new Date(r.created_at).toLocaleDateString(currentLang === 'ur' ? 'ur-PK' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+    return `<article class="rv-card"><i class="fas fa-quote-right q"></i><p>${esc(r.comment_text)}</p><div class="rv-by"><span class="rv-av">${esc(nm.charAt(0).toUpperCase())}</span><div><strong>${esc(nm)}</strong><small>${esc(d)}</small></div></div></article>`;
+  }).join('') + (reviewsData.length > reviewsShown ? `<div class="rv-more"><button class="btn btn-ghost" onclick="reviewsShown+=6;renderReviews()">${esc(tr('rv_more'))}</button></div>` : '');
+}
+async function submitReview(e) {
+  e.preventDefault();
+  const msg = $('rvMsg'), btn = $('rvBtn');
+  const name = $('rvName').value.trim(), text = $('rvText').value.trim();
+  msg.textContent = '';
+  if ($('rvWeb').value) return;                                   // hidden field: bots only
+  if (!name) { msg.textContent = tr('rv_noname'); return; }
+  if (text.length < 10) { msg.textContent = tr('rv_short'); return; }
+  let last = 0; try { last = +localStorage.getItem('rvLast') || 0; } catch (_) {}
+  if (Date.now() - last < 60000) { msg.textContent = tr('rv_wait'); return; }
+  if (!_supabase) { msg.textContent = tr('rv_fail'); return; }
+  btn.disabled = true;
+  const row = { user_name: name.slice(0, 40), comment_text: text.slice(0, 300) };
+  if (REVIEWS_REQUIRE_APPROVAL) row.approved = false;
+  let { error } = await _supabase.from('comments').insert([row]);
+  if (error && /approved/.test(error.message || '')) { delete row.approved; ({ error } = await _supabase.from('comments').insert([row])); }
+  btn.disabled = false;
+  if (error) { msg.textContent = tr('rv_fail'); return; }
+  try { localStorage.setItem('rvLast', String(Date.now())); } catch (_) {}
+  $('rvText').value = ''; $('rvCount').textContent = '0';
+  msg.textContent = REVIEWS_REQUIRE_APPROVAL ? tr('rv_pending') : tr('rv_thanks');
+  if (!REVIEWS_REQUIRE_APPROVAL) fetchReviews();
+}
+$('reviewForm').addEventListener('submit', submitReview);
+$('rvText').addEventListener('input', () => { $('rvCount').textContent = $('rvText').value.length; });
+
+/* ---------- Renderers ---------- */
+function renderAll() {
+  try { applyAdminSettings(); applyTranslations_text(); } catch (e) { console.error(e); }
+  renderLogos(); renderDashboardMetrics(); renderNotices(); renderGallerySlider(); renderAbout();
+  renderTeachers(); renderPositionHolders(); renderGallery(); renderDeveloper(); renderLegacy(); renderTop10(); renderReviews(); cbRefresh();
+  if (window.AOS) AOS.refreshHard();
+}
+function renderLogos() {
+  const logo = schoolData.logos.headerLogo || LOGO_URI;
+  $('publicHeaderLogo').src = logo; $('footerLogo').src = logo;
+  const ov = $('heroBgOverlay');
+  if (schoolData.logos.bgLogo) { ov.style.backgroundImage = `url("${schoolData.logos.bgLogo}")`; ov.style.display = 'block'; } else ov.style.display = 'none';
+}
+function renderDashboardMetrics() {
+  const m = schoolData.metrics;
+  const items = [['fa-user-graduate', m.students, 'm_students'], ['fa-chalkboard-user', m.teachers, 'm_teachers'], ['fa-book', m.books, 'm_books'], ['fa-desktop', m.computers, 'm_computers']];
+  $('publicMetricsGrid').innerHTML = items.map(([ic, v, k]) => `<div class="metric-card"><i class="fas ${ic} metric-icon"></i><div class="metric-number" data-target="${Number(v) || 0}">0</div><div class="metric-label">${esc(tr(k))}</div></div>`).join('');
+  document.querySelectorAll('.metric-number').forEach(c => {
+    const target = +c.dataset.target; let cur = 0; const step = Math.max(1, target / 60);
+    (function tick() { cur = Math.min(target, cur + step); c.innerText = Math.round(cur); if (cur < target) setTimeout(tick, 25); })();
+  });
+}
+function renderNotices() {
+  const grid = $('dynamicNoticeGrid');
+  if (!schoolData.notices || !schoolData.notices.length) { grid.innerHTML = "<p class='empty-msg'>No notices available at the moment.</p>"; return; }
+  grid.innerHTML = schoolData.notices.map((n, i) => `<div class="notice-card" data-aos="fade-up" data-aos-delay="${(i % 3) * 80}"><span class="notice-badge">${esc(tr('notice'))}</span><h4>${esc(n.title)}</h4><p>${esc(n.desc)}</p><span class="notice-date"><i class="far fa-clock"></i> ${esc(tr('updated'))}: ${esc(n.date)}</span>${/^https?:\/\//.test(n.link || '') ? `<a class="btn btn-ghost" style="margin-top:.7rem;padding:.4rem .9rem;font-size:.82rem" href="${esc(n.link)}" target="_blank" rel="noopener"><i class="fas fa-paperclip"></i> Open attachment</a>` : ''}</div>`).join('');
+}
+
+let slideIndex = 0, autoSlideInterval;
+function renderGallerySlider() {
+  const wrap = $('heroSliderWrapper'), cont = $('heroSliderContainer'), imgs = schoolData.logos.sliderImages || [];
+  if (imgs.length) {
+    cont.style.display = 'block';
+    wrap.innerHTML = imgs.map(u => `<div class="hero-slide"><img src="${esc(u)}" alt="School"></div>`).join('');
+    slideIndex = 0; wrap.style.transform = 'translateX(0)';
+    clearInterval(autoSlideInterval);
+    if (imgs.length > 1) autoSlideInterval = setInterval(() => { slideIndex = (slideIndex + 1) % imgs.length; wrap.style.transform = `translateX(-${slideIndex * 100}%)`; }, 5000);
+  } else { cont.style.display = 'none'; clearInterval(autoSlideInterval); }
+}
+
+function renderAbout() {
+  const a = schoolData.about, p = a.principal;
+  $('aboutText').innerText = a.desc;
+  $('visionMissionBox').innerHTML = `<div class="vm-box" data-aos="fade-up"><i class="fas fa-eye"></i><h3>${esc(tr('vision'))}</h3><p>${esc(a.vision)}</p></div><div class="vm-box" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-bullseye"></i><h3>${esc(tr('mission'))}</h3><p>${esc(a.mission)}</p></div>`;
+  $('principalBox').innerHTML = `<img src="${esc(p.img)}" alt="${esc(p.name)}" onerror="this.src='${AVATAR_URI}'"><h3>${esc(p.name)}</h3><span class="role-chip">${esc(tr('principal'))}</span><p class="hint">${esc(tr('click_details'))}</p>`;
+  const open = () => {
+    $('pubPrinImg').src = p.img; $('pubPrinName').innerText = p.name; $('pubPrinMsg').innerText = `"${p.message}"`;
+    $('pubPrinWa').href = `https://wa.me/${encodeURIComponent(p.whatsapp)}?text=Hello%20Principal%20Sir`;
+    $('publicPrincipalModal').style.display = 'flex';
+  };
+  $('principalBox').onclick = open;
+  $('principalBox').onkeydown = e => { if (e.key === 'Enter') open(); };
+}
+
+function renderTeachers() {
+  $('teachersGrid').innerHTML = schoolData.teachers.map((t, i) => `
+    <article class="teacher-card" tabindex="0" role="button" aria-label="${esc(t.name)}" onclick="openPublicTeacher(${i})" onkeydown="if(event.key==='Enter')openPublicTeacher(${i})" data-aos="fade-up" data-aos-delay="${(i % 5) * 50}">
+      <div class="tc-photo"><img loading="lazy" src="${esc(t.img_url)}" alt="${esc(t.name)}" onerror="this.src='${AVATAR_URI}'"></div>
+      <div class="tc-body">
+        <h3>${esc(t.name)}</h3>
+        <span class="tc-desig">${esc(t.designation || tr('teacher'))}</span>
+        ${t.subject ? `<p><i class="fas fa-book-open"></i>${esc(t.subject)}</p>` : ''}
+      </div>
+      <i class="fas fa-chevron-right tc-go" aria-hidden="true"></i>
+      <div class="tc-cta">${esc(tr('view_profile'))} <i class="fas fa-arrow-right"></i></div>
+    </article>`).join('');
+}
+function openPublicTeacher(i) {
+  const t = schoolData.teachers[i]; if (!t) return;
+  $('pubTeachImg').src = t.img_url || AVATAR_URI;
+  $('pubTeachName').innerText = t.name || '';
+  $('pubTeachDesig').innerText = t.designation || tr('teacher');
+  $('pubTeachSub').innerText = t.subject || '';
+  $('rowSubject').style.display = t.subject ? 'flex' : 'none';
+  $('pubTeachQual').innerText = t.qualification || ''; $('rowQual').style.display = t.qualification ? 'flex' : 'none';
+  $('pubTeachExp').innerText = t.experience || ''; $('rowExp').style.display = t.experience ? 'flex' : 'none';
+  $('pubTeachClass').innerText = t.class_incharge || '';
+  $('rowClass').style.display = t.class_incharge ? 'flex' : 'none';
+  const msg = $('pubTeachMsg'); msg.innerText = t.message ? `"${t.message}"` : ''; msg.style.display = t.message ? 'block' : 'none';
+  const wa = $('pubTeachWa'); if (t.whatsapp) { wa.href = `https://wa.me/${encodeURIComponent(t.whatsapp)}?text=Hello%20Sir`; wa.style.display = 'inline-flex'; } else wa.style.display = 'none';
+  $('publicTeacherModal').style.display = 'flex';
+}
+
+function renderPositionHolders() {
+  $('studentsGrid').innerHTML = schoolData.positionHolders.map((s, i) => `
+    <div class="person-card" tabindex="0" role="button" onclick="openPublicStudent(${i})" onkeydown="if(event.key==='Enter')openPublicStudent(${i})" data-aos="fade-up" data-aos-delay="${(i % 4) * 60}">
+      <img loading="lazy" src="${esc(s.img_url)}" alt="${esc(s.name)}" onerror="this.src='${AVATAR_URI}'">
+      <h3>${esc(s.name)}</h3><p>${esc(s.class_name)}</p><span class="marks-label">${esc(s.marks)}</span>
+    </div>`).join('');
+}
+function openPublicStudent(i) {
+  const s = schoolData.positionHolders[i]; if (!s) return;
+  $('pubStuImg').src = s.img_url || AVATAR_URI; $('pubStuName').innerText = s.name || '';
+  $('pubStuFather').innerText = s.father_name || ''; $('pubStuClass').innerText = s.class_name || '';
+  $('pubStuRoll').innerText = s.roll_no || ''; $('pubStuMarks').innerText = s.marks || '';
+  $('publicStudentModal').style.display = 'flex';
+}
+
+function renderGallery() {
+  $('galleryGrid').innerHTML = schoolData.gallery.map((g, i) => `
+    <div class="gallery-card" tabindex="0" role="button" onclick="openPublicGallery(${i})" onkeydown="if(event.key==='Enter')openPublicGallery(${i})">
+      <div class="img-loading-shimmer"><img loading="lazy" src="${esc(g.img_url)}" alt="${esc(g.caption)}" onload="this.parentElement.classList.remove('img-loading-shimmer')"></div>
+      <div class="gallery-caption">${esc(g.caption)}</div>
+    </div>`).join('');
+}
+function openPublicGallery(i) {
+  const g = schoolData.gallery[i]; if (!g) return;
+  $('fullGalleryImg').src = g.img_url; $('fullGalleryCaption').innerText = g.caption || '';
+  $('btnDownloadImg').href = g.img_url;
+  $('btnShareImg').href = `https://wa.me/?text=${encodeURIComponent('Check this from Model School Pishin: ' + (g.caption || '') + ' ' + g.img_url)}`;
+  $('publicGalleryModal').style.display = 'flex';
+}
+
+function renderDeveloper() {
+  const d = schoolData.developer;
+  $('developerCard').innerHTML = `<img src="${esc(d.img)}" class="dev-img" alt="${esc(d.name)}" onerror="this.src='${AVATAR_URI}'"><h3>${esc(d.name)}</h3><p>Class: ${esc(d.class)} | ${esc(d.role)}</p><div>${(d.skills || []).map(s => `<span class="skill-badge">${esc(s)}</span>`).join('')}</div><a href="https://wa.me/923178022878?text=Hello%20Developer" target="_blank" rel="noopener" class="btn btn-whatsapp" style="margin-top:1.2rem;width:100%"><i class="fab fa-whatsapp"></i> Chat</a>`;
+}
+
+/* ---------- Admission ---------- */
+function previewAdmsnPic(input) {
+  if (!input.files[0]) return;
+  const r = new FileReader();
+  r.onload = e => { $('admPicPreview').src = e.target.result; $('admPicPreview').style.display = 'block'; $('admPicText').innerText = 'Photo Selected'; };
+  r.readAsDataURL(input.files[0]);
+}
+async function submitAdmission() {
+  const name = $('admName').value.trim(), father = $('admFather').value.trim(), cls = $('admClass').value, phone = $('admPhone').value.trim(),
+        dob = $('admDob').value, address = $('admAddress').value.trim(), file = $('admPic').files[0];
+  if (!name || !father || !phone || !file) return alert('Please fill required fields and upload photo.');
+  if (!/^[0-9+\-\s]{10,15}$/.test(phone)) return alert('Please enter a valid WhatsApp number.');
+  const btn = $('btnSubmitForm'); btn.disabled = true; btn.innerText = 'Submitting...';
+  try {
+    const opt = await optimizeAndCompressImage(file, 800);
+    const url = await uploadToStorage(opt, 'admissions');
+    if (url) {
+      const { error } = await _supabase.from('admissions').insert([{ name, father_name: father, class_name: cls, phone, dob, address, img_url: url, status: 'pending' }]);
+      if (error) alert('Error submitting application: ' + error.message);
+      else {
+        alert('Application submitted successfully!');
+        ['admName', 'admFather', 'admPhone', 'admDob', 'admAddress'].forEach(id => $(id).value = '');
+        $('admPic').value = ''; $('admPicPreview').style.display = 'none'; $('admPicText').innerText = tr('upload');
+      }
+    }
+  } catch (e) { alert('Something went wrong. Please try again.'); }
+  btn.disabled = false; btn.innerText = tr('submit');
+}
+
+
+/* ---------- Colour themes (chosen in the admin panel) ---------- */
+const THEMES = {
+  navy_gold:    { name: 'Royal Navy & Gold',   desc: 'Classic school look',        navy: '#0a2f5a', deep: '#071e38', mid: '#0f3b6e', accent: '#ffb703', on: '#1b2433', lt: '#9a5b00' },
+  emerald_gold: { name: 'Emerald & Gold',      desc: 'Green, calm and traditional', navy: '#0b3d2e', deep: '#062a1f', mid: '#12553f', accent: '#f2c14e', on: '#1b2a14', lt: '#8a6200' },
+  maroon_gold:  { name: 'Maroon & Gold',       desc: 'College, university style',  navy: '#5a1226', deep: '#3b0b19', mid: '#7a1c38', accent: '#f0b429', on: '#2a1208', lt: '#8a5a00' },
+  purple_amber: { name: 'Purple & Amber',      desc: 'Creative and modern',        navy: '#2e1a5c', deep: '#1c1038', mid: '#43268a', accent: '#ffc247', on: '#241608', lt: '#8a5300' },
+  teal_coral:   { name: 'Teal & Coral',        desc: 'Fresh and friendly',         navy: '#0b4f5c', deep: '#06333c', mid: '#0f6a7a', accent: '#ff7a59', on: '#2a1008', lt: '#b4310d' },
+  slate_sky:    { name: 'Slate & Sky Blue',    desc: 'Clean, professional',        navy: '#1f2a3c', deep: '#141c29', mid: '#2c3b54', accent: '#38bdf8', on: '#06202e', lt: '#0369a1' },
+  brown_cream:  { name: 'Library Brown & Cream', desc: 'Warm, book-like',          navy: '#3e2a1e', deep: '#28190f', mid: '#5a3d2b', accent: '#e8c07d', on: '#2a1a0c', lt: '#7a5410' },
+  indigo_lime:  { name: 'Indigo & Lime',       desc: 'Bright and energetic',       navy: '#1e2a78', deep: '#121a52', mid: '#2b3a9c', accent: '#a3e635', on: '#1a2505', lt: '#4d7c0f' },
+  midnight_gold:{ name: 'Midnight & Gold',     desc: 'Premium and elegant',        navy: '#111418', deep: '#0a0c0f', mid: '#1c2128', accent: '#d4af37', on: '#14110a', lt: '#7a6008' },
+  sky_orange:   { name: 'Sky Blue & Orange',   desc: 'Cheerful, for kids',         navy: '#0b5394', deep: '#073a68', mid: '#1068b8', accent: '#ff8c42', on: '#2a1304', lt: '#b45309' }
+};
+
+function applyTheme(key) {
+  let pv = ''; try { pv = new URLSearchParams(location.search).get('preview_theme') || ''; } catch (_) {}
+  key = pv && THEMES[pv] ? pv : key;
+  if (!key || !THEMES[key]) { key = (function () { try { return localStorage.getItem('themeKey'); } catch (_) { return ''; } })(); }
+  const t = THEMES[key] || THEMES.navy_gold;
+  let st = document.getElementById('themeStyle'); if (!st) { st = document.createElement('style'); st.id = 'themeStyle'; document.head.appendChild(st); }
+  st.textContent = `:root{--navy:${t.navy};--navy-deep:${t.deep};--navy-mid:${t.mid};--accent:${t.accent};--accent-text:${t.accent};--on-accent:${t.on};--bg:${t.navy};--surface:${t.mid};--surface-2:color-mix(in srgb,${t.deep} 45%,${t.navy})}body.light-mode{--accent-text:${t.lt}}`;
+  const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = t.deep;
+  if (!pv) { try { localStorage.setItem('themeKey', key); } catch (_) {} }
+}
+applyTheme('');
+
+/* ---------- Top 10 section ---------- */
+function renderTop10() {
+  const c = (schoolData.cfg && schoolData.cfg.top10) || {}, items = (c.items || []).slice(0, 10);
+  const sec = $('top10'), nav = $('navTop10'), show = items.length && c.show !== false;
+  sec.style.display = show ? '' : 'none'; nav.style.display = show ? '' : 'none';
+  if (!show) return;
+  const ur = currentLang === 'ur';
+  $('t10Title').textContent = (ur && c.title_ur) || c.title || tr('sec_top10');
+  const sub = (ur && c.sub_ur) || c.sub || ''; $('t10Sub').textContent = sub; $('t10Sub').style.display = sub ? '' : 'none';
+  $('t10Grid').innerHTML = items.map((it, i) => `<div class="t10-card ${i < 3 ? 'r' + (i + 1) : ''}" tabindex="0" role="button" aria-label="${esc(it.name)}" onclick="openTop10(${i})" onkeydown="if(event.key==='Enter')openTop10(${i})" data-aos="fade-up" data-aos-delay="${(i % 5) * 50}"><span class="t10-rank">${i === 0 ? '<i class="fas fa-crown" style="font-size:.8rem"></i>&nbsp;' : ''}${i + 1}</span><img loading="lazy" src="${esc(it.img || '')}" alt="${esc(it.name)}" onerror="this.src='${AVATAR_URI}'"><h3>${esc(it.name)}</h3>${it.class ? `<p>${esc(it.class)}</p>` : ''}${it.marks ? `<span class="marks-label">${esc(it.marks)}</span>` : ''}</div>`).join('');
+}
+function openTop10(i) {
+  const it = (((schoolData.cfg || {}).top10 || {}).items || [])[i]; if (!it) return;
+  $('pubStuImg').src = it.img || AVATAR_URI; $('pubStuName').innerText = it.name || '';
+  $('pubStuFather').innerText = it.note || ''; $('pubStuClass').innerText = it.class || '';
+  $('pubStuRoll').innerText = '#' + (i + 1); $('pubStuMarks').innerText = it.marks || '';
+  $('publicStudentModal').style.display = 'flex';
+}
+
+/* ---------- School assistant (answers from the website's own data, no outside service) ---------- */
+const DEV_WA = '923178022878';
+const cbState = { open: false, started: false, busy: false };
+const cbCfg = () => (schoolData.cfg && schoolData.cfg.chatbot) || {};
+const hasUrdu = t => /[؀-ۿ]/.test(t);
+function cbNorm(t) {
+  return ' ' + String(t || '').toLowerCase().replace(/[ً-ٰٟـ]/g, '').replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[ۃە]/g, 'ہ').replace(/[^a-z0-9؀-ۿ\s]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+}
+function cbHit(q, w) { w = cbNorm(w); if (w.trim().length <= 3 && !hasUrdu(w)) return q.includes(w); return q.includes(w.trim()); }
+function cbScore(q, words) { let n = 0; for (const w of words) if (cbHit(q, w)) n += (w.trim().split(' ').length > 1 ? 2 : 1); return n; }
+const cbL = (o, ur) => (ur && o.ur) ? o.ur : o.en;
+function cbContact() { const c = (schoolData.cfg && schoolData.cfg.contact) || {}; return c; }
+function cbWaBtn(text) { const n = waDigits(cbCfg().whatsapp) || DEV_WA; return { wa: true, href: 'https://wa.me/' + n + '?text=' + encodeURIComponent(text), label: { en: 'Chat on WhatsApp', ur: 'واٹس ایپ پر بات کریں' } }; }
+const cbGo = (id, en, ur) => ({ href: '#' + id, go: id, label: { en, ur } });
+
+function cbIntents() {
+  const ct = cbContact(), ad = (schoolData.cfg && schoolData.cfg.admission) || {};
+  const open = ad.open !== false;
+  const nm = langPack.en.hero_title;
+  const list = [
+    { id: 'thanks', kw: ['thanks', 'thank you', 'thank u', 'shukriya', 'shukria', 'jazak', 'شکریہ', 'جزاک'], short: true, a: () => ({ en: 'You are welcome! Is there anything else I can help you with?', ur: 'خوش آمدید! کیا میں آپ کی کسی اور بات میں مدد کر سکتا ہوں؟' }) },
+    { id: 'greet', kw: ['hi', 'hello', 'hey', 'salam', 'assalam', 'aoa', 'aslam', 'سلام', 'ہیلو', 'السلام'], short: true, a: () => ({ en: 'Wa alaikum assalam! Welcome to ' + nm + '. Ask me about admission, timing, teachers, results or notices.', ur: 'وعلیکم السلام! گورنمنٹ ماڈل ہائیر سیکنڈری سکول پشین میں خوش آمدید۔ داخلہ، اوقات، اساتذہ، نتائج یا نوٹس کے بارے میں پوچھیں۔' }) },
+    { id: 'admission', kw: ['admission', 'admissions', 'apply', 'enroll', 'enrol', 'enrolment', 'register', 'registration', 'new student', 'dakhla', 'dakhlay', 'dakhilah', 'dakhla', 'داخلہ', 'داخلے', 'داخله'], a: () => open ? { en: (ad.info ? ad.info + '\n\n' : '') + 'Admissions are open. You can apply online with the admission form on this website.', ur: (ad.info ? ad.info + '\n\n' : '') + 'داخلے کھلے ہیں۔ آپ اس ویب سائٹ پر آن لائن داخلہ فارم بھر کر اپلائی کر سکتے ہیں۔' } : { en: ad.closed_message || 'Admissions are closed at the moment. Please check again soon.', ur: ad.closed_message || 'اس وقت داخلے بند ہیں۔ براہ کرم کچھ دن بعد دوبارہ دیکھیں۔' }, btn: open ? [cbGo('admission', 'Open admission form', 'داخلہ فارم کھولیں')] : [] },
+    { id: 'fees', kw: ['fee', 'fees', 'fees kitni', 'charges', 'tuition', 'cost', 'monthly', 'فیس', 'فیسیں', 'فیز'], a: () => { const t = ad.info || ''; if (/fee|فیس/i.test(t)) return { en: t, ur: t }; return null; } },
+    { id: 'timing', kw: ['timing', 'timings', 'time', 'hours', 'school time', 'open', 'opening', 'closing', 'close', 'waqt', 'auqat', 'اوقات', 'ٹائمنگ', 'وقت', 'ٹائم'], a: () => ct.timing ? { en: 'School timing: ' + ct.timing, ur: 'سکول کے اوقات: ' + ct.timing } : null },
+    { id: 'location', kw: ['where', 'address', 'location', 'map', 'direction', 'directions', 'kahan', 'kidhar', 'situated', 'پتہ', 'کہاں', 'مقام', 'لوکیشن', 'راستہ'], a: () => { const a = ct.address || $('ctAddr').textContent; return { en: 'Our address: ' + a, ur: 'ہمارا پتہ: ' + a }; }, btn: [cbGo('contact', 'See map', 'نقشہ دیکھیں')] },
+    { id: 'contact', kw: ['phone', 'call', 'contact', 'number', 'email', 'mail', 'whatsapp', 'rabta', 'raabta', 'نمبر', 'رابطہ', 'فون', 'ای میل', 'واٹس ایپ'], a: () => { const p = []; if (ct.phone) p.push('Phone: ' + ct.phone); if (ct.email) p.push('Email: ' + ct.email); if (ct.timing) p.push('Timing: ' + ct.timing); const e = p.join('\n'); const u = (ct.phone ? 'فون: ' + ct.phone + '\n' : '') + (ct.email ? 'ای میل: ' + ct.email : ''); return p.length ? { en: e, ur: u || e } : null; }, btn: [cbGo('contact', 'Contact section', 'رابطہ سیکشن')] },
+    { id: 'principal', kw: ['principal', 'head master', 'headmaster', 'head teacher', 'hm', 'پرنسپل', 'ہیڈ ماسٹر', 'پرنسپل صاحب'], a: () => { const p = schoolData.about && schoolData.about.principal; if (!p || !p.name) return null; return { en: 'Our principal is ' + p.name + '.' + (p.message ? '\n\n"' + p.message + '"' : ''), ur: 'ہمارے پرنسپل ' + p.name + ' ہیں۔' + (p.message ? '\n\n"' + p.message + '"' : '') }; }, btn: [cbGo('about', 'About the school', 'سکول کے بارے میں')] },
+    { id: 'top10', kw: ['top 10', 'top ten', 'top10', 'top student', 'top students', 'best student', 'best students', 'toppers', 'topper', 'position', 'positions', 'position holder', 'position holders', 'first position', 'result', 'results', 'position holders', 'ٹاپ', 'ٹاپرز', 'پوزیشن', 'پوزیشنز', 'نتیجہ', 'نتائج'], a: () => { const it = (((schoolData.cfg || {}).top10 || {}).items || []).slice(0, 3); const ph = schoolData.positionHolders || []; if (it.length) { const ls = it.map((x, i) => (i + 1) + '. ' + x.name + (x.marks ? ' (' + x.marks + ')' : '')).join('\n'); return { en: 'Our top students:\n' + ls, ur: 'ہمارے نمایاں طلباء:\n' + ls }; } if (ph.length) { const ls = ph.slice(0, 3).map(x => '• ' + x.name + (x.marks ? ' (' + x.marks + ')' : '')).join('\n'); return { en: 'Some of our position holders:\n' + ls, ur: 'ہمارے کچھ پوزیشن ہولڈرز:\n' + ls }; } return null; }, btn: [cbGo(((schoolData.cfg || {}).top10 || {}).items && ((schoolData.cfg || {}).top10 || {}).items.length ? 'top10' : 'position-holders', 'See all', 'سب دیکھیں')] },
+    { id: 'notices', kw: ['notice', 'notices', 'news', 'latest', 'announcement', 'announcements', 'exam', 'exams', 'datesheet', 'date sheet', 'holiday', 'holidays', 'vacation', 'نوٹس', 'نوٹسز', 'خبر', 'خبریں', 'امتحان', 'امتحانات', 'چھٹی', 'چھٹیاں', 'ڈیٹ شیٹ'], a: () => { const n = (schoolData.notices || []).slice(0, 3); if (!n.length) return null; const t = n.map(x => '• ' + x.title + (x.date ? ' (' + x.date + ')' : '')).join('\n'); return { en: 'Latest notices:\n' + t, ur: 'تازہ نوٹس:\n' + t }; }, btn: [cbGo('notice-board', 'Open notice board', 'نوٹس بورڈ کھولیں')] },
+    { id: 'gallery', kw: ['gallery', 'photo', 'photos', 'picture', 'pictures', 'images', 'تصاویر', 'تصویر', 'گیلری'], a: () => ({ en: 'You can see our photos in the school gallery.', ur: 'ہماری تصاویر سکول گیلری میں دیکھی جا سکتی ہیں۔' }), btn: [cbGo('gallery', 'Open gallery', 'گیلری کھولیں')] },
+    { id: 'about', kw: ['about school', 'about the school', 'about us', 'school history', 'history', 'established', 'founded', 'vision', 'mission', 'facilities', 'facility', 'school about', 'tareekh', 'تاریخ', 'قیام', 'تعارف', 'سہولیات', 'سکول کے بارے'], a: () => { const a = schoolData.about || {}; const d = (a.desc || '').slice(0, 380); if (!d) return null; return { en: d + (a.desc.length > 380 ? '…' : '') + (a.vision ? '\n\nVision: ' + a.vision : ''), ur: d + (a.desc.length > 380 ? '…' : '') + (a.vision ? '\n\nوژن: ' + a.vision : '') }; }, btn: [cbGo('about', 'Read more', 'مزید پڑھیں')] },
+    { id: 'classes', kw: ['class', 'classes', 'grade', 'grades', 'level', 'upto', 'intermediate', 'fsc', 'kachi', 'کلاس', 'کلاسیں', 'جماعت', 'جماعتیں'], a: () => { const o = [...document.querySelectorAll('#admClass option')].map(x => x.textContent).join(', '); return o ? { en: 'We offer classes: ' + o + '.', ur: 'ہمارے ہاں یہ کلاسیں ہیں: ' + o + '۔' } : null; } },
+    { id: 'social', kw: ['facebook', 'instagram', 'youtube', 'tiktok', 'social', 'follow', 'فیس بک', 'انسٹاگرام', 'یوٹیوب', 'ٹک ٹاک'], a: () => { const l = [...document.querySelectorAll('.social-links-container a')].map(a => a.href).filter(h => /^https?:/.test(h)); return l.length ? { en: 'Follow us:\n' + l.join('\n'), ur: 'ہمیں فالو کریں:\n' + l.join('\n') } : null; } },
+    { id: 'reviews', kw: ['review', 'reviews', 'feedback', 'rating', 'ریویو', 'رائے', 'تبصرہ'], a: () => ({ en: 'You can read parents\' reviews and write your own at the bottom of the website.', ur: 'والدین کی آراء ویب سائٹ کے آخر میں پڑھی اور لکھی جا سکتی ہیں۔' }), btn: [cbGo('reviews', 'Open reviews', 'آراء دیکھیں')] },
+    { id: 'language', kw: ['urdu', 'english', 'language', 'اردو', 'انگلش', 'زبان'], a: () => ({ en: 'Use the language button at the top of the page to switch between English and Urdu.', ur: 'انگریزی اور اردو بدلنے کے لیے صفحے کے اوپر زبان کا بٹن استعمال کریں۔' }) },
+    { id: 'developer', kw: ['developer', 'who made', 'who built', 'website made', 'ڈویلپر', 'ویب سائٹ کس نے'], a: () => { const d = schoolData.developer || {}; return d.name ? { en: 'This website was developed by ' + d.name + (d.role ? ' (' + d.role + ')' : '') + '.', ur: 'یہ ویب سائٹ ' + d.name + ' نے بنائی ہے۔' } : null; } },
+    { id: 'who', kw: ['who are you', 'your name', 'are you a bot', 'are you ai', 'bot', 'تم کون', 'آپ کون', 'آپ کا نام'], a: () => ({ en: 'I am the school\'s automatic assistant. I answer from the information on this website. If I do not know something, I will connect you to our team on WhatsApp.', ur: 'میں سکول کا خودکار اسسٹنٹ ہوں۔ میں اس ویب سائٹ کی معلومات سے جواب دیتا ہوں۔ اگر مجھے کچھ معلوم نہ ہو تو میں آپ کو واٹس ایپ پر ہماری ٹیم سے ملوا دوں گا۔' }) }
+  ];
+  return list;
+}
+function cbTeacherAnswer(q, hasWord) {
+  const T = schoolData.teachers || [], toks = q.trim().split(' ').filter(x => x.length >= 3 && !['teacher', 'teachers', 'staff', 'madam', 'who', 'the', 'and', 'ustad'].includes(x));
+  const byName = T.filter(t => cbNorm(t.name).trim().split(' ').some(n => n.length >= 3 && toks.includes(n)));
+  const bySub = hasWord ? T.filter(t => { const s = cbNorm((t.subject || '') + ' ' + (t.designation || '')).trim().split(' ').filter(x => x.length >= 3); return s.some(x => toks.includes(x)); }) : [];
+  const f = byName.length ? byName : bySub;
+  if (f.length) { const ls = f.slice(0, 5).map(t => '• ' + t.name + [t.designation, t.subject].filter(Boolean).map(x => ' — ' + x).join('')).join('\n'); return { t: { en: (byName.length ? 'Found:\n' : 'Teachers for this subject:\n') + ls, ur: (byName.length ? 'ملا:\n' : 'اس مضمون کے اساتذہ:\n') + ls }, btn: [cbGo('teachers', 'Open teachers', 'اساتذہ دیکھیں')] }; }
+  if (hasWord) { const n = T.length; return { t: { en: n ? 'We have ' + n + ' teachers. You can see all profiles in the Teachers section.' : 'Please see the Teachers section for our staff.', ur: n ? 'ہمارے ' + n + ' اساتذہ ہیں۔ تمام پروفائلز اساتذہ کے سیکشن میں ہیں۔' : 'اساتذہ کی معلومات اساتذہ کے سیکشن میں دیکھیں۔' }, btn: [cbGo('teachers', 'Open teachers', 'اساتذہ دیکھیں')] }; }
+  return null;
+}
+function cbStudentAnswer(q) {
+  const toks = q.trim().split(' ').filter(x => x.length >= 3 && !['result', 'results', 'the', 'who', 'and', 'class', 'student', 'students', 'marks', 'position'].includes(x));
+  const t10 = (((schoolData.cfg || {}).top10 || {}).items || []).map((x, i) => ({ ...x, rank: i + 1 })), ph = schoolData.positionHolders || [];
+  const hit = x => cbNorm(x.name).trim().split(' ').some(n => n.length >= 3 && toks.includes(n));
+  const f = t10.filter(hit), g = ph.filter(hit);
+  if (!f.length && !g.length) return null;
+  const ls = f.slice(0, 4).map(x => '• ' + x.name + ' — Top 10, rank ' + x.rank + [x.class, x.marks].filter(Boolean).map(y => ' — ' + y).join('')).concat(g.filter(x => !f.some(y => y.name === x.name)).slice(0, 4).map(x => '• ' + x.name + [x.class_name, x.marks].filter(Boolean).map(y => ' — ' + y).join('')));
+  return { t: { en: 'Found:\n' + ls.join('\n'), ur: 'ملا:\n' + ls.join('\n') }, btn: [cbGo(f.length ? 'top10' : 'position-holders', 'See all', 'سب دیکھیں')] };
+}
+function cbAnswer(raw) {
+  const q = cbNorm(raw), ur = hasUrdu(raw) || currentLang === 'ur', words = q.trim().split(' ').filter(Boolean);
+  // 1) answers written by the admin
+  let best = null, bs = 0;
+  for (const f of (cbCfg().faqs || [])) {
+    const kws = String(f.k || '').split(/[,،\n]/).map(x => x.trim()).filter(Boolean);
+    let sc = cbScore(q, kws) * 3;
+    const qt = cbNorm(f.q).trim().split(' ').filter(x => x.length > 2); if (qt.length) { const m = qt.filter(x => q.includes(' ' + x + ' ') || (x.length > 4 && q.includes(x))).length; if (m / qt.length >= 0.6) sc += m * 2; }
+    if (sc > bs) { bs = sc; best = f; }
+  }
+  if (best && bs >= 3) return { t: { en: best.a, ur: best.a_ur || best.a }, btn: [], ur };
+  // 2) built-in topics, using live website data
+  const hasT = cbHit(q, 'teacher') || cbHit(q, 'teachers') || cbHit(q, 'staff') || cbHit(q, 'sir') || cbHit(q, 'madam') || cbHit(q, 'ustad') || cbHit(q, 'استاد') || cbHit(q, 'اساتذہ') || cbHit(q, 'ٹیچر') || cbHit(q, 'who teaches') || cbHit(q, 'subject');
+  const sa = cbStudentAnswer(q); if (sa && !hasT) return { ...sa, ur };
+  const ints = cbIntents(); let bi = null, bsc = 0;
+  for (const it of ints) { if (it.short && words.length > 4) continue; const sc = cbScore(q, it.kw); if (sc > bsc) { bsc = sc; bi = it; } }
+  const ta = (hasT || bsc === 0) ? cbTeacherAnswer(q, hasT) : null;
+  if (ta && (!bi || hasT)) return { ...ta, ur };
+  if (bi) { const a = bi.a(); if (a) return { t: a, btn: bi.btn || [], ur }; }
+  // 3) do not know: hand over to a person on WhatsApp
+  return { t: { en: 'Sorry, I do not have a reliable answer to this question. Our team will be happy to help you personally on WhatsApp.', ur: 'معذرت، میرے پاس اس سوال کا درست جواب موجود نہیں۔ ہماری ٹیم واٹس ایپ پر آپ کی ذاتی طور پر مدد کرے گی۔' }, btn: [cbWaBtn('Assalam o Alaikum, I have a question from the school website: ' + raw)], ur, unknown: true };
+}
+function cbAdd(kind, html, acts) {
+  const b = $('cbBody'), d = document.createElement('div'); d.className = 'cb-msg ' + kind;
+  if (kind === 'me') d.textContent = html; else d.innerHTML = html;
+  if (acts && acts.length) { const w = document.createElement('div'); w.className = 'cb-acts'; acts.forEach(a => { const e = document.createElement('a'); e.href = a.href; e.innerHTML = (a.wa ? '<i class="fab fa-whatsapp"></i> ' : '') + esc(a.label); if (a.wa) { e.className = 'wa'; e.target = '_blank'; e.rel = 'noopener'; } else if (a.go) e.onclick = ev => { ev.preventDefault(); if (innerWidth < 700) cbToggle(false); const t = document.getElementById(a.go); if (t) t.scrollIntoView({ behavior: 'smooth' }); }; w.appendChild(e); }); d.appendChild(w); }
+  b.appendChild(d); b.scrollTop = b.scrollHeight; return d;
+}
+function cbText(t) { return esc(t).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:var(--accent-text);word-break:break-all">$1</a>'); }
+function cbAsk(text) {
+  text = String(text || '').trim().slice(0, 200); if (!text || cbState.busy) return;
+  cbState.busy = true; cbAdd('me', text); $('cbInput').value = '';
+  const ty = document.createElement('div'); ty.className = 'cb-msg bot cb-typing'; ty.innerHTML = '<i></i><i></i><i></i>'; $('cbBody').appendChild(ty); $('cbBody').scrollTop = 1e6;
+  setTimeout(() => {
+    ty.remove(); let r; try { r = cbAnswer(text); } catch (e) { console.error(e); r = { t: { en: 'Something went wrong. Please try again.', ur: 'کچھ مسئلہ ہو گیا۔ دوبارہ کوشش کریں۔' }, btn: [cbWaBtn(text)], ur: false }; }
+    cbAdd('bot', cbText(cbL(r.t, r.ur)), (r.btn || []).map(b => ({ ...b, label: cbL(b.label, r.ur) })));
+    cbState.busy = false;
+  }, 450);
+}
+function cbChips() {
+  const ur = currentLang === 'ur';
+  const c = [['Admission', 'داخلہ'], ['School timing', 'سکول کے اوقات'], ['Location', 'پتہ'], ['Top students', 'ٹاپ طلباء'], ['Latest notices', 'تازہ نوٹس'], ['Contact', 'رابطہ']];
+  $('cbChips').innerHTML = c.map(x => `<button type="button" data-q="${esc(x[ur ? 1 : 0])}">${esc(x[ur ? 1 : 0])}</button>`).join('');
+}
+function cbRefresh() {
+  const c = cbCfg(), on = c.enabled !== false, ur = currentLang === 'ur';
+  $('cbFab').style.display = on && !cbState.open ? 'flex' : 'none'; if (!on) { cbToggle(false); return; }
+  $('cbFabTxt').textContent = ur ? 'پوچھیں' : 'Ask us'; $('cbTitle').textContent = ur ? 'سکول اسسٹنٹ' : 'School Assistant'; $('cbSub').textContent = ur ? 'آن لائن' : 'Online';
+  $('cbInput').placeholder = ur ? 'اپنا سوال لکھیں...' : 'Type your question...';
+  $('cbNote').textContent = ur ? 'خودکار اسسٹنٹ۔ جواب نہ ملے تو واٹس ایپ پر ٹیم سے بات کریں۔' : 'Automatic assistant. If I cannot help, you can chat with our team on WhatsApp.';
+  $('cbPanel').dir = ur ? 'rtl' : 'ltr'; cbChips();
+}
+function cbToggle(open) {
+  cbState.open = open; $('cbPanel').classList.toggle('open', open); $('cbFab').classList.toggle('open', open); $('cbFab').setAttribute('aria-expanded', open);
+  if (open) { if (!cbState.started) { cbState.started = true; const c = cbCfg(), ur = currentLang === 'ur'; cbAdd('bot', cbText((ur ? (c.welcome_ur || c.welcome) : c.welcome) || (ur ? 'السلام علیکم! میں سکول کا اسسٹنٹ ہوں۔ داخلہ، اوقات، اساتذہ، نتائج یا نوٹس کے بارے میں پوچھیں۔' : 'Assalam o Alaikum! I am the school assistant. Ask me about admission, timing, teachers, results or notices.'))); } setTimeout(() => $('cbInput').focus(), 150); }
+  else if (cbCfg().enabled !== false) $('cbFab').style.display = 'flex';
+}
+$('cbFab').addEventListener('click', () => cbToggle(true));
+$('cbClose').addEventListener('click', () => cbToggle(false));
+$('cbForm').addEventListener('submit', e => { e.preventDefault(); cbAsk($('cbInput').value); });
+$('cbChips').addEventListener('click', e => { const b = e.target.closest('button[data-q]'); if (b) cbAsk(b.dataset.q); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && cbState.open) cbToggle(false); });
+cbChips();
+
+/* ---------- Private visit counter (numbers are visible only in the admin panel) ---------- */
+function trackVisit() {
+  try {
+    if (!_supabase || sessionStorage.getItem('pv1')) return;
+    sessionStorage.setItem('pv1', '1');
+    let vid = localStorage.getItem('vid'); if (!vid) { vid = (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2)); localStorage.setItem('vid', vid); }
+    const ua = navigator.userAgent || '', device = /iPad|Tablet/i.test(ua) ? 'tablet' : /Mobi|Android|iPhone/i.test(ua) ? 'mobile' : 'desktop';
+    let src = 'direct'; try { if (document.referrer) { const h = new URL(document.referrer).hostname.replace(/^www\./, ''); if (h && h !== location.hostname) src = h; } } catch (_) {}
+    _supabase.from('page_views').insert([{ visitor_id: vid, device, lang: currentLang, source: src }]).then(() => {}, () => {});
+  } catch (_) {}
+}
+setTimeout(trackVisit, 1500);
+
+/* ---------- UI wiring ---------- */
+function closeModal(id) { $(id).style.display = 'none'; }
+document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.style.display = 'none'; }));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.style.display = 'none'); });
+
+$('menuIcon').addEventListener('click', () => $('navLinks').classList.toggle('active'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => $('navLinks').classList.remove('active')));
+
+/* Highlight current section in navbar */
+const navAnchors = [...document.querySelectorAll('.nav-links a[href^="#"]:not(.nav-cta)')];
+const spy = () => {
+  let current = '#home'; const y = window.scrollY + 140;
+  navAnchors.forEach(a => { const s = document.querySelector(a.getAttribute('href')); if (s && s.offsetTop <= y) current = a.getAttribute('href'); });
+  navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === current));
+};
+window.addEventListener('scroll', spy, { passive: true }); spy();
+
+/* ---------- Start ---------- */
+if (localStorage.getItem('theme') === 'light') toggleTheme();
+renderLogos();
+applyTranslations();
+loadFromSupabase().then(() => setupRealtime());
+</script>
+</body>
+</html>
